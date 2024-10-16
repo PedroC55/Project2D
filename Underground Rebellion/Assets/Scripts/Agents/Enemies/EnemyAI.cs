@@ -21,39 +21,21 @@ public class EnemyAI : MonoBehaviour
 	//public UnityEvent<int, GameObject> OnAttack;
 
 	[SerializeField]
-	private Transform player;
-
-	[SerializeField]
 	private int startDirection = 1;
 
-	//Podem ficar no script de cada ação
-	[SerializeField]
-	private float chaseDistanceThreshold = 15f, attackDistanceThreshold = 4f;
-
-	//Ficar no script da ação
-	[SerializeField]
-	private int damage = 1;
-
-	//Criar um script generico para ataques dos inimigos, mellee, shot, jump (exemplos), se existem 2 ataques que são melee teoricamente não precisa de 2 scripts diferentes
-	[SerializeField]
-	private float attackDelay = 1f;
-	//Tempo antes de realizar a ação
-	[SerializeField]
-	private float buildUpDelay = 0.5f;
 	//Variavel que vai dizer se o inimigo terminou de realizar a ação random dele e pode escolher outra ação
 	private bool isActing = false;
-	private bool aggroed = false;
+	private bool isAggroed = false;
+	private bool isReseting = false;
 
-	//Mudar para boxcollider
-	private Agent enemyAgent;
 	private EnemyPatrol patrol;
 	private EnemyMeleeAttack meleeAttack;
+	private EnemyLineOfSight lineOfSight;
 
 	private void Awake()
 	{
-		enemyAgent = GetComponent<Agent>();
 		patrol = GetComponentInChildren<EnemyPatrol>();
-
+		lineOfSight = GetComponentInChildren<EnemyLineOfSight>();
 	}
 
 	private void Start()
@@ -69,24 +51,35 @@ public class EnemyAI : MonoBehaviour
 		//Aqui vai mandar fazer patrol caso não esteja agrado e tenha como fazer patrol
 		//Caso esteja agrado vai perseguir o player por uma distancia maxima e chegar perto para atacar
 
-		patrol.ExecuteAction();
-		//if (aggroed)
-		//{
-		//	aggroed = true;
-		//	meleeAttack.ExecuteAction();
-		//}
-		//else
-		//{
-		//	patrol.ExecuteAction();
-		//}
+		if (isAggroed)
+		{
+			Debug.Log("Enemy will chase and attack player");
+			//meleeAttack.ExecuteAction();
+		}
+		else
+		{
+			patrol.ExecuteAction();
+		}
 
 		isActing = true;
 	}
 
 	public void Aggroed()
 	{
-		aggroed = true;
+		isAggroed = true;
 		patrol.InterruptAction();
+		patrol.enabled = true;
+		isActing = false;
+		Debug.Log("Enemy saw player and is now aggroed");
+	}
+
+	public void ResetEnemy()
+	{
+		meleeAttack.InterruptAction();
+		isAggroed = false;
+		isActing = false;
+		isReseting = true;
+		lineOfSight.ActiveLineOfSight();
 	}
 
 	public void ActionFinished()
@@ -94,16 +87,8 @@ public class EnemyAI : MonoBehaviour
 		isActing = false;
 	}
 
-	//private void OnTriggerEnter2D(Collider2D collision)
+	//void OnDrawGizmosSelected()
 	//{
-	//	if (collision.gameObject.CompareTag("Player"))
-	//	{
-	//		//EnemyAI.Aggroed();
-	//	}
+	//	Gizmos.DrawWireSphere(transform.position, chaseDistanceThreshold);
 	//}
-
-	void OnDrawGizmosSelected()
-	{
-		Gizmos.DrawWireSphere(transform.position, chaseDistanceThreshold);
-	}
 }

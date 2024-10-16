@@ -2,22 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AgentAction : MonoBehaviour
+public class EnemyAction : MonoBehaviour
 {
-	protected Rigidbody2D body;
-	protected Animator animator;
 	protected Transform player;
 	protected Agent agent;
 	protected EnemyAI enemyAI;
 
 	protected bool isExecuting = false;
 	[SerializeField]
-	protected float buildUpTime = 1f;
+	protected float delayTime = 0.5f;
 
 	protected virtual void Awake()
 	{
-		body = GetComponentInParent<Rigidbody2D>();
-		animator = transform.parent.gameObject.GetComponentInChildren<Animator>();
 		agent = GetComponentInParent<Agent>();
 		enemyAI = GetComponentInParent<EnemyAI>();
 	}
@@ -33,19 +29,18 @@ public class AgentAction : MonoBehaviour
 
 	public virtual void InterruptAction()
 	{
-		isExecuting = false;
+		this.enabled = false;
 	}
 
 	protected void FinishAction()
 	{
-		Debug.Log("terminou a ação");
 		isExecuting = false;
 		enemyAI.ActionFinished();
 	}
 
-	protected IEnumerator DelayAction()
+	protected virtual IEnumerator DelayAction()
 	{
-		yield return new WaitForSeconds(buildUpTime);
+		yield return new WaitForSeconds(delayTime);
 		isExecuting = true;
 	}
 }

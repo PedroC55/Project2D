@@ -2,8 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMeleeAttack : AgentAction
+public class EnemyMeleeAttack : EnemyAction
 {
+	//Ficar no script da ação
+	[SerializeField]
+	private int damage = 1;
+
+	//Criar um script generico para ataques dos inimigos, mellee, shot, jump (exemplos), se existem 2 ataques que são melee teoricamente não precisa de 2 scripts diferentes
+	[SerializeField]
+	private float attackDelay = 1f;
+	//Tempo antes de realizar a ação
+	[SerializeField]
+	private float buildUpDelay = 0.5f;
+
+
+	//Podem ficar no script de cada ação
+	[SerializeField]
+	private float chaseDistanceThreshold = 15f, attackDistanceThreshold = 4f;
+
 	//private void Update()
 	//{
 	//	float distance = Vector2.Distance(player.position, transform.position);

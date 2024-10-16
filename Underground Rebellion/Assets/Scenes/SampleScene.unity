@@ -42550,6 +42550,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1185688167791041642, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
+      propertyPath: cherriesText
+      value: 
+      objectReference: {fileID: 1363219737}
     - target: {fileID: 4022934457941099702, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
       propertyPath: m_RootOrder
       value: 3
