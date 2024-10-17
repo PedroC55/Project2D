@@ -12,14 +12,22 @@ public class Agent : MonoBehaviour
 	private Vector2 lookDirection, movementInput;
 	public Vector2 MovementInput { get => movementInput; set => movementInput = value; }
 
+	//[SerializeField]
+	//public InputActionReference movement;
+
 	private void Awake()
 	{
 		agentAnimations = GetComponentInChildren<AgentAnimations>();
 		agentMover = GetComponent<AgentMover>();
+		if (agentMover == null)
+		{
+			Debug.LogError("AgentMover is not assigned or found in Agent.");
+		}
 	}
 
-	private void Update()
+	protected void Update()
 	{
+		//Debug.Log("Agent:" + movementInput);
 		agentMover.MovementInput = movementInput;
 		AnimateCharacter();
 	}
@@ -59,6 +67,7 @@ public class Agent : MonoBehaviour
 
 	protected virtual void AnimateCharacter()
 	{
+
 		agentAnimations.WalkingAnimation(movementInput);
 	}
 }

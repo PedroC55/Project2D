@@ -15,7 +15,7 @@ public class AgentAnimations : MonoBehaviour
 	public void WalkingAnimation(Vector2 movementInput)
 	{
 		LookDirection(movementInput);
-		animator.SetBool("Running", movementInput.magnitude > 0);
+		animator.SetInteger("state", 1);
 	}
 
 	public void LookDirection(Vector2 direction)

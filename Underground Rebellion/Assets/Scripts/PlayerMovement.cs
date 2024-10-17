@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : Agent
 {
@@ -8,7 +9,6 @@ public class PlayerMovement : Agent
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     private new BoxCollider2D collider;
-
     [SerializeField] private LayerMask jumpableGround;
 
 
@@ -17,6 +17,8 @@ public class PlayerMovement : Agent
     [SerializeField] private float jumpForce = 14f;
 
     private enum MovementState { idle, running, jumping, falling}
+    [SerializeField]
+    public InputActionReference movement;
 
 
     // Start is called before the first frame update
@@ -29,20 +31,23 @@ public class PlayerMovement : Agent
 	}
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        //agent.MovementInput = new Vector2 (Input.GetAxisRaw("Horizontal"), 0);
+        MovementInput = movement.action.ReadValue<Vector2>();
+        //Debug.Log(MovementInput);
+        base.Update();
+        //Debug.Log(movementInput);
         
-        dirX = Input.GetAxisRaw("Horizontal");   // Caso queira que o Player continue durante um pouco após o largar da tecla devo usar o GetAxis. Ao usar o GetAxisRaw ele para imediatamente após o user largar a tecla!
-        rigidbody.velocity = new Vector2(dirX * moveSpeed, rigidbody.velocity.y);
+        //dirX = Input.GetAxisRaw("Horizontal");   // Caso queira que o Player continue durante um pouco após o largar da tecla devo usar o GetAxis. Ao usar o GetAxisRaw ele para imediatamente após o user largar a tecla!
+        //rigidbody.velocity = new Vector2(dirX * moveSpeed, rigidbody.velocity.y);
 
-        if (Input.GetButtonDown("Jump") && IsGrounded())
-        {
-			//agent.jump = 10f;
-			rigidbody.velocity = new Vector2(rigidbody.velocity.x, jumpForce);
-        }
+        //if (Input.GetButtonDown("Jump") && IsGrounded())
+        //{
+		//	//agent.jump = 10f;
+		//	rigidbody.velocity = new Vector2(rigidbody.velocity.x, jumpForce);
+        //}
 
-        UpdateAnimationState();
+        //UpdateAnimationState();
     }
 
     private void UpdateAnimationState()
