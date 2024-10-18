@@ -12,12 +12,12 @@ public class AgentMover : MonoBehaviour
 	[SerializeField]
 	private float currentSpeed = 0;
 	private Vector2 oldMovementInput;
-	
+	public Vector2 wallJumpForce;
 
 	[SerializeField] private float moveSpeed = 7f;
 	public Vector2 MovementInput { get; set; }
 
-	public float jumpForce;
+	public float jumpForce, wallSlidingSpeed;
 
 	private void Awake()
 	{
@@ -26,7 +26,8 @@ public class AgentMover : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		rb2d.velocity = new Vector2(MovementInput.x * moveSpeed, jumpForce > 0 ? jumpForce : rb2d.velocity.y);
+		Debug.Log(wallSlidingSpeed);
+		rb2d.velocity = new Vector2(wallJumpForce.x == 0 ? MovementInput.x * moveSpeed : -MovementInput.x * wallJumpForce.x, wallSlidingSpeed != 0 ? Mathf.Clamp(rb2d.velocity.y, -wallSlidingSpeed, float.MaxValue) :(jumpForce > 0 ? jumpForce : rb2d.velocity.y));
 		//if (MovementInput.magnitude > 0)
 		//{
 		//	oldMovementInput = MovementInput;

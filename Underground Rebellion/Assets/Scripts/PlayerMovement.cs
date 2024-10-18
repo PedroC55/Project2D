@@ -3,23 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : Agent
+public class PlayerMovement : MonoBehaviour
 {
     private new Rigidbody2D rigidbody;
     private Animator animator;
+    private Agent agent;
     private SpriteRenderer spriteRenderer;
     private new BoxCollider2D collider;
     [SerializeField] private LayerMask jumpableGround;
+    private Vector2 movementInput;
+
+    [Header("Wall Jump Sysytem")]
+    public Transform wallCheck;
+    bool isWallToutch;
+    bool isSliding;
+    public float wallSlidingSpeed;
+    public float wallJumpDuration;
+    public Vector2 wallJumpForce;
+    bool wallJumping;
 
 
     private float dirX = 0f;
-    [SerializeField] private float moveSpeed = 7f;  // Usamos "SerializeField" para podermos editar os valores no Unity. Tbm daria para editar no unity mudando a variavel para "public" mas dessa forma outros scripts iriam ter acesso às variáveis.
+    [SerializeField] private float moveSpeed = 7f;  
     [SerializeField] private float jumpForce = 14f;
 
     private enum MovementState { idle, running, jumping, falling}
     [SerializeField]
-    public InputActionReference movement;
+    public InputActionReference movement, jump;
 
+  
 
     // Start is called before the first frame update
     void Start()
@@ -28,59 +40,63 @@ public class PlayerMovement : Agent
         animator = GetComponentInChildren<Animator>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         collider = GetComponent<BoxCollider2D>();
+        agent = GetComponent<Agent>();
 	}
 
     // Update is called once per frame
     private void Update()
     {
-        MovementInput = movement.action.ReadValue<Vector2>();
-        //Debug.Log(MovementInput);
-        base.Update();
-        //Debug.Log(movementInput);
+        agent.wallCheck = wallCheck;
+        agent.MovementInput = movement.action.ReadValue<Vector2>();
+        movementInput = movement.action.ReadValue<Vector2>();
+        isWallToutch = Physics2D.OverlapBox(wallCheck.position, new Vector2(0.92f, 1.39f), 0, jumpableGround);
         
-        //dirX = Input.GetAxisRaw("Horizontal");   // Caso queira que o Player continue durante um pouco após o largar da tecla devo usar o GetAxis. Ao usar o GetAxisRaw ele para imediatamente após o user largar a tecla!
-        //rigidbody.velocity = new Vector2(dirX * moveSpeed, rigidbody.velocity.y);
-
-        //if (Input.GetButtonDown("Jump") && IsGrounded())
-        //{
-		//	//agent.jump = 10f;
-		//	rigidbody.velocity = new Vector2(rigidbody.velocity.x, jumpForce);
-        //}
-
-        //UpdateAnimationState();
-    }
-
-    private void UpdateAnimationState()
-    {
-        MovementState state;
-        if (dirX > 0f)
+        if (jump.action.IsPressed())
         {
-            state = MovementState.running;
-            spriteRenderer.flipX = false;
-        }
-        else if (dirX < 0f)
-        {
-            state = MovementState.running;
-            spriteRenderer.flipX = true;
+            Jump();
         }
         else
         {
-            state = MovementState.idle;
-            
+            agent.jumpForce = 0;
         }
 
-        // Atenção!! Fazer verificação do salto depois da corrida uma vez que o salto tem prioridade!!
-
-        if (rigidbody.velocity.y > .1f)
+        if (isWallToutch && !IsGrounded() && movementInput.x != 0)
         {
-            state = MovementState.jumping;
+            //Debug.Log("Estamos em slide");
+            agent.wallSlidingSpeed = wallSlidingSpeed;
+            isSliding = true;
         }
-        else if (rigidbody.velocity.y < -.1f)
+        else
         {
-            state = MovementState.falling;
+            agent.wallSlidingSpeed = 0;
+            isSliding = false;
+        }
+        if (wallJumping && isSliding)
+        {
+            Debug.Log("Devia dar para saltar nas paredes");
+            agent.wallJumoForce = wallJumpForce;
         }
 
-        animator.SetInteger("state", (int)state);
+    }
+
+
+
+    private void Jump()
+    {
+        if (IsGrounded())
+        {
+            agent.jumpForce = jumpForce;
+        }
+        else if (isSliding)
+        {
+            wallJumping = true;
+            Invoke("StopWallJumping", wallJumpDuration);
+        }
+    }
+
+    private void StopWallJumping()
+    {
+        wallJumping = false;
     }
 
     private bool IsGrounded()
@@ -88,8 +104,5 @@ public class PlayerMovement : Agent
         return Physics2D.BoxCast(collider.bounds.center, collider.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
     }
 
-	//protected override void AnimateCharacter()
-	//{
-	//	agentAnimations.WalkingAnimation(movementInput);
-	//}
+	
 }

@@ -6,8 +6,14 @@ using UnityEngine.InputSystem;
 
 public class Agent : MonoBehaviour
 {
+	private new Rigidbody2D rb2d;
 	private AgentAnimations agentAnimations;
 	private AgentMover agentMover;
+	private Health agenthealth;
+	public Transform wallCheck;
+	public float jumpForce, wallSlidingSpeed;
+
+	public Vector2 wallJumoForce;
 
 	private Vector2 lookDirection, movementInput;
 	public Vector2 MovementInput { get => movementInput; set => movementInput = value; }
@@ -17,6 +23,8 @@ public class Agent : MonoBehaviour
 
 	private void Awake()
 	{
+		rb2d = GetComponent<Rigidbody2D>();
+		agenthealth = GetComponent<Health>();
 		agentAnimations = GetComponentInChildren<AgentAnimations>();
 		agentMover = GetComponent<AgentMover>();
 		if (agentMover == null)
@@ -27,14 +35,27 @@ public class Agent : MonoBehaviour
 
 	protected void Update()
 	{
-		//Debug.Log("Agent:" + movementInput);
-		agentMover.MovementInput = movementInput;
-		AnimateCharacter();
+		if(agenthealth.currentHealth > 0)
+        {
+			agentMover.MovementInput = movementInput;
+			agentMover.jumpForce = jumpForce;
+			agentMover.wallSlidingSpeed = wallSlidingSpeed;
+			agentMover.wallJumpForce = wallJumoForce;
+			agentAnimations.wallCheck = wallCheck;
+			AnimateCharacter();
+		}
+        else
+        {
+			Died();
+			agentAnimations.RestartLevel();
+		}
+		
 	}
 
 	public void FaceDirection(Vector2 direction)
 	{
 		lookDirection = direction;
+		Debug.Log(lookDirection);
 		agentAnimations.LookDirection(direction);
 	}
 
@@ -59,15 +80,39 @@ public class Agent : MonoBehaviour
 		return inFront;
 	}
 
-	public void Died(GameObject sender)
+	public void Died()
 	{
+		Debug.Log("Morreu");
 		agentMover.StopMoving();
-		agentAnimations.DeathAnimation(sender);
+		
+		
+		
 	}
 
 	protected virtual void AnimateCharacter()
 	{
+		if (movementInput.x > 0 || movementInput.x < 0)
+		{
+			agentAnimations.WalkingAnimation(movementInput);
 
-		agentAnimations.WalkingAnimation(movementInput);
+		}
+		else
+		{
+			agentAnimations.IdleAnimation();
+
+		}
+
+		// Aten��o!! Fazer verifica��o do salto depois da corrida uma vez que o salto tem prioridade!!
+
+		if (rb2d.velocity.y > .1f)
+		{
+			agentAnimations.JumpingAnimation();
+		}
+		else if (rb2d.velocity.y < -.1f)
+		{
+			agentAnimations.FallingAnimation();
+		}
+		
+			
 	}
 }
