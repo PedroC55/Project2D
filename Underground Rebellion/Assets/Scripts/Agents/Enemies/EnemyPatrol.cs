@@ -54,11 +54,11 @@ public class EnemyPatrol : EnemyAction
 		{
 			enemyAI.OnMovementInput?.Invoke(Vector2.zero);
 			UpdateNextPatrolPoint();
-			StartCoroutine(ObersvationTime());
+			StartCoroutine(ObsevationTime());
 		}
 	}
 
-	private IEnumerator ObersvationTime()
+	private IEnumerator ObsevationTime()
 	{
 		isObserving = true;
 		yield return new WaitForSeconds(observationTime);

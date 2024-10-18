@@ -34,6 +34,11 @@ public class AgentAnimations : MonoBehaviour
 		transform.parent.localScale = scale;
 	}
 
+	public void AttackAnimation(string triggerName)
+	{
+		animator.SetTrigger("Attack");
+	}
+
 	//Caso queira colocar uma animação de morte que sabe da direção que vem a morte, para adicionar particulas ou knockback, é bom ter o sender no paramentro
 	public void DeathAnimation(GameObject sender)
 	{

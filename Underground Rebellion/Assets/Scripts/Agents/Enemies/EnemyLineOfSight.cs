@@ -17,10 +17,11 @@ public class EnemyLineOfSight : MonoBehaviour
 	{
 		if (collision.gameObject.CompareTag("Player"))
 		{
-			RaycastHit2D ray = Physics2D.Raycast(transform.position, collision.transform.position - transform.position, Mathf.Infinity, detectionMask);
-			if(ray.collider != null && ray.collider.gameObject.CompareTag("Player"))
+			RaycastHit2D detectedObject = Physics2D.Raycast(transform.position, collision.transform.position - transform.position, Mathf.Infinity, detectionMask);
+			
+			if(detectedObject.collider != null && detectedObject.collider.gameObject.CompareTag("Player"))
 			{
-				enemyAI.Aggroed();
+				enemyAI.Aggroed(collision.gameObject.transform);
 				GetComponent<Collider2D>().enabled = false;
 			}
 		}

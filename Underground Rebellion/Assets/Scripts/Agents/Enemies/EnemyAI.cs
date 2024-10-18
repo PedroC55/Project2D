@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -23,10 +24,11 @@ public class EnemyAI : MonoBehaviour
 	[SerializeField]
 	private int startDirection = 1;
 
-	//Variavel que vai dizer se o inimigo terminou de realizar a ação random dele e pode escolher outra ação
 	private bool isActing = false;
 	private bool isAggroed = false;
 	private bool isReseting = false;
+
+	private Transform player;
 
 	private EnemyPatrol patrol;
 	private EnemyMeleeAttack meleeAttack;
@@ -35,6 +37,7 @@ public class EnemyAI : MonoBehaviour
 	private void Awake()
 	{
 		patrol = GetComponentInChildren<EnemyPatrol>();
+		meleeAttack = GetComponentInChildren<EnemyMeleeAttack>();
 		lineOfSight = GetComponentInChildren<EnemyLineOfSight>();
 	}
 
@@ -48,13 +51,10 @@ public class EnemyAI : MonoBehaviour
 		if (isActing)
 			return;
 
-		//Aqui vai mandar fazer patrol caso não esteja agrado e tenha como fazer patrol
-		//Caso esteja agrado vai perseguir o player por uma distancia maxima e chegar perto para atacar
-
 		if (isAggroed)
 		{
 			Debug.Log("Enemy will chase and attack player");
-			//meleeAttack.ExecuteAction();
+			meleeAttack.ExecuteAction(player);
 		}
 		else
 		{
@@ -64,13 +64,21 @@ public class EnemyAI : MonoBehaviour
 		isActing = true;
 	}
 
-	public void Aggroed()
+	public void Aggroed(Transform playerTransform)
 	{
-		isAggroed = true;
+		player = playerTransform;
+		Debug.Log("Enemy saw player and is now aggroed");
 		patrol.InterruptAction();
 		patrol.enabled = true;
+		StartCoroutine(AggroCoroutine());
+	}
+
+	private IEnumerator AggroCoroutine()
+	{
+		//Mostrar animação de que o player chamou atenção do inimigo
+		yield return new WaitForSeconds(1f);
+		isAggroed = true;
 		isActing = false;
-		Debug.Log("Enemy saw player and is now aggroed");
 	}
 
 	public void ResetEnemy()

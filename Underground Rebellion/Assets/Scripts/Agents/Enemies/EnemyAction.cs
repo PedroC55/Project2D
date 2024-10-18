@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyAction : MonoBehaviour
 {
-	protected Transform player;
 	protected Agent agent;
 	protected EnemyAI enemyAI;
 
@@ -26,6 +25,10 @@ public class EnemyAction : MonoBehaviour
 	{
 		throw new System.NotImplementedException($"Metodo não implementado para classe: {this.GetType().FullName}, do objeto: {gameObject.name}");
 	}
+	public virtual void ExecuteAction(Transform player, float attackDistance)
+	{
+		throw new System.NotImplementedException($"Metodo não implementado para classe: {this.GetType().FullName}, do objeto: {gameObject.name}");
+	}
 
 	public virtual void InterruptAction()
 	{
@@ -41,6 +44,5 @@ public class EnemyAction : MonoBehaviour
 	protected virtual IEnumerator DelayAction()
 	{
 		yield return new WaitForSeconds(delayTime);
-		isExecuting = true;
 	}
 }

@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : Agent
+public class PlayerMovement : MonoBehaviour
 {
     private new Rigidbody2D rigidbody;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+    private Agent agent;
     private new BoxCollider2D collider;
 
     [SerializeField] private LayerMask jumpableGround;
-
 
     private float dirX = 0f;
     [SerializeField] private float moveSpeed = 7f;  // Usamos "SerializeField" para podermos editar os valores no Unity. Tbm daria para editar no unity mudando a variavel para "public" mas dessa forma outros scripts iriam ter acesso às variáveis.
@@ -26,6 +26,8 @@ public class PlayerMovement : Agent
         animator = GetComponentInChildren<Animator>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         collider = GetComponent<BoxCollider2D>();
+        agent = GetComponent<Agent>();
+
 	}
 
     // Update is called once per frame
@@ -34,7 +36,8 @@ public class PlayerMovement : Agent
         //agent.MovementInput = new Vector2 (Input.GetAxisRaw("Horizontal"), 0);
         
         dirX = Input.GetAxisRaw("Horizontal");   // Caso queira que o Player continue durante um pouco após o largar da tecla devo usar o GetAxis. Ao usar o GetAxisRaw ele para imediatamente após o user largar a tecla!
-        rigidbody.velocity = new Vector2(dirX * moveSpeed, rigidbody.velocity.y);
+        agent.MovementInput = new Vector2(Input.GetAxisRaw("Horizontal"), rigidbody.velocity.y);
+        //rigidbody.velocity = new Vector2(dirX * moveSpeed, rigidbody.velocity.y);
 
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
@@ -51,12 +54,10 @@ public class PlayerMovement : Agent
         if (dirX > 0f)
         {
             state = MovementState.running;
-            spriteRenderer.flipX = false;
         }
         else if (dirX < 0f)
         {
             state = MovementState.running;
-            spriteRenderer.flipX = true;
         }
         else
         {

@@ -30,25 +30,10 @@ public class Agent : MonoBehaviour
 		agentAnimations.LookDirection(direction);
 	}
 
-	public void PerformAttack(int damage, GameObject player = null)
+	public void PerformAttack(string triggerName)
 	{
-		//Fazer ataque
-		if(player)
-			player.GetComponent<Health>().GetHit(damage, gameObject);
-
 		Debug.Log("Atacou!");
-	}
-
-	public bool CheckPlayerInFront(Vector2 direction)
-	{
-		bool inFront = false;
-		if(lookDirection.x < 0 && direction.x < 0)
-			inFront = true;
-
-		if(lookDirection.x > 0 && direction.x > 0)
-			inFront = true;
-		
-		return inFront;
+		agentAnimations.AttackAnimation(triggerName);
 	}
 
 	public void Died(GameObject sender)
