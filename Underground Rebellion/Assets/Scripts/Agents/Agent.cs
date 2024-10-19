@@ -86,11 +86,9 @@ public class Agent : MonoBehaviour
 
 	public void Died()
 	{
-		Debug.Log("Morreu");
+		
 		agentMover.StopMoving();
-		
-		
-		
+
 	}
 
 	protected virtual void AnimateCharacter()

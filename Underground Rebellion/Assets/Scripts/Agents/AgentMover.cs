@@ -26,27 +26,22 @@ public class AgentMover : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		//if (wallJumpForce.x != 0)
-        //{
-		//	Debug.Log("1");
-		//	rb2d.velocity = new Vector2(MovementInput.x * wallJumpForce.x, wallJumpForce.y);
-		//
-		//}
-		if (wallSlidingSpeed != 0)
+		if (wallJumpForce.x != 0)
         {
-			//Debug.Log("2");
+
+			ApplyForce(wallJumpForce);
+
+		}
+		else if (wallSlidingSpeed != 0)
+        {
+			
 			rb2d.velocity = new Vector2(MovementInput.x * moveSpeed, Mathf.Clamp(rb2d.velocity.y, -wallSlidingSpeed, float.MaxValue));
 
 		}
-		//else if (jumpForce > 0)
-        //{
-		//	Debug.Log("3");
-		//	rb2d.velocity = new Vector2(MovementInput.x * moveSpeed, jumpForce);
-		//
-		//}
-        else
+
+        else if (MovementInput.x != 0)
         {
-			
+			Debug.Log("Movimento");
 			rb2d.velocity = new Vector2(MovementInput.x * moveSpeed, rb2d.velocity.y);
 		}
 
@@ -69,9 +64,7 @@ public class AgentMover : MonoBehaviour
 
 	public void ApplyForce(Vector2 direction)
     {
-		//Debug.Log(direction);
 		rb2d.AddForce(direction, ForceMode2D.Impulse);
-		Debug.Log(rb2d.velocity);
 	}
 	public void StopMoving()
 	{

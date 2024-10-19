@@ -42510,7 +42510,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1406738336200463010, guid: 5a41e4f80be526340900461703e96df4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.2875772
+      value: -2.43
       objectReference: {fileID: 0}
     - target: {fileID: 1406738336200463010, guid: 5a41e4f80be526340900461703e96df4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -42594,11 +42594,15 @@ PrefabInstance:
       objectReference: {fileID: 1571343941}
     - target: {fileID: 2117903320574819507, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
       propertyPath: wallJumpForce.x
-      value: -20
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 2117903320574819507, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
       propertyPath: wallJumpForce.y
-      value: 10
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2117903320574819507, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
+      propertyPath: disableXDuration
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2117903320574819507, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
       propertyPath: wallJumpDuration
@@ -42734,7 +42738,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1406738336200463010, guid: 5a41e4f80be526340900461703e96df4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.2875772
+      value: -2.36
       objectReference: {fileID: 0}
     - target: {fileID: 1406738336200463010, guid: 5a41e4f80be526340900461703e96df4, type: 3}
       propertyPath: m_LocalPosition.z
