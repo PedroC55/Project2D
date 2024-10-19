@@ -13,11 +13,11 @@ public class AgentMover : MonoBehaviour
 	private float currentSpeed = 0;
 	private Vector2 oldMovementInput;
 	public Vector2 wallJumpForce;
-
 	[SerializeField] private float moveSpeed = 7f;
 	public Vector2 MovementInput { get; set; }
 
 	public float jumpForce, wallSlidingSpeed;
+	public float movemntInputX, dashingPower;
 
 	private void Awake()
 	{
@@ -28,22 +28,23 @@ public class AgentMover : MonoBehaviour
 	{
 		if (wallJumpForce.x != 0)
         {
-
 			ApplyForce(wallJumpForce);
-
 		}
 		else if (wallSlidingSpeed != 0)
         {
-			
 			rb2d.velocity = new Vector2(MovementInput.x * moveSpeed, Mathf.Clamp(rb2d.velocity.y, -wallSlidingSpeed, float.MaxValue));
-
 		}
 
         else if (MovementInput.x != 0)
         {
-			Debug.Log("Movimento");
 			rb2d.velocity = new Vector2(MovementInput.x * moveSpeed, rb2d.velocity.y);
 		}
+
+		if (movemntInputX != 0)
+        {
+			Dash(movemntInputX, dashingPower);
+			
+        }
 
 
 		//rb2d.velocity = new Vector2(wallJumpForce.x == 0 ? MovementInput.x * moveSpeed : MovementInput.x * wallJumpForce.x, wallSlidingSpeed != 0 ? Mathf.Clamp(rb2d.velocity.y, -wallSlidingSpeed, float.MaxValue) :(jumpForce > 0 ? jumpForce : rb2d.velocity.y));
@@ -60,6 +61,17 @@ public class AgentMover : MonoBehaviour
 		//currentSpeed = Mathf.Clamp(currentSpeed, 0, maxSpeed);
 		//rb2d.velocity = oldMovementInput * currentSpeed;
 
+	}
+
+	public void ResetDash()
+    {
+		movemntInputX = 0f;
+		dashingPower = 0f;
+    }
+	public void Dash(float movemntInput, float dashingPower)
+    {
+		rb2d.velocity = new Vector2(movemntInput * dashingPower, 0f);
+		Debug.Log(rb2d.velocity);
 	}
 
 	public void ApplyForce(Vector2 direction)

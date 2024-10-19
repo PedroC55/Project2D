@@ -84,6 +84,18 @@ public class Agent : MonoBehaviour
 		return inFront;
 	}
 
+	public void ResetDash()
+    {
+		agentMover.ResetDash();
+    }
+
+	public void Dash(float movementInput, float dashingPower)
+    {
+		
+		agentMover.dashingPower = dashingPower;
+		agentMover.movemntInputX = movementInput;
+    }
+
 	public void Died()
 	{
 		

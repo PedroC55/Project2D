@@ -24,6 +24,13 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 wallJumpForce;
     bool wallJumping;
 
+    [Header("Dash Sysytem")]
+    private bool canDash = true;
+    private bool isDashing;
+    private float dashingPower = 24f;
+    private float dashingTime = 0.2f;
+    private float dashingCooldown = 1f;
+    [SerializeField] TrailRenderer trailRenderer;
 
     private float dirX = 0f;
     [SerializeField] private float moveSpeed = 7f;  
@@ -31,16 +38,20 @@ public class PlayerMovement : MonoBehaviour
 
     private enum MovementState { idle, running, jumping, falling}
     [SerializeField]
-    public InputActionReference movement, jump;
+    public InputActionReference movement, jump, dash;
 
     private void OnEnable()
     {
+        
         jump.action.performed += OnJump;
+        
         jump.action.Enable();
     }
     private void OnDisable()
     {
+        
         jump.action.performed -= OnJump;
+        
         jump.action.Disable();
     }
     private void OnJump(InputAction.CallbackContext context)
@@ -48,6 +59,8 @@ public class PlayerMovement : MonoBehaviour
         // Call your jump function here.
         Jump();
     }
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -65,19 +78,26 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (isDashing)
+        {
+            return;
+        }
         
-        
+  
         agent.wallCheck = wallCheck;
-
- 
 
         agent.MovementInput = movement.action.ReadValue<Vector2>();
         movementInput = movement.action.ReadValue<Vector2>();
 
         
         isWallToutch = Physics2D.OverlapBox(wallCheck.position, new Vector2(0.92f, 1.39f), 0, jumpableGround);
-        
-        
+
+        if (dash.action.triggered && canDash)
+        {
+
+            StartCoroutine(Dash());
+        }
+
         if (isWallToutch && !IsGrounded() && movementInput.x != 0)
         {
             agent.wallSlidingSpeed = wallSlidingSpeed;
@@ -90,6 +110,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         
+
+
 
     }
 
@@ -120,6 +142,24 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
+    private IEnumerator Dash()
+    {
+        canDash = false;
+        isDashing = true;
+        float originalGravity = rigidbody.gravityScale;
+        rigidbody.gravityScale = 0f;
+        agent.Dash(movementInput.x, dashingPower);
+        trailRenderer.emitting = true;
+        yield return new WaitForSeconds(dashingTime);
+        trailRenderer.emitting = false;
+        rigidbody.gravityScale = originalGravity;
+        agent.ResetDash();
+        isDashing = false;
+        yield return new WaitForSeconds(dashingCooldown);
+        canDash = true;
+    }
+
+    
     private void StopWallJumping()
     {
         agent.wallJumoForce = Vector2.zero;
