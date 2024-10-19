@@ -52,6 +52,10 @@ public class Agent : MonoBehaviour
 		
 	}
 
+	public void ApplyForce(Vector2 direction)
+	{
+		agentMover.ApplyForce(direction);
+	}
 	public void FaceDirection(Vector2 direction)
 	{
 		lookDirection = direction;

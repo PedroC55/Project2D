@@ -84,7 +84,7 @@
                     "name": "",
                     "id": "c1be0d9e-b606-4f08-91d3-1897c15a2250",
                     "path": "<Keyboard>/space",
-                    "interactions": "",
+                    "interactions": "Tap",
                     "processors": "",
                     "groups": "",
                     "action": "Jump",

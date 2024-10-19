@@ -26,8 +26,33 @@ public class AgentMover : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		Debug.Log(wallSlidingSpeed);
-		rb2d.velocity = new Vector2(wallJumpForce.x == 0 ? MovementInput.x * moveSpeed : -MovementInput.x * wallJumpForce.x, wallSlidingSpeed != 0 ? Mathf.Clamp(rb2d.velocity.y, -wallSlidingSpeed, float.MaxValue) :(jumpForce > 0 ? jumpForce : rb2d.velocity.y));
+		//if (wallJumpForce.x != 0)
+        //{
+		//	Debug.Log("1");
+		//	rb2d.velocity = new Vector2(MovementInput.x * wallJumpForce.x, wallJumpForce.y);
+		//
+		//}
+		if (wallSlidingSpeed != 0)
+        {
+			//Debug.Log("2");
+			rb2d.velocity = new Vector2(MovementInput.x * moveSpeed, Mathf.Clamp(rb2d.velocity.y, -wallSlidingSpeed, float.MaxValue));
+
+		}
+		//else if (jumpForce > 0)
+        //{
+		//	Debug.Log("3");
+		//	rb2d.velocity = new Vector2(MovementInput.x * moveSpeed, jumpForce);
+		//
+		//}
+        else
+        {
+			
+			rb2d.velocity = new Vector2(MovementInput.x * moveSpeed, rb2d.velocity.y);
+		}
+
+
+		//rb2d.velocity = new Vector2(wallJumpForce.x == 0 ? MovementInput.x * moveSpeed : MovementInput.x * wallJumpForce.x, wallSlidingSpeed != 0 ? Mathf.Clamp(rb2d.velocity.y, -wallSlidingSpeed, float.MaxValue) :(jumpForce > 0 ? jumpForce : rb2d.velocity.y));
+		//Debug.Log(rb2d.velocity);
 		//if (MovementInput.magnitude > 0)
 		//{
 		//	oldMovementInput = MovementInput;
@@ -42,6 +67,12 @@ public class AgentMover : MonoBehaviour
 
 	}
 
+	public void ApplyForce(Vector2 direction)
+    {
+		//Debug.Log(direction);
+		rb2d.AddForce(direction, ForceMode2D.Impulse);
+		Debug.Log(rb2d.velocity);
+	}
 	public void StopMoving()
 	{
 		rb2d.bodyType = RigidbodyType2D.Static;

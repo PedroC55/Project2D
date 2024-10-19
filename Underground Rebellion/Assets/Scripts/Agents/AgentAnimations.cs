@@ -39,7 +39,7 @@ public class AgentAnimations : MonoBehaviour
 
 	public void LookDirection(Vector2 direction)
 	{
-		var scale = transform.parent.localScale;
+		
 		if (direction.x > 0)
 		{
 			spriteRenderer.flipX = false;
@@ -51,7 +51,7 @@ public class AgentAnimations : MonoBehaviour
 			wallCheck.localPosition = new Vector2(-Math.Abs(wallCheck.localPosition.x), wallCheck.localPosition.y);
 		}
 
-		transform.parent.localScale = scale;
+		
 	}
 
 	//Caso queira colocar uma animação de morte que sabe da direção que vem a morte, para adicionar particulas ou knockback, é bom ter o sender no paramentro
