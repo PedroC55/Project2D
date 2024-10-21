@@ -78,6 +78,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        
         if (isDashing)
         {
             return;
@@ -86,10 +87,30 @@ public class PlayerMovement : MonoBehaviour
   
         agent.wallCheck = wallCheck;
 
-        agent.MovementInput = movement.action.ReadValue<Vector2>();
         movementInput = movement.action.ReadValue<Vector2>();
 
+        if (IsGrounded())
+        {
+            if (movementInput.x != 0f)
+            {
+                agent.MovementInput = movementInput;
+                rigidbody.drag = 0f;
+            }
+            else
+            {
+                agent.MovementInput = Vector2.zero;
+                rigidbody.drag = 10f;
+            }
+        }
+        else
+        {
+            agent.MovementInput = movementInput;
+            rigidbody.drag = 0f;
+        }
+
         
+        
+
         isWallToutch = Physics2D.OverlapBox(wallCheck.position, new Vector2(0.92f, 1.39f), 0, jumpableGround);
 
         if (dash.action.triggered && canDash)
@@ -119,7 +140,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        
         if (IsGrounded())
         {
             agent.ApplyForce(new Vector2(0f,jumpForce));
