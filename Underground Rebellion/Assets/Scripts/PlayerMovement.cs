@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : Agent
 {
     private new Rigidbody2D rigidbody;
     private Animator animator;
@@ -23,22 +23,23 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        spriteRenderer=GetComponent<SpriteRenderer>();
+        animator = GetComponentInChildren<Animator>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         collider = GetComponent<BoxCollider2D>();
-    }
+	}
 
     // Update is called once per frame
     void Update()
     {
+        //agent.MovementInput = new Vector2 (Input.GetAxisRaw("Horizontal"), 0);
+        
         dirX = Input.GetAxisRaw("Horizontal");   // Caso queira que o Player continue durante um pouco após o largar da tecla devo usar o GetAxis. Ao usar o GetAxisRaw ele para imediatamente após o user largar a tecla!
         rigidbody.velocity = new Vector2(dirX * moveSpeed, rigidbody.velocity.y);
 
-        
-
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
-            rigidbody.velocity = new Vector2(rigidbody.velocity.x, jumpForce);
+			//agent.jump = 10f;
+			rigidbody.velocity = new Vector2(rigidbody.velocity.x, jumpForce);
         }
 
         UpdateAnimationState();
@@ -81,4 +82,9 @@ public class PlayerMovement : MonoBehaviour
     {
         return Physics2D.BoxCast(collider.bounds.center, collider.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
     }
+
+	//protected override void AnimateCharacter()
+	//{
+	//	agentAnimations.WalkingAnimation(movementInput);
+	//}
 }
