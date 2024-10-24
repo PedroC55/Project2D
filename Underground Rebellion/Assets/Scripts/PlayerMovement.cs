@@ -9,10 +9,11 @@ public class PlayerMovement : MonoBehaviour
     private new Rigidbody2D rigidbody;
     private Animator animator;
     private Agent agent;
+    private ParrySystem playerParrySystem;
     private SpriteRenderer spriteRenderer;
     private new BoxCollider2D collider;
     [SerializeField] private LayerMask jumpableGround;
-    private Vector2 movementInput;
+    public Vector2 movementInput;
     
 
     [Header("Wall Jump Sysytem")]
@@ -36,28 +37,48 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 7f;  
     [SerializeField] private float jumpForce = 14f;
 
+    private bool canMove = true;
+
     private enum MovementState { idle, running, jumping, falling}
     [SerializeField]
     public InputActionReference movement, jump, dash;
 
     private void OnEnable()
     {
-        
-        jump.action.performed += OnJump;
-        
+        playerParrySystem = GetComponent<ParrySystem>();
         jump.action.Enable();
+        jump.action.performed += OnJump;
+
+        playerParrySystem.OnParry += DisableMovementDuringParry;
+
+
     }
     private void OnDisable()
     {
-        
-        jump.action.performed -= OnJump;
-        
         jump.action.Disable();
+        jump.action.performed -= OnJump;
+
+        playerParrySystem.OnParry -= DisableMovementDuringParry;
+
     }
     private void OnJump(InputAction.CallbackContext context)
     {
         // Call your jump function here.
         Jump();
+    }
+
+    private void DisableMovementDuringParry()
+    {
+        canMove = false;
+
+        
+        // You can re-enable it after a short delay or when the parry ends
+        Invoke("EnableMovement", 0.5f); // Example: Re-enable movement after 0.5 seconds
+    }
+
+    private void EnableMovement()
+    {
+        canMove = true;
     }
 
 
@@ -72,23 +93,54 @@ public class PlayerMovement : MonoBehaviour
         agent = GetComponent<Agent>();
 
 
-
+        //GetHitEvenet.onGetHit += GetHitEvent;
     }
 
     // Update is called once per frame
     private void Update()
     {
-        
+        Debug.Log(canMove);
+        if (!canMove)
+            return;
+
+        agent.wallCheck = wallCheck;
+        movementInput = movement.action.ReadValue<Vector2>();
+            
+
         if (isDashing)
         {
             return;
         }
         
-  
-        agent.wallCheck = wallCheck;
 
-        movementInput = movement.action.ReadValue<Vector2>();
+        Movement();
 
+        isWallToutch = Physics2D.OverlapBox(wallCheck.position, new Vector2(0.92f, 1.39f), 0, jumpableGround);
+
+        if (dash.action.triggered && canDash)
+        {
+
+            StartCoroutine(Dash());
+        }
+
+        Slide();
+    }
+
+    private void Slide()
+    {
+        if (isWallToutch && !IsGrounded() && movementInput.x != 0)
+        {
+            agent.wallSlidingSpeed = wallSlidingSpeed;
+            isSliding = true;
+        }
+        else
+        {
+            agent.wallSlidingSpeed = 0;
+            isSliding = false;
+        }
+    }
+    private void Movement()
+    {
         if (IsGrounded())
         {
             if (movementInput.x != 0f)
@@ -107,36 +159,7 @@ public class PlayerMovement : MonoBehaviour
             agent.MovementInput = movementInput;
             rigidbody.drag = 0f;
         }
-
-        
-        
-
-        isWallToutch = Physics2D.OverlapBox(wallCheck.position, new Vector2(0.92f, 1.39f), 0, jumpableGround);
-
-        if (dash.action.triggered && canDash)
-        {
-
-            StartCoroutine(Dash());
-        }
-
-        if (isWallToutch && !IsGrounded() && movementInput.x != 0)
-        {
-            agent.wallSlidingSpeed = wallSlidingSpeed;
-            isSliding = true;
-        }
-        else
-        {
-            agent.wallSlidingSpeed = 0;
-            isSliding = false;
-        }
-
-        
-
-
-
     }
-
-
 
     private void Jump()
     {

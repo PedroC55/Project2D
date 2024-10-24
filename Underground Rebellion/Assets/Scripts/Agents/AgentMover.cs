@@ -71,7 +71,6 @@ public class AgentMover : MonoBehaviour
 	public void Dash(float movemntInput, float dashingPower)
     {
 		rb2d.velocity = new Vector2(movemntInput * dashingPower, 0f);
-		Debug.Log(rb2d.velocity);
 	}
 
 	public void ApplyForce(Vector2 direction)
