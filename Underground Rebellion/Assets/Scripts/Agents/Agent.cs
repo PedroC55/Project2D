@@ -52,6 +52,11 @@ public class Agent : MonoBehaviour
 		
 	}
 
+	public void GetHit(int damage, GameObject sender)
+    {
+		agenthealth.GetHit(damage, sender);
+    }
+
 	public void ApplyForce(Vector2 direction)
 	{
 		agentMover.ApplyForce(direction);

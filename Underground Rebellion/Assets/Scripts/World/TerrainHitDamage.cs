@@ -11,7 +11,8 @@ public class TerrainHitDamage : MonoBehaviour
 	{
 		if (collision.gameObject.CompareTag("Player"))
 		{
-			collision.gameObject.GetComponent<Health>().GetHit(damage, gameObject);
+			//collision.gameObject.GetComponent<Health>().GetHit(damage, gameObject);
+			HitEvent.GetHit(damage, this.gameObject, collision.gameObject);
 		}
 	}
 }

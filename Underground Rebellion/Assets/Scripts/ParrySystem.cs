@@ -7,8 +7,7 @@ using UnityEngine.InputSystem.Interactions;
 
 public class ParrySystem : MonoBehaviour
 {
-    public event Action OnParry;
-    public event Action OnGetHit;
+
 
     public float parryWindow = 0.5f;
     private float enemyAttackTime;
@@ -17,6 +16,8 @@ public class ParrySystem : MonoBehaviour
     private PlayerMovement player;
 
     private int facingDirection = 1;
+
+    private float parryTime;
 
 
 
@@ -38,6 +39,7 @@ public class ParrySystem : MonoBehaviour
 
         // Unsubscribe from the parry action to avoid memory leaks
         parry.action.performed -= OnParryPerformed;
+
     }
 
     void Start()
@@ -57,43 +59,32 @@ public class ParrySystem : MonoBehaviour
     // This method is triggered when the parry button is pressed
     private void OnParryPerformed(InputAction.CallbackContext context)
     {
+        StartCoroutine( player.DisableMovementDuringParry());
         parryAttempted = true;
-        CheckParryTiming();
+        parryTime = Time.deltaTime;
+
     }
 
-    // Called by the enemy when it attacks
-    public void EnemyAttacks(float attackTime, int enemyDirection)
+
+
+    public bool CheckParryTiming()
     {
-        enemyAttackTime = attackTime;
-
-        // Check if the player is facing the enemy
-        if (facingDirection == enemyDirection)
-        {
-            CheckParryTiming();
-        }
-        else
-        {
-            // Player is not facing the enemy, trigger hit
-            OnGetHit?.Invoke();
-        }
-    }
-
-    private void CheckParryTiming()
-    {
-        float currentTime = Time.time;
-        OnParry?.Invoke();
-
+        float currentTime = Time.deltaTime;
+        bool sucess = false;
         // Check if player's parry attempt was within the allowed time window
-        if (parryAttempted && Mathf.Abs(currentTime - enemyAttackTime) <= parryWindow)
+        if (!parryAttempted)
         {
-            OnParry?.Invoke();  // Parry is successful
+            return false;
         }
-        else
+        if (parryAttempted && Mathf.Abs(parryTime - currentTime) <= parryWindow)
         {
-            OnGetHit?.Invoke(); // Parry failed, player got hit
+            sucess = true;
         }
 
-        // Reset parry attempt flag
         parryAttempted = false;
+
+
+        return sucess;
+        
     }
 }

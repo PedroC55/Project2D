@@ -49,7 +49,9 @@ public class PlayerMovement : MonoBehaviour
         jump.action.Enable();
         jump.action.performed += OnJump;
 
-        playerParrySystem.OnParry += DisableMovementDuringParry;
+
+
+        HitEvent.OnHit += OnPlayerHit;
 
 
     }
@@ -58,7 +60,9 @@ public class PlayerMovement : MonoBehaviour
         jump.action.Disable();
         jump.action.performed -= OnJump;
 
-        playerParrySystem.OnParry -= DisableMovementDuringParry;
+
+
+        HitEvent.OnHit -= OnPlayerHit;
 
     }
     private void OnJump(InputAction.CallbackContext context)
@@ -67,19 +71,37 @@ public class PlayerMovement : MonoBehaviour
         Jump();
     }
 
-    private void DisableMovementDuringParry()
+    private void OnPlayerHit(int damage, GameObject sender, GameObject receiver)
+    {
+        if (receiver.CompareTag("Player"))
+        {
+            if (sender.CompareTag("Trap"))
+            {
+                if (playerParrySystem.CheckParryTiming())
+                {
+                    //ParryEvent.Parry(sender);
+                    Debug.Log("Parry");
+                }
+                else
+                {
+                    agent.GetHit(damage, sender);
+                }
+            }
+            
+        }
+        
+    }
+
+    public IEnumerator DisableMovementDuringParry()
     {
         canMove = false;
 
-        
-        // You can re-enable it after a short delay or when the parry ends
-        Invoke("EnableMovement", 0.5f); // Example: Re-enable movement after 0.5 seconds
-    }
 
-    private void EnableMovement()
-    {
+        yield return new WaitForSeconds(0.5f);
         canMove = true;
     }
+
+
 
 
 
@@ -99,9 +121,13 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        Debug.Log(canMove);
-        if (!canMove)
+        
+        if (!canMove) {
+            agent.MovementInput = Vector2.zero;
+            rigidbody.drag = 10f;
             return;
+        }
+        
 
         agent.wallCheck = wallCheck;
         movementInput = movement.action.ReadValue<Vector2>();
