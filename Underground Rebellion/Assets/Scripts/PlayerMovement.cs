@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -17,6 +19,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpForce = 14f;
 
     private enum MovementState { idle, running, jumping, falling}
+
+    [SerializeField]
+    private InputActionReference movement;
 
 
     // Start is called before the first frame update
@@ -36,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
         //agent.MovementInput = new Vector2 (Input.GetAxisRaw("Horizontal"), 0);
         
         dirX = Input.GetAxisRaw("Horizontal");   // Caso queira que o Player continue durante um pouco após o largar da tecla devo usar o GetAxis. Ao usar o GetAxisRaw ele para imediatamente após o user largar a tecla!
-        agent.MovementInput = new Vector2(Input.GetAxisRaw("Horizontal"), rigidbody.velocity.y);
+        agent.MovementInput = movement.action.ReadValue<Vector2>();
         //rigidbody.velocity = new Vector2(dirX * moveSpeed, rigidbody.velocity.y);
 
         if (Input.GetButtonDown("Jump") && IsGrounded())
@@ -83,6 +88,24 @@ public class PlayerMovement : MonoBehaviour
     {
         return Physics2D.BoxCast(collider.bounds.center, collider.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
     }
+
+	void OnTriggerStay2D(Collider2D collision)
+	{
+		if (collision.CompareTag("Slow Goo"))
+		{
+            int slow = collision.GetComponent<SlowGoo>().slowPercentage;
+            agent.SlowMovement(slow);
+		}
+	}
+
+	void OnTriggerExit2D(Collider2D collision)
+	{
+		if (collision.CompareTag("Slow Goo"))
+		{
+			// Restaura a velocidade
+			agent.SlowMovement(0);
+		}
+	}
 
 	//protected override void AnimateCharacter()
 	//{

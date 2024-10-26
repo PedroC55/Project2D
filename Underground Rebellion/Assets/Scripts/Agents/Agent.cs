@@ -42,8 +42,13 @@ public class Agent : MonoBehaviour
 		agentAnimations.DeathAnimation(sender);
 	}
 
-	protected virtual void AnimateCharacter()
+	private void AnimateCharacter()
 	{
 		agentAnimations.WalkingAnimation(movementInput);
+	}
+
+	public void SlowMovement(int slowPercentage)
+	{
+		agentMover.SlowMovement(slowPercentage);
 	}
 }

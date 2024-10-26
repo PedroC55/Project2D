@@ -7,6 +7,7 @@ TagManager:
   - Cherry
   - Trap
   - Enemy
+  - Slow Goo
   layers:
   - Default
   - TransparentFX

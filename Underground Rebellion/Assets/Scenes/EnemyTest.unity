@@ -40428,6 +40428,7 @@ GameObject:
   - component: {fileID: 493094664}
   - component: {fileID: 493094666}
   - component: {fileID: 493094665}
+  - component: {fileID: 493094667}
   m_Layer: 8
   m_Name: Actions
   m_TagString: Enemy
@@ -40498,6 +40499,20 @@ MonoBehaviour:
   attackDuration: 1
   posAttackDelay: 2
   attackDistanceThreshold: 3
+--- !u!114 &493094667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493094662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92dcf4960be6dcd4ca1155ffaab0d0ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gooPrefab: {fileID: 5168748519967886263, guid: 4a023d45f0968c047b4ebdef6c237abd, type: 3}
+  gooDistanceRate: 0.5
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -41105,6 +41120,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c9cc28b3767b4847a6ce0c6316874de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &803430057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 803430044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: c1a83c0f838db924bb13aef1487b0dbf, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: PlayerInput
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &812374631
 GameObject:
   m_ObjectHideFlags: 0
@@ -41226,7 +41271,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &936721302
 Transform:
@@ -45264,6 +45309,10 @@ PrefabInstance:
       propertyPath: cherriesText
       value: 
       objectReference: {fileID: 1363219737}
+    - target: {fileID: 2117903320574819507, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
+      propertyPath: movement
+      value: 
+      objectReference: {fileID: 2788746650103884361, guid: c1a83c0f838db924bb13aef1487b0dbf, type: 3}
     - target: {fileID: 4022934457941099702, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -45322,4 +45371,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5616279431631585705, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 803430050}
+    - targetCorrespondingSourceObject: {fileID: 5616279431631585705, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 803430057}
   m_SourcePrefab: {fileID: 100100000, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
