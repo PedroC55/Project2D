@@ -2,20 +2,10 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-//Pode ser uma classe para cada inimgo. Ex.: WormAI, BeetleAI, MoleAi, BossAi
-//Onde cada um deles tem um comportamento diferente, patrol, pulo, ataque melee, ataque range,
-//Mas essas ações serem scripts separados, que são chamadas na AI de cada inimigo diferente
-//OBS.: Talvez na classe base de ação ja ter o metodo Update que anda o personagem até a distancia necessária para realizar o ataque,
-//		ao inves de em todo script ter o metodo Update. CONTUDO, tem que pensar em como mudar esse Unity Events, pq cada script vai ter essa merda querendo algum parametro pra chamar
-
 //PENSAR EM UMA FORMA DE ABORTAR UMA AÇÃO QUE ESTÁ SENDO EXECUTADA QUANDO UMA CERTA CONDIÇÃO FOR ATINGIDA
 //EXEMPLO A VIDA DO BOSS CHEGOU NA METADE
 //Opção 1: Salvar em uma váriavel a Ação atual que está sendo executada, quando a condição acontecer chamar um metodo que para a execução daquela ação;
 //Opção 2: Pensar se da pra fazer com Coroutinas;
-
-
-//Posso mudar essa função de verificar se ta na frente do player pra cada inimigo ter um objeto que é um boxcollider chamado "line of sight" para saber se aggrou ou nao
-//Deixa ativado quando o player entrar no line of sight desativa
 public class EnemyAI : MonoBehaviour
 {
 	public UnityEvent<Vector2> OnMovementInput, OnDirectionInput;
@@ -24,21 +14,33 @@ public class EnemyAI : MonoBehaviour
 	[SerializeField]
 	private int startDirection = 1;
 
+	[SerializeField]
+	private int contactHitDamage = 1;
+
 	private bool isActing = false;
 	private bool isAggroed = false;
+	private bool isDead = false;
 	private bool isReseting = false;
 
 	private Transform player;
 
+	private Agent agent;
+
 	private EnemyPatrol patrol;
 	private EnemyMeleeAttack meleeAttack;
 	private EnemyLineOfSight lineOfSight;
+	private EnemyAction currentAction;
+
+	private EnemyEnergy enemyEnergy;
 
 	private void Awake()
 	{
+		agent = GetComponent<Agent>();
 		patrol = GetComponentInChildren<EnemyPatrol>();
 		meleeAttack = GetComponentInChildren<EnemyMeleeAttack>();
 		lineOfSight = GetComponentInChildren<EnemyLineOfSight>();
+		
+		enemyEnergy = GetComponentInChildren<EnemyEnergy>();
 	}
 
 	private void Start()
@@ -46,31 +48,104 @@ public class EnemyAI : MonoBehaviour
 		OnDirectionInput?.Invoke(new Vector2(startDirection, 0));
 	}
 
+	private void OnEnable()
+	{
+		HitEvent.OnHit += GetHit;
+		//ParryEvent.OnParry += DecreaseEnergy;
+	}
+
+	private void OnDisable()
+	{
+		HitEvent.OnHit -= GetHit;
+		//ParryEvent.OnParry -= DecreaseEnergy;
+	}
+
 	private void Update()
 	{
-		if (isActing)
+		if (isActing || isDead || !enemyEnergy.HasEnergy())
 			return;
 
 		if (isAggroed)
 		{
-			Debug.Log("Enemy will chase and attack player");
 			meleeAttack.ExecuteAction(player);
+			currentAction = meleeAttack;
 		}
 		else
 		{
 			patrol.ExecuteAction();
+			currentAction = patrol;
 		}
 
 		isActing = true;
 	}
 
+	public bool CanAggro()
+	{
+		bool canAggro = true;
+
+		if (!enemyEnergy.HasEnergy() || isReseting)
+			canAggro = false;
+
+		return canAggro;
+	}
+
 	public void Aggroed(Transform playerTransform)
 	{
+		if (!enemyEnergy.HasEnergy())
+		{
+			return;
+		}
+
 		player = playerTransform;
-		Debug.Log("Enemy saw player and is now aggroed");
 		patrol.InterruptAction();
-		patrol.enabled = true;
 		StartCoroutine(AggroCoroutine());
+	}
+
+	public void ResetEnemy()
+	{
+		currentAction.InterruptAction();
+		isAggroed = false;
+		//isReseting = true;
+		lineOfSight.ActiveLineOfSight();
+	}
+
+	public void ActionFinished()
+	{
+		isActing = false;
+	}
+
+	public void GetHit(int damage, GameObject sender, GameObject receiver)
+	{
+		if (receiver.GetInstanceID() == gameObject.GetInstanceID())
+		{
+			agent.GetHit(damage, sender);
+		}
+	}
+
+	public void EnemyDied(GameObject sender)
+	{
+		currentAction.InterruptAction();
+		
+		OnMovementInput?.Invoke(Vector2.zero);
+		
+		Collider2D collider = GetComponent<Collider2D>();
+		collider.enabled = false;
+
+		isDead = true;
+	}
+
+	public void DecreaseEnergy(int amount)
+	{
+		enemyEnergy.DecreaseEnergy(amount);
+
+		if (!enemyEnergy.HasEnergy())
+		{
+			ResetEnemy();
+			isActing = false;
+			OnMovementInput?.Invoke(Vector2.zero);
+
+			//Chamar animação de stun
+		}
 	}
 
 	private IEnumerator AggroCoroutine()
@@ -81,22 +156,12 @@ public class EnemyAI : MonoBehaviour
 		isActing = false;
 	}
 
-	public void ResetEnemy()
+	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		meleeAttack.InterruptAction();
-		isAggroed = false;
-		isActing = false;
-		isReseting = true;
-		lineOfSight.ActiveLineOfSight();
+		if (collision.gameObject.CompareTag("Player"))
+		{
+			Debug.Log("Colidiu e deu dano");
+			HitEvent.GetHit(contactHitDamage, gameObject, collision.gameObject);
+		}
 	}
-
-	public void ActionFinished()
-	{
-		isActing = false;
-	}
-
-	//void OnDrawGizmosSelected()
-	//{
-	//	Gizmos.DrawWireSphere(transform.position, chaseDistanceThreshold);
-	//}
 }

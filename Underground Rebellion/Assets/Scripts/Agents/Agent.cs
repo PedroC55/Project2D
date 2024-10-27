@@ -8,6 +8,7 @@ public class Agent : MonoBehaviour
 {
 	private AgentAnimations agentAnimations;
 	private AgentMover agentMover;
+	private Health health;
 
 	private Vector2 lookDirection, movementInput;
 	public Vector2 MovementInput { get => movementInput; set => movementInput = value; }
@@ -16,6 +17,7 @@ public class Agent : MonoBehaviour
 	{
 		agentAnimations = GetComponentInChildren<AgentAnimations>();
 		agentMover = GetComponent<AgentMover>();
+		health = GetComponent<Health>();
 	}
 
 	private void Update()
@@ -32,7 +34,6 @@ public class Agent : MonoBehaviour
 
 	public void PerformAttack(string triggerName)
 	{
-		Debug.Log("Atacou!");
 		agentAnimations.AttackAnimation(triggerName);
 	}
 
@@ -42,13 +43,18 @@ public class Agent : MonoBehaviour
 		agentAnimations.DeathAnimation(sender);
 	}
 
-	private void AnimateCharacter()
-	{
-		agentAnimations.WalkingAnimation(movementInput);
-	}
-
 	public void SlowMovement(int slowPercentage)
 	{
 		agentMover.SlowMovement(slowPercentage);
+	}
+
+	public void GetHit(int damage, GameObject sender)
+	{
+		health.GetHit(damage, sender);
+	}
+
+	private void AnimateCharacter()
+	{
+		agentAnimations.WalkingAnimation(movementInput);
 	}
 }

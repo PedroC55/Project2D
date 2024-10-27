@@ -34,6 +34,15 @@ public class EnemyMeleeAttack : EnemyAction
 		isExecuting = true;
 	}
 
+	protected override void OnDisable()
+	{
+		base.OnDisable();
+
+		isAttacking = false;
+		enemyChase.InterruptAction();
+		StopAllCoroutines();
+	}
+
 	private void Update()
 	{
 		if (!isExecuting)

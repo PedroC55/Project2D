@@ -23,9 +23,19 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private InputActionReference movement;
 
+	private void OnEnable()
+	{
+		HitEvent.OnHit += GetHit;
+	}
 
-    // Start is called before the first frame update
-    void Start()
+	private void OnDisable()
+	{
+		HitEvent.OnHit -= GetHit;
+	}
+
+
+	// Start is called before the first frame update
+	void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
@@ -107,8 +117,11 @@ public class PlayerMovement : MonoBehaviour
 		}
 	}
 
-	//protected override void AnimateCharacter()
-	//{
-	//	agentAnimations.WalkingAnimation(movementInput);
-	//}
+	public void GetHit(int damage, GameObject sender, GameObject receiver)
+	{
+        if (receiver.CompareTag("Player"))
+		{
+			agent.GetHit(damage, sender);
+		}
+	}
 }

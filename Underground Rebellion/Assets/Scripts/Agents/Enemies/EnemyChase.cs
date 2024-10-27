@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,9 +16,10 @@ public class EnemyChase : EnemyAction
 		isExecuting = true;
 	}
 	
-	private void OnDisable()
+	protected override void OnDisable()
 	{
-		isExecuting = false;
+		base.OnDisable();
+
 		chaseFinished = false;
 		enemyAI.OnMovementInput?.Invoke(Vector2.zero);
 	}

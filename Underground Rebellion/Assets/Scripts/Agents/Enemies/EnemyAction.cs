@@ -17,6 +17,11 @@ public class EnemyAction : MonoBehaviour
 		enemyAI = GetComponentInParent<EnemyAI>();
 	}
 
+	protected virtual void OnDisable()
+	{
+		FinishAction();
+	}
+
 	public virtual void ExecuteAction()
 	{
 		throw new System.NotImplementedException($"Metodo não implementado para classe: {this.GetType().FullName}, do objeto: {gameObject.name}");
@@ -33,6 +38,7 @@ public class EnemyAction : MonoBehaviour
 	public virtual void InterruptAction()
 	{
 		this.enabled = false;
+		this.enabled = true;
 	}
 
 	protected void FinishAction()

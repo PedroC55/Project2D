@@ -21,8 +21,11 @@ public class EnemyLineOfSight : MonoBehaviour
 			
 			if(detectedObject.collider != null && detectedObject.collider.gameObject.CompareTag("Player"))
 			{
-				enemyAI.Aggroed(collision.gameObject.transform);
-				GetComponent<Collider2D>().enabled = false;
+				if (enemyAI.CanAggro())
+				{
+					enemyAI.Aggroed(collision.gameObject.transform);
+					GetComponent<Collider2D>().enabled = false;
+				}
 			}
 		}
 	}

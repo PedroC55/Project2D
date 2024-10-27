@@ -23,7 +23,7 @@ public class EnemyPatrol : EnemyAction
 		}
 	}
 
-	private void OnDisable()
+	protected override void OnDisable()
 	{
 		isExecuting = false;
 		isObserving = false;
