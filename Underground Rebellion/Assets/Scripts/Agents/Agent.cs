@@ -6,14 +6,14 @@ using UnityEngine.InputSystem;
 
 public class Agent : MonoBehaviour
 {
-	private new Rigidbody2D rb2d;
+	private Rigidbody2D rb2d;
 	private AgentAnimations agentAnimations;
 	private AgentMover agentMover;
-	private Health agenthealth;
+	private Health health;
 	public Transform wallCheck;
 	public float jumpForce, wallSlidingSpeed;
 
-	public Vector2 wallJumoForce;
+	public Vector2 wallJumpForce;
 
 	private Vector2 lookDirection, movementInput;
 	public Vector2 MovementInput { get => movementInput; set => movementInput = value; }
@@ -24,9 +24,9 @@ public class Agent : MonoBehaviour
 	private void Awake()
 	{
 		rb2d = GetComponent<Rigidbody2D>();
-		agenthealth = GetComponent<Health>();
 		agentAnimations = GetComponentInChildren<AgentAnimations>();
 		agentMover = GetComponent<AgentMover>();
+		health = GetComponent<Health>();
 		if (agentMover == null)
 		{
 			Debug.LogError("AgentMover is not assigned or found in Agent.");
@@ -35,27 +35,16 @@ public class Agent : MonoBehaviour
 
 	protected void Update()
 	{
-		if(agenthealth.currentHealth > 0)
-        {
-			agentMover.MovementInput = movementInput;
+		agentMover.MovementInput = movementInput;
+		if (wallCheck != null)
+		{
 			agentMover.jumpForce = jumpForce;
 			agentMover.wallSlidingSpeed = wallSlidingSpeed;
-			agentMover.wallJumpForce = wallJumoForce;
+			agentMover.wallJumpForce = wallJumpForce;
 			agentAnimations.wallCheck = wallCheck;
-			AnimateCharacter();
 		}
-        else
-        {
-			Died();
-			agentAnimations.RestartLevel();
-		}
-		
+		AnimateCharacter();
 	}
-
-	public void GetHit(int damage, GameObject sender)
-    {
-		agenthealth.GetHit(damage, sender);
-    }
 
 	public void ApplyForce(Vector2 direction)
 	{
@@ -68,25 +57,25 @@ public class Agent : MonoBehaviour
 		agentAnimations.LookDirection(direction);
 	}
 
-	public void PerformAttack(int damage, GameObject player = null)
+	public void PerformAttack(string triggerName)
 	{
-		//Fazer ataque
-		if(player)
-			player.GetComponent<Health>().GetHit(damage, gameObject);
-
-		Debug.Log("Atacou!");
+		agentAnimations.AttackAnimation(triggerName);
 	}
 
-	public bool CheckPlayerInFront(Vector2 direction)
+	public void Died()
 	{
-		bool inFront = false;
-		if(lookDirection.x < 0 && direction.x < 0)
-			inFront = true;
+		agentMover.StopMoving();
+		agentAnimations.DeathAnimation();
+	}
 
-		if(lookDirection.x > 0 && direction.x > 0)
-			inFront = true;
-		
-		return inFront;
+	public void SlowMovement(int slowPercentage)
+	{
+		agentMover.SlowMovement(slowPercentage);
+	}
+
+	public void GetHit(int damage, GameObject sender)
+	{
+		health.GetHit(damage);
 	}
 
 	public void ResetDash()
@@ -101,28 +90,23 @@ public class Agent : MonoBehaviour
 		agentMover.movemntInputX = movementInput;
     }
 
-	public void Died()
+	public void StunAnimation()
 	{
-		
-		agentMover.StopMoving();
-
+		agentAnimations.StunAnimation();
 	}
 
-	protected virtual void AnimateCharacter()
+	private void AnimateCharacter()
 	{
 		if (movementInput.x > 0 || movementInput.x < 0)
 		{
 			agentAnimations.WalkingAnimation(movementInput);
-
 		}
 		else
 		{
 			agentAnimations.IdleAnimation();
-
 		}
 
 		// Aten��o!! Fazer verifica��o do salto depois da corrida uma vez que o salto tem prioridade!!
-
 		if (rb2d.velocity.y > .1f)
 		{
 			agentAnimations.JumpingAnimation();

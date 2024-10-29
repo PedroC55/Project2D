@@ -7,8 +7,6 @@ using UnityEngine.InputSystem.Interactions;
 
 public class ParrySystem : MonoBehaviour
 {
-
-
     public float parryWindow = 0.5f;
     private float enemyAttackTime;
     private bool parryAttempted = false;
@@ -18,8 +16,6 @@ public class ParrySystem : MonoBehaviour
     private int facingDirection = 1;
 
     private float parryTime;
-
-
 
     // InputAction references for the new input system
     [SerializeField]
@@ -49,7 +45,6 @@ public class ParrySystem : MonoBehaviour
 
     private void Update()
     {
-
         if (player.movementInput.x < 0)
             facingDirection = -1;  // Facing left
         else if (player.movementInput.x > 0)
@@ -62,10 +57,8 @@ public class ParrySystem : MonoBehaviour
         StartCoroutine( player.DisableMovementDuringParry());
         parryAttempted = true;
         parryTime = Time.deltaTime;
-
-    }
-
-
+		StartCoroutine(ParryWindow());
+	}
 
     public bool CheckParryTiming()
     {
@@ -83,8 +76,13 @@ public class ParrySystem : MonoBehaviour
 
         parryAttempted = false;
 
-
         return sucess;
         
     }
+
+    private IEnumerator ParryWindow()
+    {
+		yield return new WaitForSeconds(parryWindow);
+        parryAttempted = false;
+	}
 }

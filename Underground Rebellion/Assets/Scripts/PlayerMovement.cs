@@ -7,7 +7,6 @@ using UnityEngine.InputSystem.Interactions;
 public class PlayerMovement : MonoBehaviour
 {
     private new Rigidbody2D rigidbody;
-    private Animator animator;
     private Agent agent;
     private ParrySystem playerParrySystem;
     private SpriteRenderer spriteRenderer;
@@ -23,24 +22,21 @@ public class PlayerMovement : MonoBehaviour
     public float wallSlidingSpeed;
     public float wallJumpDuration;
     public Vector2 wallJumpForce;
-    bool wallJumping;
 
     [Header("Dash Sysytem")]
     private bool canDash = true;
     private bool isDashing;
-    private float dashingPower = 24f;
-    private float dashingTime = 0.2f;
-    private float dashingCooldown = 1f;
+    private readonly float dashingPower = 24f;
+    private readonly float dashingTime = 0.2f;
+    private readonly float dashingCooldown = 1f;
     [SerializeField] TrailRenderer trailRenderer;
 
-    private float dirX = 0f;
     [SerializeField] private float moveSpeed = 7f;  
     [SerializeField] private float jumpForce = 14f;
 
     private bool canMove = true;
 
     private enum MovementState { idle, running, jumping, falling}
-    [SerializeField]
     public InputActionReference movement, jump, dash;
 
     private void OnEnable()
@@ -49,21 +45,14 @@ public class PlayerMovement : MonoBehaviour
         jump.action.Enable();
         jump.action.performed += OnJump;
 
-
-
         HitEvent.OnHit += OnPlayerHit;
-
-
     }
     private void OnDisable()
     {
         jump.action.Disable();
         jump.action.performed -= OnJump;
 
-
-
         HitEvent.OnHit -= OnPlayerHit;
-
     }
     private void OnJump(InputAction.CallbackContext context)
     {
@@ -77,16 +66,20 @@ public class PlayerMovement : MonoBehaviour
         {
             if (sender.CompareTag("Trap"))
             {
-                if (playerParrySystem.CheckParryTiming())
-                {
-                    //ParryEvent.Parry(sender);
-                    Debug.Log("Parry");
-                }
-                else
-                {
-                    agent.GetHit(damage, sender);
-                }
-            }
+				agent.GetHit(damage, sender);
+			}
+			else if (sender.CompareTag("Enemy"))
+            {
+				if (playerParrySystem.CheckParryTiming())
+				{
+                    ParryEvent.Parry(1, sender.transform.parent.gameObject);
+					Debug.Log("Parry");
+				}
+				else
+				{
+					agent.GetHit(damage, sender);
+				}
+			}
             
         }
         
@@ -101,15 +94,10 @@ public class PlayerMovement : MonoBehaviour
         canMove = true;
     }
 
-
-
-
-
     // Start is called before the first frame update
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
-        animator = GetComponentInChildren<Animator>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         collider = GetComponent<BoxCollider2D>();
         agent = GetComponent<Agent>();
@@ -127,17 +115,14 @@ public class PlayerMovement : MonoBehaviour
             rigidbody.drag = 10f;
             return;
         }
-        
 
         agent.wallCheck = wallCheck;
         movementInput = movement.action.ReadValue<Vector2>();
             
-
         if (isDashing)
         {
             return;
         }
-        
 
         Movement();
 
@@ -197,11 +182,11 @@ public class PlayerMovement : MonoBehaviour
         {
             if (movementInput.x > 0)
             {
-                agent.wallJumoForce = wallJumpForce;
+                agent.wallJumpForce = wallJumpForce;
             }
             else if (movementInput.x < 0)
             {
-                agent.wallJumoForce = new Vector2(-wallJumpForce.x, wallJumpForce.y);
+                agent.wallJumpForce = new Vector2(-wallJumpForce.x, wallJumpForce.y);
             }
 
             isSliding = false;
@@ -231,14 +216,31 @@ public class PlayerMovement : MonoBehaviour
     
     private void StopWallJumping()
     {
-        agent.wallJumoForce = Vector2.zero;
-        
+        agent.wallJumpForce = Vector2.zero;
     }
 
     private bool IsGrounded()
     {
         return Physics2D.BoxCast(collider.bounds.center, collider.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
     }
+
+	void OnTriggerStay2D(Collider2D collision)
+	{
+		if (collision.CompareTag("Slow Goo"))
+		{
+			int slow = collision.GetComponent<SlowGoo>().slowPercentage;
+			agent.SlowMovement(slow);
+		}
+	}
+
+	void OnTriggerExit2D(Collider2D collision)
+	{
+		if (collision.CompareTag("Slow Goo"))
+		{
+			// Restaura a velocidade
+			agent.SlowMovement(0);
+		}
+	}
 
 
 }

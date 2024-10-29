@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
@@ -37,27 +38,52 @@ public class AgentAnimations : MonoBehaviour
 		animator.SetInteger("state", 3);
 	}
 
+	//public void LookDirection(Vector2 direction)
+	//{
+
+	//	if (direction.x > 0)
+	//	{
+	//		spriteRenderer.flipX = false;
+	//		wallCheck.localPosition = new Vector2(Math.Abs(wallCheck.localPosition.x), wallCheck.localPosition.y);
+	//	}
+	//	else if (direction.x < 0)
+	//	{
+	//		spriteRenderer.flipX = true;
+	//		wallCheck.localPosition = new Vector2(-Math.Abs(wallCheck.localPosition.x), wallCheck.localPosition.y);
+	//	}
+
+
+	//}
+
 	public void LookDirection(Vector2 direction)
 	{
-		
+		var scale = transform.parent.localScale;
 		if (direction.x > 0)
 		{
-			spriteRenderer.flipX = false;
-			wallCheck.localPosition = new Vector2(Math.Abs(wallCheck.localPosition.x), wallCheck.localPosition.y);
+			scale.x = 1;
 		}
 		else if (direction.x < 0)
 		{
-			spriteRenderer.flipX = true;
-			wallCheck.localPosition = new Vector2(-Math.Abs(wallCheck.localPosition.x), wallCheck.localPosition.y);
+			scale.x = -1;
 		}
 
-		
+		transform.parent.localScale = scale;
+	}
+
+	public void AttackAnimation(string triggerName)
+	{
+		animator.SetTrigger(triggerName);
 	}
 
 	//Caso queira colocar uma animação de morte que sabe da direção que vem a morte, para adicionar particulas ou knockback, é bom ter o sender no paramentro
 	public void DeathAnimation()
 	{
 		animator.SetTrigger("death");
+	}
+
+	public void StunAnimation()
+	{
+		animator.SetTrigger("stun");
 	}
 
 	public void RestartLevel()

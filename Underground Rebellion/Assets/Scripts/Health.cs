@@ -11,7 +11,7 @@ public class Health : MonoBehaviour
 
 	public int currentHealth;
 
-	public UnityEvent<GameObject> OnHitWithReference, OnDeathWithReference;
+	public UnityEvent OnHitWithReference, OnDeathWithReference;
 
 	private bool isDead = false;
 
@@ -22,9 +22,8 @@ public class Health : MonoBehaviour
 		isDead = false;
 	}
 
-	public void GetHit(int amount, GameObject sender)
+	public void GetHit(int amount)
 	{
-		Debug.Log("Hit");
 		if (isDead)
 			return;
 
@@ -32,12 +31,12 @@ public class Health : MonoBehaviour
 
 		if (currentHealth > 0)
 		{
-			OnHitWithReference?.Invoke(sender);
+			OnHitWithReference?.Invoke();
 			
 		}
 		else
 		{
-			OnDeathWithReference?.Invoke(sender);
+			OnDeathWithReference?.Invoke();
 			isDead = true;
 		}
 	}    

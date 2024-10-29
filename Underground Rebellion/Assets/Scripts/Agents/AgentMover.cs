@@ -7,17 +7,15 @@ public class AgentMover : MonoBehaviour
 {
 	private Rigidbody2D rb2d;
 
-	[SerializeField]
-	private float maxSpeed = 2, acceleration = 50, deacceleration = 100;
-	[SerializeField]
-	private float currentSpeed = 0;
-	private Vector2 oldMovementInput;
 	public Vector2 wallJumpForce;
-	[SerializeField] private float moveSpeed = 7f;
+	[SerializeField]
+	private float moveSpeed;
 	public Vector2 MovementInput { get; set; }
 
 	public float jumpForce, wallSlidingSpeed;
 	public float movemntInputX, dashingPower;
+
+	private int slowPercentage;
 
 	private void Awake()
 	{
@@ -26,18 +24,24 @@ public class AgentMover : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		float currentSpeed = moveSpeed;
+		if (slowPercentage > 0)
+		{
+			currentSpeed -= moveSpeed * (slowPercentage / 100f);
+		}
+
 		if (wallJumpForce.x != 0)
         {
 			ApplyForce(wallJumpForce);
 		}
 		else if (wallSlidingSpeed != 0)
         {
-			rb2d.velocity = new Vector2(MovementInput.x * moveSpeed, Mathf.Clamp(rb2d.velocity.y, -wallSlidingSpeed, float.MaxValue));
+			rb2d.velocity = new Vector2(MovementInput.x * currentSpeed, Mathf.Clamp(rb2d.velocity.y, -wallSlidingSpeed, float.MaxValue));
 		}
 
         else if (MovementInput.x != 0)
         {
-			rb2d.velocity = new Vector2(MovementInput.x * moveSpeed, rb2d.velocity.y);
+			rb2d.velocity = new Vector2(MovementInput.x * currentSpeed, rb2d.velocity.y);
 		}
 
 		if (movemntInputX != 0)
@@ -45,22 +49,6 @@ public class AgentMover : MonoBehaviour
 			Dash(movemntInputX, dashingPower);
 			
         }
-
-
-		//rb2d.velocity = new Vector2(wallJumpForce.x == 0 ? MovementInput.x * moveSpeed : MovementInput.x * wallJumpForce.x, wallSlidingSpeed != 0 ? Mathf.Clamp(rb2d.velocity.y, -wallSlidingSpeed, float.MaxValue) :(jumpForce > 0 ? jumpForce : rb2d.velocity.y));
-		//Debug.Log(rb2d.velocity);
-		//if (MovementInput.magnitude > 0)
-		//{
-		//	oldMovementInput = MovementInput;
-		//	currentSpeed += acceleration * maxSpeed * Time.deltaTime;
-		//}
-		//else
-		//{
-		//	currentSpeed -= deacceleration * maxSpeed * Time.deltaTime;
-		//}
-		//currentSpeed = Mathf.Clamp(currentSpeed, 0, maxSpeed);
-		//rb2d.velocity = oldMovementInput * currentSpeed;
-
 	}
 
 	public void ResetDash()
@@ -80,5 +68,11 @@ public class AgentMover : MonoBehaviour
 	public void StopMoving()
 	{
 		rb2d.bodyType = RigidbodyType2D.Static;
+	}
+
+	public void SlowMovement(int percentage)
+	{
+		if (slowPercentage < percentage || percentage == 0)
+			slowPercentage = percentage;
 	}
 }
