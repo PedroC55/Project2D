@@ -119,6 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bcc9ffd29fee4240a81cd43eb5574a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wallCheck: {fileID: 0}
 --- !u!1 &5616279431631585705
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,7 +132,6 @@ GameObject:
   - component: {fileID: 4986467386328032414}
   - component: {fileID: 2185924977511233748}
   - component: {fileID: 2117903320574819507}
-  - component: {fileID: 1185688167791041642}
   - component: {fileID: 1453009775017814614}
   m_Layer: 7
   m_Name: Player
@@ -154,7 +154,7 @@ Transform:
   m_Children:
   - {fileID: 5585224066748769882}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &4986467386328032414
 Rigidbody2D:
@@ -243,21 +243,17 @@ MonoBehaviour:
   jumpableGround:
     serializedVersion: 2
     m_Bits: 64
+  movementInput: {x: 0, y: 0}
+  wallCheck: {fileID: 0}
+  wallSlidingSpeed: 0
+  wallJumpDuration: 0
+  wallJumpForce: {x: 0, y: 0}
+  trailRenderer: {fileID: 0}
   moveSpeed: 9
   jumpForce: 18
---- !u!114 &1185688167791041642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5616279431631585705}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d65f191094df0734484f0443644e9db9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cherriesText: {fileID: 0}
+  movement: {fileID: 0}
+  jump: {fileID: 0}
+  dash: {fileID: 0}
 --- !u!114 &1453009775017814614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,8 +266,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7864decdd29f29a42bf5dc308cd48b46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 1
   maxHealth: 1
+  currentHealth: 1
   OnHitWithReference:
     m_PersistentCalls:
       m_Calls: []

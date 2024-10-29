@@ -7,7 +7,9 @@ using UnityEngine.SceneManagement;
 public class Health : MonoBehaviour
 {
 	[SerializeField]
-	private int currentHealth, maxHealth;
+	private int maxHealth;
+
+	public int currentHealth;
 
 	public UnityEvent<GameObject> OnHitWithReference, OnDeathWithReference;
 
@@ -31,6 +33,7 @@ public class Health : MonoBehaviour
 		if (currentHealth > 0)
 		{
 			OnHitWithReference?.Invoke(sender);
+			
 		}
 		else
 		{
