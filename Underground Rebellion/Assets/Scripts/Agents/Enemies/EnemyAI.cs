@@ -56,13 +56,13 @@ public class EnemyAI : MonoBehaviour
 	private void OnEnable()
 	{
 		HitEvent.OnHit += GetHit;
-		//ParryEvent.OnParry += DecreaseEnergy;
+		ParryEvent.OnParry += DecreaseEnergy;
 	}
 
 	private void OnDisable()
 	{
 		HitEvent.OnHit -= GetHit;
-		//ParryEvent.OnParry -= DecreaseEnergy;
+		ParryEvent.OnParry -= DecreaseEnergy;
 	}
 
 	private void Update()

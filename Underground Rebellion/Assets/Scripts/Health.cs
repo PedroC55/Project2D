@@ -7,9 +7,11 @@ using UnityEngine.SceneManagement;
 public class Health : MonoBehaviour
 {
 	[SerializeField]
-	private int currentHealth, maxHealth;
+	private int maxHealth;
 
-	public UnityEvent<GameObject> OnHitWithReference, OnDeathWithReference;
+	public int currentHealth;
+
+	public UnityEvent OnHitWithReference, OnDeathWithReference;
 
 	private bool isDead = false;
 
@@ -20,7 +22,7 @@ public class Health : MonoBehaviour
 		isDead = false;
 	}
 
-	public void GetHit(int amount, GameObject sender)
+	public void GetHit(int amount)
 	{
 		if (isDead)
 			return;
@@ -29,11 +31,12 @@ public class Health : MonoBehaviour
 
 		if (currentHealth > 0)
 		{
-			OnHitWithReference?.Invoke(sender);
+			OnHitWithReference?.Invoke();
+			
 		}
 		else
 		{
-			OnDeathWithReference?.Invoke(sender);
+			OnDeathWithReference?.Invoke();
 			isDead = true;
 		}
 	}    

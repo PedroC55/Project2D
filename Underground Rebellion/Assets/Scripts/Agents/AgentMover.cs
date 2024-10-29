@@ -7,11 +7,13 @@ public class AgentMover : MonoBehaviour
 {
 	private Rigidbody2D rb2d;
 
+	public Vector2 wallJumpForce;
 	[SerializeField]
 	private float moveSpeed;
 	public Vector2 MovementInput { get; set; }
 
-	public float jumpForce;
+	public float jumpForce, wallSlidingSpeed;
+	public float movemntInputX, dashingPower;
 
 	private int slowPercentage;
 
@@ -23,15 +25,46 @@ public class AgentMover : MonoBehaviour
 	private void FixedUpdate()
 	{
 		float currentSpeed = moveSpeed;
-		
 		if (slowPercentage > 0)
 		{
 			currentSpeed -= moveSpeed * (slowPercentage / 100f);
 		}
 
-		rb2d.velocity = new Vector2(MovementInput.x * currentSpeed, jumpForce > 0 ? jumpForce : rb2d.velocity.y);
+		if (wallJumpForce.x != 0)
+        {
+			ApplyForce(wallJumpForce);
+		}
+		else if (wallSlidingSpeed != 0)
+        {
+			rb2d.velocity = new Vector2(MovementInput.x * currentSpeed, Mathf.Clamp(rb2d.velocity.y, -wallSlidingSpeed, float.MaxValue));
+		}
+
+        else if (MovementInput.x != 0)
+        {
+			rb2d.velocity = new Vector2(MovementInput.x * currentSpeed, rb2d.velocity.y);
+		}
+
+		if (movemntInputX != 0)
+        {
+			Dash(movemntInputX, dashingPower);
+			
+        }
 	}
 
+	public void ResetDash()
+    {
+		movemntInputX = 0f;
+		dashingPower = 0f;
+    }
+	public void Dash(float movemntInput, float dashingPower)
+    {
+		rb2d.velocity = new Vector2(movemntInput * dashingPower, 0f);
+	}
+
+	public void ApplyForce(Vector2 direction)
+    {
+		rb2d.AddForce(direction, ForceMode2D.Impulse);
+	}
 	public void StopMoving()
 	{
 		rb2d.bodyType = RigidbodyType2D.Static;
