@@ -7,6 +7,7 @@ public class EnemyLineOfSight : MonoBehaviour
 {
 	private LayerMask detectionMask;
 	private EnemyAI enemyAI;
+
 	private void Awake()
 	{
 		detectionMask = LayerMask.GetMask("Ground", "Player");

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyEnergy : MonoBehaviour
+public class EnemyEnergy : EnemyCondition
 {
     [SerializeField]
     private float maxEnergy;
@@ -15,6 +15,7 @@ public class EnemyEnergy : MonoBehaviour
 
 	private bool hasEnergy = true;
 
+	#region Energy Bar Components
 	[Header("Energy Bar Components")]
 	[SerializeField]
 	private Canvas canvas;
@@ -26,6 +27,8 @@ public class EnemyEnergy : MonoBehaviour
 
 	private Color normalColor;
 	private Color rechargeColor;
+
+	#endregion
 
 	private void Start()
 	{
@@ -74,6 +77,7 @@ public class EnemyEnergy : MonoBehaviour
 			currentEnergy = 0;
 			hasEnergy = false;
 			fillSliderImage.color = rechargeColor;
+			enemyAI.EnemyTired();
 		}
     }
 

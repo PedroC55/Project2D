@@ -9,7 +9,6 @@ using UnityEngine.Events;
 public class EnemyAI : MonoBehaviour
 {
 	public UnityEvent<Vector2> OnMovementInput, OnDirectionInput;
-	//public UnityEvent<int, GameObject> OnAttack;
 
 	[SerializeField]
 	private int startDirection = 1;
@@ -26,12 +25,18 @@ public class EnemyAI : MonoBehaviour
 
 	private Agent agent;
 
+	#region Enemy Actions
+
 	private EnemyPatrol patrol;
 	private EnemyMeleeAttack meleeAttack;
-	private EnemyLineOfSight lineOfSight;
 	private EnemyAction currentAction;
+	#endregion
 
+	#region Enemy Conditions
+
+	private EnemyLineOfSight lineOfSight;
 	private EnemyEnergy enemyEnergy;
+	#endregion
 
 	private void Awake()
 	{
@@ -62,6 +67,11 @@ public class EnemyAI : MonoBehaviour
 
 	private void Update()
 	{
+		if (Input.GetKeyDown(KeyCode.Q))
+		{
+			DecreaseEnergy(1, gameObject);
+		}
+
 		if (isActing || isDead || !enemyEnergy.HasEnergy())
 			return;
 
@@ -72,11 +82,19 @@ public class EnemyAI : MonoBehaviour
 		}
 		else
 		{
-			patrol.ExecuteAction();
-			currentAction = patrol;
+			if(patrol != null)
+			{
+				patrol.ExecuteAction();
+				currentAction = patrol;
+			}
 		}
 
 		isActing = true;
+	}
+
+	public void PerformAttack(string attackAnimatorTriggerName)
+	{
+		agent.PerformAttack(attackAnimatorTriggerName);
 	}
 
 	public bool CanAggro()
@@ -97,21 +115,9 @@ public class EnemyAI : MonoBehaviour
 		}
 
 		player = playerTransform;
-		patrol.InterruptAction();
+		if(patrol != null)
+			patrol.InterruptAction();
 		StartCoroutine(AggroCoroutine());
-	}
-
-	public void ResetEnemy()
-	{
-		currentAction.InterruptAction();
-		isAggroed = false;
-		//isReseting = true;
-		lineOfSight.ActiveLineOfSight();
-	}
-
-	public void ActionFinished()
-	{
-		isActing = false;
 	}
 
 	public void GetHit(int damage, GameObject sender, GameObject receiver)
@@ -134,18 +140,34 @@ public class EnemyAI : MonoBehaviour
 		isDead = true;
 	}
 
-	public void DecreaseEnergy(int amount)
+	public void DecreaseEnergy(int amount, GameObject receiver)
 	{
+		if (receiver.GetInstanceID() != gameObject.GetInstanceID())
+			return;
+
 		enemyEnergy.DecreaseEnergy(amount);
+	}
 
-		if (!enemyEnergy.HasEnergy())
-		{
-			ResetEnemy();
-			isActing = false;
-			OnMovementInput?.Invoke(Vector2.zero);
+	public void EnemyTired()
+	{
+		ResetEnemy();
+		isActing = false;
+		OnMovementInput?.Invoke(Vector2.zero);
 
-			//Chamar animação de stun
-		}
+		//agent.StunAnimation();
+	}
+
+	public void ResetEnemy()
+	{
+		currentAction.InterruptAction();
+		isAggroed = false;
+		//isReseting = true;
+		lineOfSight.ActiveLineOfSight();
+	}
+
+	public void ActionFinished()
+	{
+		isActing = false;
 	}
 
 	private IEnumerator AggroCoroutine()

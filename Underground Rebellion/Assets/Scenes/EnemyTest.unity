@@ -40746,7 +40746,7 @@ GameObject:
   - component: {fileID: 583662955}
   - component: {fileID: 583662962}
   m_Layer: 8
-  m_Name: Enemy
+  m_Name: Worm
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45304,7 +45304,7 @@ GameObject:
   - component: {fileID: 1553003573}
   - component: {fileID: 1553003577}
   m_Layer: 8
-  m_Name: Enemy Sprite
+  m_Name: Worm Sprite
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

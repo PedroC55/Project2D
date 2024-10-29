@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyAction : MonoBehaviour
 {
-	protected Agent agent;
 	protected EnemyAI enemyAI;
 
 	protected bool isExecuting = false;
@@ -13,7 +12,6 @@ public class EnemyAction : MonoBehaviour
 
 	protected virtual void Awake()
 	{
-		agent = GetComponentInParent<Agent>();
 		enemyAI = GetComponentInParent<EnemyAI>();
 	}
 
@@ -24,15 +22,15 @@ public class EnemyAction : MonoBehaviour
 
 	public virtual void ExecuteAction()
 	{
-		throw new System.NotImplementedException($"Metodo não implementado para classe: {this.GetType().FullName}, do objeto: {gameObject.name}");
+		throw new System.NotImplementedException($"Metodo não implementado para classe: {this.GetType().FullName}, do objeto: {transform.parent.gameObject.name}");
 	}
 	public virtual void ExecuteAction(Transform player)
 	{
-		throw new System.NotImplementedException($"Metodo não implementado para classe: {this.GetType().FullName}, do objeto: {gameObject.name}");
+		throw new System.NotImplementedException($"Metodo não implementado para classe: {this.GetType().FullName}, do objeto: {transform.parent.gameObject.name}");
 	}
 	public virtual void ExecuteAction(Transform player, float attackDistance)
 	{
-		throw new System.NotImplementedException($"Metodo não implementado para classe: {this.GetType().FullName}, do objeto: {gameObject.name}");
+		throw new System.NotImplementedException($"Metodo não implementado para classe: {this.GetType().FullName}, do objeto: {transform.parent.gameObject.name}");
 	}
 
 	public virtual void InterruptAction()

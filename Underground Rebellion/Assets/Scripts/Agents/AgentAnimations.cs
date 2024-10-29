@@ -45,6 +45,11 @@ public class AgentAnimations : MonoBehaviour
 		animator.SetTrigger("death");
 	}
 
+	public void StunAnimation()
+	{
+		animator.SetTrigger("stun");
+	}
+
 	public void RestartLevel()
 	{
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);

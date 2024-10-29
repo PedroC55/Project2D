@@ -60,7 +60,7 @@ public class EnemyMeleeAttack : EnemyAction
 	private IEnumerator StartAttack()
 	{
 		isAttacking = true;
-		agent.PerformAttack(AttackAnimatorTriggerName);
+		enemyAI.PerformAttack(AttackAnimatorTriggerName);
 		//Fazer animação de que vai atacar
 		yield return new WaitForSeconds(buildUpDelay);
 		//Atacar

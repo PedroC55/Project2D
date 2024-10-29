@@ -53,6 +53,11 @@ public class Agent : MonoBehaviour
 		health.GetHit(damage, sender);
 	}
 
+	public void StunAnimation()
+	{
+		agentAnimations.StunAnimation();
+	}
+
 	private void AnimateCharacter()
 	{
 		agentAnimations.WalkingAnimation(movementInput);
