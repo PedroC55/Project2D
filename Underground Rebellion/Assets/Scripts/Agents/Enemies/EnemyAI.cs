@@ -67,11 +67,6 @@ public class EnemyAI : MonoBehaviour
 
 	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Q))
-		{
-			DecreaseEnergy(1, gameObject);
-		}
-
 		if (isActing || isDead || !enemyEnergy.HasEnergy())
 			return;
 

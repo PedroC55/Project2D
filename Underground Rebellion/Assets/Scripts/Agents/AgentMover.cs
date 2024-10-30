@@ -17,6 +17,8 @@ public class AgentMover : MonoBehaviour
 
 	private int slowPercentage;
 
+	public bool canWalkWalls = false;
+
 	private void Awake()
 	{
 		rb2d = GetComponent<Rigidbody2D>();
@@ -30,6 +32,15 @@ public class AgentMover : MonoBehaviour
 			currentSpeed -= moveSpeed * (slowPercentage / 100f);
 		}
 
+		//O melhor seria fazer verificações do tipo,
+		//if(isWallJumping){
+		//	aplica os calculos no rb2d.velocity baseado no walljumping
+		//	return;
+		//}
+		//Fazer isso para todos, no caso, wallJumping, Sliding e Dashing
+		//No fim de tudo , caso não esteja fazendo nenhuma dessas 3 ações
+		//Colocar para andar normal: rb2d.velocity = new Vector2(MovementInput.x * currentSpeed, rb2d.velocity.y);
+
 		if (wallJumpForce.x != 0)
         {
 			ApplyForce(wallJumpForce);
@@ -39,10 +50,15 @@ public class AgentMover : MonoBehaviour
 			rb2d.velocity = new Vector2(MovementInput.x * currentSpeed, Mathf.Clamp(rb2d.velocity.y, -wallSlidingSpeed, float.MaxValue));
 		}
 
-        else if (MovementInput.x != 0)
-        {
+		if (!canWalkWalls)
+		{
 			rb2d.velocity = new Vector2(MovementInput.x * currentSpeed, rb2d.velocity.y);
 		}
+		else
+		{
+			rb2d.velocity = MovementInput * currentSpeed;
+		}
+
 
 		if (movemntInputX != 0)
         {
