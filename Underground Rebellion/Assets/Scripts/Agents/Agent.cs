@@ -91,6 +91,11 @@ public class Agent : MonoBehaviour
 		agentAnimations.StunAnimation();
 	}
 
+	public float GetCurrentSpeed()
+	{
+		return agentMover.GetCurrentSpeed();
+	}
+
 	private void AnimateCharacter()
 	{
 		if (movementInput.x > 0 || movementInput.x < 0)

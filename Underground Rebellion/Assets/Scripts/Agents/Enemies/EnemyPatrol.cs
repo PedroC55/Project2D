@@ -66,6 +66,8 @@ public class EnemyPatrol : EnemyAction
 		isObserving = false;
 	}
 
+	//Alterar isso, pq como está agora o código só vai funcionar para 2 posições, se tiver 3 ou mais fucniona,
+	//porém quando chegar no ultimo nó do patrol ele vai voltar todo o caminho até o primeiro e n gradualmente.
 	private void UpdateNextPatrolPoint()
 	{
 		currentPosition = (currentPosition == positionsLength - 1) ? 0 : currentPosition + 1;

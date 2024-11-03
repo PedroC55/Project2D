@@ -38,6 +38,12 @@ public class EnemyAI : MonoBehaviour
 	private EnemyEnergy enemyEnergy;
 	#endregion
 
+	//Tirar depois e colocar só no da formiga
+	public TerrainPath tPath;
+
+	//Fazer um metodo para atualizar o Nó atual de movimento do inimigo e também colocar no script da formiga
+	//public void UpdateCurrentNode
+
 	private void Awake()
 	{
 		agent = GetComponent<Agent>();

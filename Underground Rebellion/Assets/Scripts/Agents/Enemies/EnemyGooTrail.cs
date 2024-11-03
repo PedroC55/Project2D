@@ -19,7 +19,7 @@ public class EnemyGooTrail : MonoBehaviour
 	{
 		Vector2 currentPosition = transform.parent.position;
 
-		currentDistance += Mathf.Abs(lastPosition.x - currentPosition.x);
+		currentDistance += Vector2.Distance(lastPosition, currentPosition);
 
 		lastPosition = currentPosition;
 
@@ -30,7 +30,8 @@ public class EnemyGooTrail : MonoBehaviour
 			positionToInstantiate = transform.parent.position;
 			positionToInstantiate.y += gooPrefab.transform.position.y;
 
-			Instantiate(gooPrefab, positionToInstantiate, Quaternion.identity);
+			GameObject goo = Instantiate(gooPrefab, positionToInstantiate, Quaternion.identity);
+			goo.transform.RotateAround(transform.parent.position, Vector3.forward, transform.rotation.eulerAngles.z);
 		}
 
 	}

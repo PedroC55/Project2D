@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class AgentMover : MonoBehaviour
@@ -10,6 +11,7 @@ public class AgentMover : MonoBehaviour
 	public Vector2 wallJumpForce;
 	[SerializeField]
 	private float moveSpeed;
+	private float currentSpeed;
 	public Vector2 MovementInput { get; set; }
 
 	public float jumpForce, wallSlidingSpeed;
@@ -17,21 +19,23 @@ public class AgentMover : MonoBehaviour
 
 	private int slowPercentage;
 
-	public bool canWalkWalls = false;
+	
+	private bool canWalkWalls = false;
+	private WallMovement agentWM;
 
 	private void Awake()
 	{
 		rb2d = GetComponent<Rigidbody2D>();
+		
+		currentSpeed = moveSpeed;
+
+		agentWM = GetComponent<WallMovement>();
+		canWalkWalls = agentWM ? true : false;
+		rb2d.gravityScale = agentWM ? 0 : rb2d.gravityScale;
 	}
 
 	private void FixedUpdate()
 	{
-		float currentSpeed = moveSpeed;
-		if (slowPercentage > 0)
-		{
-			currentSpeed -= moveSpeed * (slowPercentage / 100f);
-		}
-
 		//O melhor seria fazer verificações do tipo,
 		//if(isWallJumping){
 		//	aplica os calculos no rb2d.velocity baseado no walljumping
@@ -56,15 +60,27 @@ public class AgentMover : MonoBehaviour
 		}
 		else
 		{
-			rb2d.velocity = MovementInput * currentSpeed;
+			float xSpeed = rb2d.velocity.x;
+			float ySpeed = rb2d.velocity.y;
+
+			if((new[] { GravityDirection.Down, GravityDirection.Up }).Contains(agentWM.GetGravityDirection()))
+				xSpeed = MovementInput.x * currentSpeed;
+			else
+				ySpeed = MovementInput.y * currentSpeed;
+
+			rb2d.velocity = new Vector2(xSpeed, ySpeed);
 		}
 
 
 		if (movemntInputX != 0)
         {
 			Dash(movemntInputX, dashingPower);
-			
         }
+	}
+
+	public float GetCurrentSpeed()
+	{
+		return currentSpeed;
 	}
 
 	public void ResetDash()
@@ -90,5 +106,11 @@ public class AgentMover : MonoBehaviour
 	{
 		if (slowPercentage < percentage || percentage == 0)
 			slowPercentage = percentage;
+
+		currentSpeed = moveSpeed;
+		if (slowPercentage > 0)
+		{
+			currentSpeed -= moveSpeed * (slowPercentage / 100f);
+		}
 	}
 }
