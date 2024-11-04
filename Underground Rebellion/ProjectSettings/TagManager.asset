@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Cherry
   - Trap
+  - Enemy
+  - Slow Goo
   layers:
   - Default
   - TransparentFX
@@ -16,7 +18,7 @@ TagManager:
   - Ground
   - Player
   - Enemy
-  - 
+  - Line Of Sight
   - 
   - 
   - 
