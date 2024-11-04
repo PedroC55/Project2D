@@ -83,11 +83,17 @@ public class Agent : MonoBehaviour
 		agentMover.ResetDash();
     }
 
-	public void Dash(float movementInput, float dashingPower)
+	public void Dash(float dashingPowerX,float dashingPowerY ,Vector2 movementInput)
     {
+		float direction_x = agentAnimations.getDirection();
 		
-		agentMover.dashingPower = dashingPower;
-		agentMover.movemntInputX = movementInput;
+		agentMover.dashingPowerX = dashingPowerX;
+		agentMover.dashingPowerY = dashingPowerY;
+		agentMover.movemntInputX = direction_x;
+		agentMover.movementInputY = movementInput.y;
+		
+
+
     }
 
 	public void StunAnimation()

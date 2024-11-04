@@ -40951,7 +40951,9 @@ MonoBehaviour:
   jumpForce: 0
   wallSlidingSpeed: 0
   movemntInputX: 0
-  dashingPower: 0
+  movementInputY: 0
+  dashingPowerX: 0
+  dashingPowerY: 0
 --- !u!114 &583662965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45834,6 +45836,18 @@ PrefabInstance:
     - target: {fileID: 2117903320574819507, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
       propertyPath: wallSlidingSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2806821240566795578, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
+      propertyPath: m_Time
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2806821240566795578, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
+      propertyPath: m_Autodestruct
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2806821240566795578, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
+      propertyPath: m_Parameters.colorGradient.m_ColorSpace
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4022934457941099702, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
       propertyPath: m_RootOrder

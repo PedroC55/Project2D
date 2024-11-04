@@ -26,7 +26,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Dash Sysytem")]
     private bool canDash = true;
     private bool isDashing;
-    private readonly float dashingPower = 24f;
+    private readonly float dashingPowerX = 24f;
+    private readonly float dashingPowerY = 17f;
     private readonly float dashingTime = 0.2f;
     private readonly float dashingCooldown = 1f;
     [SerializeField] TrailRenderer trailRenderer;
@@ -88,8 +89,6 @@ public class PlayerMovement : MonoBehaviour
     public IEnumerator DisableMovementDuringParry()
     {
         canMove = false;
-
-
         yield return new WaitForSeconds(0.5f);
         canMove = true;
     }
@@ -133,7 +132,6 @@ public class PlayerMovement : MonoBehaviour
 
             StartCoroutine(Dash());
         }
-
         Slide();
     }
 
@@ -198,11 +196,15 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator Dash()
     {
+        if (movementInput.y != 0f && movementInput.x == 0)
+        {
+            yield break;
+        }
         canDash = false;
         isDashing = true;
         float originalGravity = rigidbody.gravityScale;
         rigidbody.gravityScale = 0f;
-        agent.Dash(movementInput.x, dashingPower);
+        agent.Dash(dashingPowerX,dashingPowerY, movementInput);
         trailRenderer.emitting = true;
         yield return new WaitForSeconds(dashingTime);
         trailRenderer.emitting = false;

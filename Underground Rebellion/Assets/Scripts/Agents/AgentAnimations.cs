@@ -68,7 +68,14 @@ public class AgentAnimations : MonoBehaviour
 		}
 
 		transform.parent.localScale = scale;
+		
 	}
+
+	public float getDirection()
+	{
+		return transform.parent.localScale.x;
+	}
+
 
 	public void AttackAnimation(string triggerName)
 	{

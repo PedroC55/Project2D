@@ -13,7 +13,7 @@ public class AgentMover : MonoBehaviour
 	public Vector2 MovementInput { get; set; }
 
 	public float jumpForce, wallSlidingSpeed;
-	public float movemntInputX, dashingPower;
+	public float movemntInputX, movementInputY, dashingPowerX, dashingPowerY;
 
 	private int slowPercentage;
 
@@ -44,21 +44,23 @@ public class AgentMover : MonoBehaviour
 			rb2d.velocity = new Vector2(MovementInput.x * currentSpeed, rb2d.velocity.y);
 		}
 
-		if (movemntInputX != 0)
+		if (dashingPowerX != 0)
         {
-			Dash(movemntInputX, dashingPower);
-			
+			Dash(movemntInputX,movementInputY, dashingPowerX, dashingPowerY);
         }
 	}
 
 	public void ResetDash()
     {
 		movemntInputX = 0f;
-		dashingPower = 0f;
+		movementInputY = 0f;
+		dashingPowerX = 0f;
+		dashingPowerY = 0f;
+		rb2d.velocity = Vector2.zero;
     }
-	public void Dash(float movemntInput, float dashingPower)
+	public void Dash(float movemntInputX, float movementInputY, float dashingPowerX, float dashingPowerY)
     {
-		rb2d.velocity = new Vector2(movemntInput * dashingPower, 0f);
+		rb2d.velocity = new Vector2(movemntInputX * dashingPowerX, movementInputY * dashingPowerY);
 	}
 
 	public void ApplyForce(Vector2 direction)
