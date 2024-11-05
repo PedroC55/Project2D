@@ -437,7 +437,7 @@ Transform:
   - {fileID: 8208806402746543614}
   - {fileID: 7395525547435325720}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &4743452974292129858
 Rigidbody2D:
@@ -577,10 +577,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 8348641699354034396}
         m_TargetAssemblyTypeName: EnemyAI, Assembly-CSharp
         m_MethodName: EnemyDied
-        m_Mode: 0
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -633,7 +633,6 @@ MonoBehaviour:
         m_CallState: 2
   startDirection: -1
   contactHitDamage: 1
-  tPath: {fileID: 0}
 --- !u!1 &4100881680981077053
 GameObject:
   m_ObjectHideFlags: 0
@@ -1379,6 +1378,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delayTime: 0.5
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  edgeOffset: {x: 0.5, y: -0.7}
 --- !u!114 &6055270280493794189
 MonoBehaviour:
   m_ObjectHideFlags: 0

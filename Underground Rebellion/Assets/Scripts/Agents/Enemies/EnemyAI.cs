@@ -89,7 +89,8 @@ public class EnemyAI : MonoBehaviour
 		}
 
 		player = playerTransform;
-		currentAction.InterruptAction();
+		if(currentAction != null)
+			currentAction.InterruptAction();
 		StartCoroutine(AggroCoroutine());
 	}
 
