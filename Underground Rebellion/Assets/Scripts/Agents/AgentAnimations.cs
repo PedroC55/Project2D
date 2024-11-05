@@ -9,60 +9,47 @@ public class AgentAnimations : MonoBehaviour
 {
 	private Animator animator;
 	public Transform wallCheck;
-	private SpriteRenderer spriteRenderer;
+
+	private enum MovementState { idle, running, jumping, falling }
 
 	private void Awake()
 	{
 		animator = GetComponent<Animator>();
-		spriteRenderer = GetComponent<SpriteRenderer>();
 	}
 
 	public void WalkingAnimation(Vector2 movementInput)
 	{
 		LookDirection(movementInput);
-		animator.SetInteger("state", 1);
+		animator.SetInteger("state", (int)MovementState.running);
 	}
 
 	public void IdleAnimation()
 	{
-		animator.SetInteger("state", 0);
+		animator.SetInteger("state", (int) MovementState.idle);
 	}
 
 	public void JumpingAnimation()
 	{
-		animator.SetInteger("state", 2);
+		animator.SetInteger("state", (int)MovementState.jumping);
 	}
 
 	public void FallingAnimation()
 	{
-		animator.SetInteger("state", 3);
+		animator.SetInteger("state", (int)MovementState.falling);
 	}
-
-	//public void LookDirection(Vector2 direction)
-	//{
-
-	//	if (direction.x > 0)
-	//	{
-	//		spriteRenderer.flipX = false;
-	//		wallCheck.localPosition = new Vector2(Math.Abs(wallCheck.localPosition.x), wallCheck.localPosition.y);
-	//	}
-	//	else if (direction.x < 0)
-	//	{
-	//		spriteRenderer.flipX = true;
-	//		wallCheck.localPosition = new Vector2(-Math.Abs(wallCheck.localPosition.x), wallCheck.localPosition.y);
-	//	}
-
-
-	//}
 
 	public void LookDirection(Vector2 direction)
 	{
 		var scale = transform.parent.localScale;
-		if (direction.x > 0)
+
+		Quaternion agentRotation = transform.rotation;
+		Vector2 correctFaceDirection = Quaternion.Inverse(agentRotation) * direction;
+
+		if (correctFaceDirection.x > 0)
 		{
 			scale.x = 1;
 		}
-		else if (direction.x < 0)
+		else if (correctFaceDirection.x < 0)
 		{
 			scale.x = -1;
 		}
