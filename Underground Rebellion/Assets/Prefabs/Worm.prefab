@@ -409,7 +409,7 @@ GameObject:
   - component: {fileID: 461710487712511987}
   - component: {fileID: 2962800635127505357}
   - component: {fileID: 2738747772173335226}
-  - component: {fileID: 9014165181910534945}
+  - component: {fileID: 8348641699354034396}
   m_Layer: 8
   m_Name: Worm
   m_TagString: Enemy
@@ -437,7 +437,7 @@ Transform:
   - {fileID: 8208806402746543614}
   - {fileID: 7395525547435325720}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &4743452974292129858
 Rigidbody2D:
@@ -577,7 +577,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 9014165181910534945}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: EnemyAI, Assembly-CSharp
         m_MethodName: EnemyDied
         m_Mode: 0
@@ -589,7 +589,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &9014165181910534945
+--- !u!114 &8348641699354034396
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -598,7 +598,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3980132299998094347}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30f7d74a8f971d64891e79aa5c9f8718, type: 3}
+  m_Script: {fileID: 11500000, guid: 4fb18f93c0ad52b49ae8ab54586f9441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   OnMovementInput:
@@ -633,6 +633,7 @@ MonoBehaviour:
         m_CallState: 2
   startDirection: -1
   contactHitDamage: 1
+  tPath: {fileID: 0}
 --- !u!1 &4100881680981077053
 GameObject:
   m_ObjectHideFlags: 0

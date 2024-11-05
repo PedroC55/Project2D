@@ -6,21 +6,27 @@ public class EnemyPatrol : EnemyAction
 	[SerializeField]
 	private Transform[] patrolPositions;
 
-	private int positionsLength;
 	private int currentPosition = 0;
+	private bool reachedEnd = false;
 
 	[SerializeField]
 	private float observationTime = 1f;
 	private bool isObserving = false;
+	private float distanceThreshold = 0.1f;
+
+	private WallMovement enemyWM;
 
 	protected override void Awake()
 	{
 		base.Awake();
-		positionsLength = patrolPositions.Length;
-		if (positionsLength <= 1)
+		if (patrolPositions.Length <= 1)
 		{
 			throw new System.NullReferenceException($"Patrol do inimigo: {transform.parent.gameObject.name}, não tem posições inicializadas ou só tem 1!");
 		}
+
+		enemyWM = enemyAI.GetWallMovement();
+		if (enemyWM)
+			distanceThreshold = 0.5f;
 	}
 
 	protected override void OnDisable()
@@ -45,12 +51,21 @@ public class EnemyPatrol : EnemyAction
 			return;
 
 		Transform movingPoint = patrolPositions[currentPosition];
-		Vector2 direction = (movingPoint.position - transform.position).normalized;
+		Vector2 direction;
+		if (!enemyWM)
+		{
+			direction = (movingPoint.position - transform.position).normalized;
+		}
+		else
+		{
+			enemyWM.SetDestiny(movingPoint);
+			direction = enemyWM.GetDirection();	
+		}
 		enemyAI.OnMovementInput?.Invoke(direction);
 
 
 		float distance = Vector2.Distance(movingPoint.position, transform.position);
-		if (distance <= 0.1f)
+		if (distance <= distanceThreshold)
 		{
 			enemyAI.OnMovementInput?.Invoke(Vector2.zero);
 			UpdateNextPatrolPoint();
@@ -70,7 +85,13 @@ public class EnemyPatrol : EnemyAction
 	//porém quando chegar no ultimo nó do patrol ele vai voltar todo o caminho até o primeiro e n gradualmente.
 	private void UpdateNextPatrolPoint()
 	{
-		currentPosition = (currentPosition == positionsLength - 1) ? 0 : currentPosition + 1;
+		if (currentPosition == patrolPositions.Length - 1)
+			reachedEnd = true;
+
+		if (currentPosition == 0)
+			reachedEnd = false;
+
+		currentPosition += reachedEnd ? -1 : 1;
 	}
 
 

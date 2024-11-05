@@ -34,7 +34,7 @@ public class TerrainPathNode : MonoBehaviour
 		WallMovement enemyWM = collision.GetComponent<WallMovement>();
 		if(enemyWM.tPath.GetInstanceID() == tPath.GetInstanceID())
 		{
-			enemyWM.UpdateNodes(this);
+			enemyWM.UpdateNode(this);
 		}
 	}
 }

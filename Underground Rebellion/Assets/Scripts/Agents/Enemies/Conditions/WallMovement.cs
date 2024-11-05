@@ -31,9 +31,6 @@ public class WallMovement : MonoBehaviour
     private Quaternion startRotation;
     private float goalAngle = 0f;
 
-    [SerializeField]
-    private Transform player;
-
 	public TerrainPath tPath;
     private TerrainPathNode currentNode;
     private TerrainPathNode destinyNode;
@@ -66,11 +63,7 @@ public class WallMovement : MonoBehaviour
 
         constForce2D.force = gravityDirection.normalized * gravityForce;
 
-		agent.MovementInput = direction;
-
 		DetectWallOrEdge();
-
-		//SetDestinyNode(tPath.GetNodeCloseToTransform(player));
 	}
     public Vector2 GetDirection()
     {
@@ -82,24 +75,20 @@ public class WallMovement : MonoBehaviour
         return gDirection;
     }
 
-    public void SetDestinyNode(TerrainPathNode node)
+    public void SetDestiny(Transform objectTransform)
     {
-        if (!destinyNode)
+        TerrainPathNode node = tPath.GetNodeCloseToTransform(objectTransform);
+
+		if (!destinyNode || destinyNode.id != node.id)
         {
 		    destinyNode = node;
-            return;
-        }
-
-        if(destinyNode.id != node.id)
-        {
-            destinyNode = node;
             //Tem que fazer isso para que não bugue quando for fazer o calculo da nova direção
             currentNode = tPath.GetNodeCloseToTransform(gameObject.transform);
         }
     }
 
     //Mudar isso daqui para o Patrol chamar a função para dizer qual o node ele deve ir
-    public void UpdateNodes(TerrainPathNode node)
+    public void UpdateNode(TerrainPathNode node)
     {
         currentNode = node;
     }
