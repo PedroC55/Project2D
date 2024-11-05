@@ -15,11 +15,11 @@ public class Agent : MonoBehaviour
 
 	public Vector2 wallJumpForce;
 
+
 	private Vector2 lookDirection, movementInput;
 	public Vector2 MovementInput { get => movementInput; set => movementInput = value; }
 
-	//[SerializeField]
-	//public InputActionReference movement;
+
 
 	private void Awake()
 	{
@@ -38,14 +38,26 @@ public class Agent : MonoBehaviour
 		agentMover.MovementInput = movementInput;
 		if (wallCheck != null)
 		{
-			agentMover.jumpForce = jumpForce;
 			agentMover.wallSlidingSpeed = wallSlidingSpeed;
-			agentMover.wallJumpForce = wallJumpForce;
 			agentAnimations.wallCheck = wallCheck;
 		}
 		AnimateCharacter();
 	}
 
+	public void IsExecutingDash()
+    {
+		agentMover.IsExecutingDash();
+    }
+
+	public void WallJump(Vector2 wallJF)
+    {
+		agentMover.WallJump(wallJF);
+    }
+
+	public void ResetWallJump()
+    {
+		agentMover.ResetWallJump();
+    }
 	public void ApplyForce(Vector2 direction)
 	{
 		agentMover.ApplyForce(direction);
@@ -80,17 +92,15 @@ public class Agent : MonoBehaviour
 
 	public void ResetDash()
     {
+
 		agentMover.ResetDash();
     }
 
 	public void Dash(float dashingPowerX,float dashingPowerY ,Vector2 movementInput)
     {
 		float direction_x = agentAnimations.getDirection();
-		
-		agentMover.dashingPowerX = dashingPowerX;
-		agentMover.dashingPowerY = dashingPowerY;
-		agentMover.movemntInputX = direction_x;
-		agentMover.movementInputY = movementInput.y;
+
+		agentMover.Dash(direction_x, movementInput.y, dashingPowerX, dashingPowerY);
 		
 
 

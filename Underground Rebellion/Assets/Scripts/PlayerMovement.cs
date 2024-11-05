@@ -6,31 +6,28 @@ using UnityEngine.InputSystem.Interactions;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private new Rigidbody2D rigidbody;
+    public new Rigidbody2D rigidbody;
     private Agent agent;
+    private Dash dashComp;
+    private WallJump wallJumpComp;
     private ParrySystem playerParrySystem;
     private SpriteRenderer spriteRenderer;
     private new BoxCollider2D collider;
     [SerializeField] private LayerMask jumpableGround;
+
+
     public Vector2 movementInput;
     
 
-    [Header("Wall Jump Sysytem")]
     public Transform wallCheck;
     bool isWallToutch;
     bool isSliding;
     public float wallSlidingSpeed;
-    public float wallJumpDuration;
-    public Vector2 wallJumpForce;
 
-    [Header("Dash Sysytem")]
-    private bool canDash = true;
-    private bool isDashing;
-    private readonly float dashingPowerX = 24f;
-    private readonly float dashingPowerY = 17f;
-    private readonly float dashingTime = 0.2f;
-    private readonly float dashingCooldown = 1f;
-    [SerializeField] TrailRenderer trailRenderer;
+
+
+    public bool canDash = true;
+
 
     [SerializeField] private float moveSpeed = 7f;  
     [SerializeField] private float jumpForce = 14f;
@@ -39,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
     private enum MovementState { idle, running, jumping, falling}
     public InputActionReference movement, jump, dash;
+    
 
     private void OnEnable()
     {
@@ -100,9 +98,8 @@ public class PlayerMovement : MonoBehaviour
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         collider = GetComponent<BoxCollider2D>();
         agent = GetComponent<Agent>();
-
-
-        //GetHitEvenet.onGetHit += GetHitEvent;
+        dashComp = GetComponent<Dash>();
+        wallJumpComp = GetComponent<WallJump>();
     }
 
     // Update is called once per frame
@@ -115,13 +112,9 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
+
         agent.wallCheck = wallCheck;
         movementInput = movement.action.ReadValue<Vector2>();
-            
-        if (isDashing)
-        {
-            return;
-        }
 
         Movement();
 
@@ -129,11 +122,17 @@ public class PlayerMovement : MonoBehaviour
 
         if (dash.action.triggered && canDash)
         {
+            dashComp.StartDash();
 
-            StartCoroutine(Dash());
         }
         Slide();
     }
+
+    //public void ReceivedDashPower()
+    //{
+    //    gameObject.AddComponent<Dash>();
+    //    dashCom = GetComponent<Dash>();
+    //}
 
     private void Slide()
     {
@@ -174,52 +173,19 @@ public class PlayerMovement : MonoBehaviour
     {
         if (IsGrounded())
         {
-            agent.ApplyForce(new Vector2(0f,jumpForce));
+            rigidbody.velocity = new Vector2(movementInput.x, jumpForce);
         }
         else if (isSliding)
         {
-            if (movementInput.x > 0)
-            {
-                agent.wallJumpForce = wallJumpForce;
-            }
-            else if (movementInput.x < 0)
-            {
-                agent.wallJumpForce = new Vector2(-wallJumpForce.x, wallJumpForce.y);
-            }
-
+            wallJumpComp.PerformWallJump();
             isSliding = false;
             
-            Invoke("StopWallJumping", wallJumpDuration);
         }
         
     }
 
-    private IEnumerator Dash()
-    {
-        if (movementInput.y != 0f && movementInput.x == 0)
-        {
-            yield break;
-        }
-        canDash = false;
-        isDashing = true;
-        float originalGravity = rigidbody.gravityScale;
-        rigidbody.gravityScale = 0f;
-        agent.Dash(dashingPowerX,dashingPowerY, movementInput);
-        trailRenderer.emitting = true;
-        yield return new WaitForSeconds(dashingTime);
-        trailRenderer.emitting = false;
-        rigidbody.gravityScale = originalGravity;
-        agent.ResetDash();
-        isDashing = false;
-        yield return new WaitForSeconds(dashingCooldown);
-        canDash = true;
-    }
 
-    
-    private void StopWallJumping()
-    {
-        agent.wallJumpForce = Vector2.zero;
-    }
+
 
     private bool IsGrounded()
     {

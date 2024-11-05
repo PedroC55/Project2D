@@ -45317,6 +45317,40 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1463525480}
   m_CullTransparentMesh: 1
+--- !u!1 &1511516842 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5616279431631585705, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
+  m_PrefabInstance: {fileID: 5108084074732345068}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1511516850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511516842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f9101af85d96524ea37eb3ad72a96e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trailRenderer: {fileID: 803430071}
+--- !u!114 &1511516851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511516842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ab84e7378788a14fa556797ce4376ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallJumpDuration: 0
+  wallJumpForce: {x: -10, y: 14}
+  stop_movement_durantion: 0.35
+  walljumpPower: 10
 --- !u!1 &1553003572
 GameObject:
   m_ObjectHideFlags: 0
@@ -45823,11 +45857,11 @@ PrefabInstance:
       objectReference: {fileID: 803430071}
     - target: {fileID: 2117903320574819507, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
       propertyPath: wallJumpForce.x
-      value: -1.5
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 2117903320574819507, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
       propertyPath: wallJumpForce.y
-      value: 3
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 2117903320574819507, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
       propertyPath: wallJumpDuration
@@ -45836,6 +45870,10 @@ PrefabInstance:
     - target: {fileID: 2117903320574819507, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
       propertyPath: wallSlidingSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2117903320574819507, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
+      propertyPath: stop_movement_durantion
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 2806821240566795578, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
       propertyPath: m_Time
@@ -45848,6 +45886,10 @@ PrefabInstance:
     - target: {fileID: 2806821240566795578, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
       propertyPath: m_Parameters.colorGradient.m_ColorSpace
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3225902259485079757, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.43
       objectReference: {fileID: 0}
     - target: {fileID: 4022934457941099702, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
       propertyPath: m_RootOrder
@@ -45900,5 +45942,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5616279431631585705, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1511516850}
+    - targetCorrespondingSourceObject: {fileID: 5616279431631585705, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1511516851}
   m_SourcePrefab: {fileID: 100100000, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
