@@ -16,35 +16,31 @@ public class EnemyAI : MonoBehaviour
 	[SerializeField]
 	private int contactHitDamage = 1;
 
-	private bool isActing = false;
-	private bool isAggroed = false;
-	private bool isDead = false;
-	private bool isReseting = false;
+	protected bool isActing = false;
+	protected bool isAggroed = false;
+	protected bool isDead = false;
+	protected bool isReseting = false;
 
-	private Transform player;
+	protected Transform player;
 
-	private Agent agent;
+	protected Agent agent;
 
 	#region Enemy Actions
-
-	private EnemyPatrol patrol;
-	private EnemyMeleeAttack meleeAttack;
-	private EnemyAction currentAction;
+	protected EnemyAction currentAction;
 	#endregion
 
 	#region Enemy Conditions
 
-	private EnemyLineOfSight lineOfSight;
-	private EnemyEnergy enemyEnergy;
+	protected EnemyLineOfSight lineOfSight;
+	protected EnemyEnergy enemyEnergy;
+	protected WallMovement wallMovement;
 	#endregion
 
-	private void Awake()
+	protected virtual void Awake()
 	{
 		agent = GetComponent<Agent>();
-		patrol = GetComponentInChildren<EnemyPatrol>();
-		meleeAttack = GetComponentInChildren<EnemyMeleeAttack>();
-		lineOfSight = GetComponentInChildren<EnemyLineOfSight>();
 		
+		lineOfSight = GetComponentInChildren<EnemyLineOfSight>();
 		enemyEnergy = GetComponentInChildren<EnemyEnergy>();
 	}
 
@@ -65,31 +61,9 @@ public class EnemyAI : MonoBehaviour
 		ParryEvent.OnParry -= DecreaseEnergy;
 	}
 
-	private void Update()
+	public WallMovement GetWallMovement()
 	{
-		if (Input.GetKeyDown(KeyCode.Q))
-		{
-			DecreaseEnergy(1, gameObject);
-		}
-
-		if (isActing || isDead || !enemyEnergy.HasEnergy())
-			return;
-
-		if (isAggroed)
-		{
-			meleeAttack.ExecuteAction(player);
-			currentAction = meleeAttack;
-		}
-		else
-		{
-			if(patrol != null)
-			{
-				patrol.ExecuteAction();
-				currentAction = patrol;
-			}
-		}
-
-		isActing = true;
+		return GetComponent<WallMovement>();
 	}
 
 	public void PerformAttack(string attackAnimatorTriggerName)
@@ -115,8 +89,7 @@ public class EnemyAI : MonoBehaviour
 		}
 
 		player = playerTransform;
-		if(patrol != null)
-			patrol.InterruptAction();
+		currentAction.InterruptAction();
 		StartCoroutine(AggroCoroutine());
 	}
 
@@ -128,7 +101,7 @@ public class EnemyAI : MonoBehaviour
 		}
 	}
 
-	public void EnemyDied(GameObject sender)
+	public void EnemyDied()
 	{
 		currentAction.InterruptAction();
 		

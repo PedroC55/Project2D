@@ -18,9 +18,6 @@ public class Agent : MonoBehaviour
 	private Vector2 lookDirection, movementInput;
 	public Vector2 MovementInput { get => movementInput; set => movementInput = value; }
 
-	//[SerializeField]
-	//public InputActionReference movement;
-
 	private void Awake()
 	{
 		rb2d = GetComponent<Rigidbody2D>();
@@ -53,7 +50,6 @@ public class Agent : MonoBehaviour
 	public void FaceDirection(Vector2 direction)
 	{
 		lookDirection = direction;
-		Debug.Log(lookDirection);
 		agentAnimations.LookDirection(direction);
 	}
 
@@ -93,6 +89,11 @@ public class Agent : MonoBehaviour
 	public void StunAnimation()
 	{
 		agentAnimations.StunAnimation();
+	}
+
+	public float GetCurrentSpeed()
+	{
+		return agentMover.GetCurrentSpeed();
 	}
 
 	private void AnimateCharacter()
