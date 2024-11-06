@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public new Rigidbody2D rigidbody;
     private Agent agent;
     private Dash dashComp;
+    private PlayerAttack attackComp;
     private WallJump wallJumpComp;
     private ParrySystem playerParrySystem;
     private SpriteRenderer spriteRenderer;
@@ -24,6 +25,9 @@ public class PlayerMovement : MonoBehaviour
     bool isSliding;
     public float wallSlidingSpeed;
 
+    // Attack
+    public bool attacking = false;
+
 
 
     public bool canDash = true;
@@ -35,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
     private bool canMove = true;
 
     private enum MovementState { idle, running, jumping, falling}
-    public InputActionReference movement, jump, dash;
+    public InputActionReference movement, jump, dash, attack;
     
 
     private void OnEnable()
@@ -100,6 +104,7 @@ public class PlayerMovement : MonoBehaviour
         agent = GetComponent<Agent>();
         dashComp = GetComponent<Dash>();
         wallJumpComp = GetComponent<WallJump>();
+        attackComp = GetComponent<PlayerAttack>();
     }
 
     // Update is called once per frame
@@ -117,6 +122,14 @@ public class PlayerMovement : MonoBehaviour
         movementInput = movement.action.ReadValue<Vector2>();
 
         Movement();
+        if (attack.action.triggered)
+        {
+            attackComp.Attack();
+        }
+        if (attacking)
+        {
+            attackComp.ResetAttack();
+        }
 
         isWallToutch = Physics2D.OverlapBox(wallCheck.position, new Vector2(0.92f, 1.39f), 0, jumpableGround);
 

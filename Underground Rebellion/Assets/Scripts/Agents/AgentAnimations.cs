@@ -38,22 +38,6 @@ public class AgentAnimations : MonoBehaviour
 		animator.SetInteger("state", 3);
 	}
 
-	//public void LookDirection(Vector2 direction)
-	//{
-
-	//	if (direction.x > 0)
-	//	{
-	//		spriteRenderer.flipX = false;
-	//		wallCheck.localPosition = new Vector2(Math.Abs(wallCheck.localPosition.x), wallCheck.localPosition.y);
-	//	}
-	//	else if (direction.x < 0)
-	//	{
-	//		spriteRenderer.flipX = true;
-	//		wallCheck.localPosition = new Vector2(-Math.Abs(wallCheck.localPosition.x), wallCheck.localPosition.y);
-	//	}
-
-
-	//}
 
 	public void LookDirection(Vector2 direction)
 	{
@@ -69,6 +53,23 @@ public class AgentAnimations : MonoBehaviour
 
 		transform.parent.localScale = scale;
 		
+	}
+
+	public void ChangeLookDirection(Vector2 wallJumpVector)
+    {
+		var scale = transform.parent.localScale;
+		
+		if (wallJumpVector.x > 0)
+        {
+			scale.x = 1;
+		}
+		else if (wallJumpVector.x < 0)
+		{
+			scale.x = -1;
+		}
+		transform.parent.localScale = scale;
+		Debug.Log(transform.parent.localScale);
+
 	}
 
 	public float getDirection()

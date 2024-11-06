@@ -52,6 +52,7 @@ public class Agent : MonoBehaviour
 	public void WallJump(Vector2 wallJF)
     {
 		agentMover.WallJump(wallJF);
+		//agentAnimations.ChangeLookDirection(wallJF);
     }
 
 	public void ResetWallJump()
