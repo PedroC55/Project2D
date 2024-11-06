@@ -33,7 +33,6 @@ public class PlayerMovement : MonoBehaviour
     public bool canDash = true;
 
 
-    [SerializeField] private float moveSpeed = 7f;  
     [SerializeField] private float jumpForce = 14f;
 
     private bool canMove = true;
@@ -41,6 +40,8 @@ public class PlayerMovement : MonoBehaviour
     private enum MovementState { idle, running, jumping, falling}
     public InputActionReference movement, jump, dash, attack;
     
+
+
 
     private void OnEnable()
     {
@@ -56,6 +57,53 @@ public class PlayerMovement : MonoBehaviour
         jump.action.performed -= OnJump;
 
         HitEvent.OnHit -= OnPlayerHit;
+    }
+
+    void Start()
+    {
+        rigidbody = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        collider = GetComponent<BoxCollider2D>();
+        agent = GetComponent<Agent>();
+        dashComp = GetComponent<Dash>();
+        wallJumpComp = GetComponent<WallJump>();
+        attackComp = GetComponent<PlayerAttack>();
+    }
+
+    // Update is called once per frame
+    private void Update()
+    {
+
+        if (!canMove)
+        {
+            agent.MovementInput = Vector2.zero;
+            rigidbody.drag = 10f;
+            return;
+        }
+
+
+        agent.wallCheck = wallCheck;
+        movementInput = movement.action.ReadValue<Vector2>();
+
+        Movement();
+        if (attack.action.triggered)
+        {
+            attackComp.Attack();
+        }
+        if (attacking)
+        {
+            attackComp.ResetAttack();
+        }
+        //Da pra mudar isso para um metodo igual a IsGrounded
+        //Além disso, da pra tirar o objecto filho "wallCheck" e fazer igual fazemos no metodo IsGrounded, onde faz um box cast na direção que o player estiver olhando
+        isWallToutch = Physics2D.OverlapBox(wallCheck.position, new Vector2(0.92f, 1.39f), 0, jumpableGround);
+
+        if (dash.action.triggered && canDash)
+        {
+            dashComp.StartDash();
+
+        }
+        Slide();
     }
     private void OnJump(InputAction.CallbackContext context)
     {
@@ -83,9 +131,7 @@ public class PlayerMovement : MonoBehaviour
 					agent.GetHit(damage, sender);
 				}
 			}
-            
         }
-        
     }
 
     public IEnumerator DisableMovementDuringParry()
@@ -95,51 +141,6 @@ public class PlayerMovement : MonoBehaviour
         canMove = true;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        rigidbody = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        collider = GetComponent<BoxCollider2D>();
-        agent = GetComponent<Agent>();
-        dashComp = GetComponent<Dash>();
-        wallJumpComp = GetComponent<WallJump>();
-        attackComp = GetComponent<PlayerAttack>();
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
-        
-        if (!canMove) {
-            agent.MovementInput = Vector2.zero;
-            rigidbody.drag = 10f;
-            return;
-        }
-
-
-        agent.wallCheck = wallCheck;
-        movementInput = movement.action.ReadValue<Vector2>();
-
-        Movement();
-        if (attack.action.triggered)
-        {
-            attackComp.Attack();
-        }
-        if (attacking)
-        {
-            attackComp.ResetAttack();
-        }
-
-        isWallToutch = Physics2D.OverlapBox(wallCheck.position, new Vector2(0.92f, 1.39f), 0, jumpableGround);
-
-        if (dash.action.triggered && canDash)
-        {
-            dashComp.StartDash();
-
-        }
-        Slide();
-    }
 
     //public void ReceivedDashPower()
     //{
@@ -149,6 +150,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Slide()
     {
+        //Se transformar isWallToutch em um metodo é só chamar aqui igual ta fazendo com IsGrounded
         if (isWallToutch && !IsGrounded() && movementInput.x != 0)
         {
             agent.wallSlidingSpeed = wallSlidingSpeed;
@@ -171,7 +173,8 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                agent.MovementInput = Vector2.zero;
+				//Não precisa fazer isso de colocar 'agent.MovementInput' igual a 0, pois o 'movementInput' ja vai receber 0 caso o player não esteja preciosando o botão
+				agent.MovementInput = Vector2.zero;
                 rigidbody.drag = 10f;
             }
         }
@@ -222,6 +225,4 @@ public class PlayerMovement : MonoBehaviour
 			agent.SlowMovement(0);
 		}
 	}
-
-
 }

@@ -66,7 +66,6 @@ public class Agent : MonoBehaviour
 	public void FaceDirection(Vector2 direction)
 	{
 		lookDirection = direction;
-		Debug.Log(lookDirection);
 		agentAnimations.LookDirection(direction);
 	}
 
@@ -99,7 +98,7 @@ public class Agent : MonoBehaviour
 
 	public void Dash(float dashingPowerX,float dashingPowerY ,Vector2 movementInput)
     {
-		float direction_x = agentAnimations.getDirection();
+		float direction_x = agentAnimations.GetDirection();
 
 		agentMover.Dash(direction_x, movementInput.y, dashingPowerX, dashingPowerY);
 		
@@ -110,6 +109,11 @@ public class Agent : MonoBehaviour
 	public void StunAnimation()
 	{
 		agentAnimations.StunAnimation();
+	}
+
+	public float GetCurrentSpeed()
+	{
+		return agentMover.GetCurrentSpeed();
 	}
 
 	private void AnimateCharacter()

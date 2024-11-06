@@ -9,70 +9,56 @@ public class AgentAnimations : MonoBehaviour
 {
 	private Animator animator;
 	public Transform wallCheck;
-	private SpriteRenderer spriteRenderer;
+
+	private enum MovementState { idle, running, jumping, falling }
 
 	private void Awake()
 	{
 		animator = GetComponent<Animator>();
-		spriteRenderer = GetComponent<SpriteRenderer>();
 	}
 
 	public void WalkingAnimation(Vector2 movementInput)
 	{
 		LookDirection(movementInput);
-		animator.SetInteger("state", 1);
+		animator.SetInteger("state", (int)MovementState.running);
 	}
 
 	public void IdleAnimation()
 	{
-		animator.SetInteger("state", 0);
+		animator.SetInteger("state", (int) MovementState.idle);
 	}
 
 	public void JumpingAnimation()
 	{
-		animator.SetInteger("state", 2);
+		animator.SetInteger("state", (int)MovementState.jumping);
 	}
 
 	public void FallingAnimation()
 	{
-		animator.SetInteger("state", 3);
+		animator.SetInteger("state", (int)MovementState.falling);
 	}
 
 
 	public void LookDirection(Vector2 direction)
 	{
 		var scale = transform.parent.localScale;
-		if (direction.x > 0)
+
+		Quaternion agentRotation = transform.rotation;
+		Vector2 correctFaceDirection = Quaternion.Inverse(agentRotation) * direction;
+
+		if (correctFaceDirection.x > 0)
 		{
 			scale.x = 1;
 		}
-		else if (direction.x < 0)
+		else if (correctFaceDirection.x < 0)
 		{
 			scale.x = -1;
 		}
 
 		transform.parent.localScale = scale;
-		
 	}
 
-	public void ChangeLookDirection(Vector2 wallJumpVector)
-    {
-		var scale = transform.parent.localScale;
-		
-		if (wallJumpVector.x > 0)
-        {
-			scale.x = 1;
-		}
-		else if (wallJumpVector.x < 0)
-		{
-			scale.x = -1;
-		}
-		transform.parent.localScale = scale;
-		Debug.Log(transform.parent.localScale);
-
-	}
-
-	public float getDirection()
+	public float GetDirection()
 	{
 		return transform.parent.localScale.x;
 	}

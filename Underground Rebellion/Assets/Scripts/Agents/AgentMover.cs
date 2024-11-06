@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class AgentMover : MonoBehaviour
@@ -10,6 +11,7 @@ public class AgentMover : MonoBehaviour
 	public Vector2 wallJumpForce;
 	[SerializeField]
 	private float moveSpeed;
+	private float currentSpeed;
 	public Vector2 MovementInput { get; set; }
 
 	public float jumpForce, wallSlidingSpeed;
@@ -21,39 +23,56 @@ public class AgentMover : MonoBehaviour
 
 	private int slowPercentage;
 
+	
+	private bool canWalkWalls = false;
+	private WallMovement agentWM;
+
 	private void Awake()
 	{
 		rb2d = GetComponent<Rigidbody2D>();
+		
+		currentSpeed = moveSpeed;
+
+		agentWM = GetComponent<WallMovement>();
+		canWalkWalls = agentWM ? true : false;
+		rb2d.gravityScale = agentWM ? 0 : rb2d.gravityScale;
 	}
 
 	private void FixedUpdate()
 	{
-		float currentSpeed = moveSpeed;
 
 		if (isDashing)
 		{
 			return;
 		}
 
-		if (slowPercentage > 0)
-		{
-			currentSpeed -= moveSpeed * (slowPercentage / 100f);
-		}
 		if (isWallJumping)
-        {
+		{
 			return;
 		}
 
 		else if (wallSlidingSpeed != 0)
-        {
+		{
 			rb2d.velocity = new Vector2(MovementInput.x * currentSpeed, Mathf.Clamp(rb2d.velocity.y, -wallSlidingSpeed, float.MaxValue));
 		}
 
-		rb2d.velocity = new Vector2(MovementInput.x * currentSpeed, rb2d.velocity.y);
-		
+		if (!canWalkWalls)
+		{
+			rb2d.velocity = new Vector2(MovementInput.x * currentSpeed, rb2d.velocity.y);
+		}
+		else
+		{
+			float xSpeed = rb2d.velocity.x;
+			float ySpeed = rb2d.velocity.y;
 
+			if ((new[] { GravityDirection.Down, GravityDirection.Up }).Contains(agentWM.GetGravityDirection()))
+				xSpeed = MovementInput.x * currentSpeed;
+			else
+				ySpeed = MovementInput.y * currentSpeed;
+
+			rb2d.velocity = new Vector2(xSpeed, ySpeed);
+		}
 	}
-
 	public void ResetDash()
     {
 		isDashing = false;
@@ -67,7 +86,10 @@ public class AgentMover : MonoBehaviour
     {
 		rb2d.velocity = new Vector2(movemntInputX * dashingPowerX, movementInputY * dashingPowerY);
 	}
-
+	public float GetCurrentSpeed()
+	{
+		return currentSpeed;
+	}
 	public void WallJump(Vector2 wallJF)
     {
 		wallJumpForce = wallJF;
@@ -101,5 +123,11 @@ public class AgentMover : MonoBehaviour
 	{
 		if (slowPercentage < percentage || percentage == 0)
 			slowPercentage = percentage;
+
+		currentSpeed = moveSpeed;
+		if (slowPercentage > 0)
+		{
+			currentSpeed -= moveSpeed * (slowPercentage / 100f);
+		}
 	}
 }
