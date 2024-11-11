@@ -437,7 +437,7 @@ Transform:
   - {fileID: 8208806402746543614}
   - {fileID: 7395525547435325720}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &4743452974292129858
 Rigidbody2D:
@@ -1305,7 +1305,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4909407912335283142}
   - component: {fileID: 2791285761490514081}
-  - component: {fileID: 8204952573136848812}
+  - component: {fileID: 312129566817524692}
   - component: {fileID: 6147920935420908195}
   - component: {fileID: 6055270280493794189}
   m_Layer: 8
@@ -1347,7 +1347,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   observationTime: 1
---- !u!114 &8204952573136848812
+--- !u!114 &312129566817524692
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

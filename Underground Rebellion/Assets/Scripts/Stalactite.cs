@@ -34,7 +34,7 @@ public class Stalactite : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         // Check if the player enters the trigger zone using layers
-        if (((1 << other.gameObject.layer) & playerLayer) != 0 & !detected)
+        if (((1 << other.gameObject.layer) & playerLayer) != 0 && !detected)
         {
             detected = true;
             StartCoroutine(ShakeAndFall()); // Start the shaking effect
@@ -57,29 +57,19 @@ public class Stalactite : MonoBehaviour
         }
 
         // Reset position and start falling
+        Physics2D.IgnoreLayerCollision(7, 9);
         transform.localPosition = originalPosition;
         isFalling = true;
         rb.bodyType = RigidbodyType2D.Dynamic; // Set to Dynamic to enable falling
-        Physics2D.IgnoreLayerCollision(7, 9);
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    public void StopStalactite()
     {
-        // Check if the stalactite hits the ground using layers
-        if ((((1 << collision.gameObject.layer) & groundLayer) != 0) & !onGround)
-        {
-            Debug.Log("GROUND");
-            isFalling = false;
-            rb.velocity = Vector2.zero; // Stop the stalactite
-            rb.bodyType = RigidbodyType2D.Static; // Change to Kinematic
-            gameObject.layer = LayerMask.NameToLayer("Ground"); // Change layer to Ground
-            Physics2D.IgnoreLayerCollision(7, 9, false);
-            onGround = true;
-        }
-        else if ((((1 << collision.gameObject.layer) & playerLayer) != 0) & !onGround)
-        {
-            Debug.Log("PLAYER");
-            isFalling = true;
-        }
+        Physics2D.IgnoreLayerCollision(7, 9, false);
+        isFalling = false;
+        rb.velocity = Vector2.zero; // Stop the stalactite
+        rb.bodyType = RigidbodyType2D.Static; // Change to Static
+        gameObject.layer = LayerMask.NameToLayer("Ground"); // Change layer to Ground
+        onGround = true;
     }
 }
