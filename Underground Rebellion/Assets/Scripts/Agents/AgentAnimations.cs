@@ -82,7 +82,7 @@ public class AgentAnimations : MonoBehaviour
 
 	public void RestartLevel()
 	{
-		StartCoroutine(RestartLevelWithDelay(5f));
+		StartCoroutine(RestartLevelWithDelay(2f));
 	}
 
 	private IEnumerator RestartLevelWithDelay(float delay)
