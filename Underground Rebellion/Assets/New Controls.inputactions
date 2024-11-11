@@ -111,7 +111,7 @@
                     "name": "",
                     "id": "c1be0d9e-b606-4f08-91d3-1897c15a2250",
                     "path": "<Keyboard>/space",
-                    "interactions": "Press(pressPoint=0.1)",
+                    "interactions": "Press(pressPoint=0.01)",
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
