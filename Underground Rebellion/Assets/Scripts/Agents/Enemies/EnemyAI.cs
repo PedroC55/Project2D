@@ -97,7 +97,8 @@ public class EnemyAI : MonoBehaviour
 	public void GetHit(int damage, GameObject sender, GameObject receiver)
 	{
 		//Debug.Log(sender.tag);
-		if (sender.CompareTag("Player") && receiver.CompareTag("Enemy"))
+		Debug.Log("Inimigo recebeu ataque");
+		if (sender.CompareTag("Player") && receiver.GetInstanceID() == gameObject.GetInstanceID())
 		{
 			agent.GetHit(damage, sender);
 		}
