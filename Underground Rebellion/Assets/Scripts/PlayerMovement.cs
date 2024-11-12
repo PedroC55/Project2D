@@ -126,9 +126,8 @@ public class PlayerMovement : MonoBehaviour
     public IEnumerator DisableMovementDuringParry()
     {
         canMove = false;
-
-
-        yield return new WaitForSeconds(0.5f);
+        agent.ParryAnimation(); 
+		yield return new WaitForSeconds(0.5f);
         canMove = true;
     }
 

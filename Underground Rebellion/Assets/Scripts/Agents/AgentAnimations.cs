@@ -73,6 +73,11 @@ public class AgentAnimations : MonoBehaviour
 		animator.SetTrigger("stun");
 	}
 
+	public void ParryAnimation()
+	{
+		animator.SetTrigger("parry");
+	}
+
 	public void RestartLevel()
 	{
 		StartCoroutine(RestartLevelWithDelay(5f));

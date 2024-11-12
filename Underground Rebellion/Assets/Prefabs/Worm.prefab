@@ -380,8 +380,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67bcdfa6e9654f743a40f8fa5d7b185f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 2010883634664058389}
-  AttackCollider: {fileID: 8496695393048230087}
 --- !u!114 &8475974646091186259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -437,7 +435,7 @@ Transform:
   - {fileID: 8208806402746543614}
   - {fileID: 7395525547435325720}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &4743452974292129858
 Rigidbody2D:
@@ -633,6 +631,12 @@ MonoBehaviour:
         m_CallState: 2
   startDirection: -1
   contactHitDamage: 1
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &4100881680981077053
 GameObject:
   m_ObjectHideFlags: 0
@@ -1363,7 +1367,7 @@ MonoBehaviour:
   AttackAnimatorTriggerName: Attack
   buildUpDelay: 0.5
   attackDuration: 1
-  posAttackDelay: 2
+  posAttackDelay: 0.5
   attackDistanceThreshold: 3
 --- !u!114 &6147920935420908195
 MonoBehaviour:
@@ -1378,9 +1382,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delayTime: 0.5
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
   edgeOffset: {x: 0.5, y: -0.7}
 --- !u!114 &6055270280493794189
 MonoBehaviour:

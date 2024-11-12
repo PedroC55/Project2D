@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -35,6 +36,8 @@ public class EnemyAI : MonoBehaviour
 	protected EnemyEnergy enemyEnergy;
 	protected WallMovement wallMovement;
 	#endregion
+
+	public AnimationCurve curve;
 
 	protected virtual void Awake()
 	{
@@ -75,8 +78,10 @@ public class EnemyAI : MonoBehaviour
 	{
 		bool canAggro = true;
 
-		if (!enemyEnergy.HasEnergy() || isReseting)
+		if (!enemyEnergy.HasEnergy() || isReseting || (wallMovement && wallMovement.IsRotating()))
+		{
 			canAggro = false;
+		}
 
 		return canAggro;
 	}
@@ -96,7 +101,7 @@ public class EnemyAI : MonoBehaviour
 
 	public void GetHit(int damage, GameObject sender, GameObject receiver)
 	{
-		if (receiver.GetInstanceID() == gameObject.GetInstanceID())
+		if (receiver.GetInstanceID() == gameObject.GetInstanceID() && !enemyEnergy.HasEnergy())
 		{
 			agent.GetHit(damage, sender);
 		}
@@ -108,8 +113,9 @@ public class EnemyAI : MonoBehaviour
 		
 		OnMovementInput?.Invoke(Vector2.zero);
 		
-		Collider2D collider = GetComponent<Collider2D>();
-		collider.enabled = false;
+		//Collider2D collider = GetComponent<Collider2D>();
+		//collider.enabled = false;
+		Destroy(gameObject);
 
 		isDead = true;
 	}

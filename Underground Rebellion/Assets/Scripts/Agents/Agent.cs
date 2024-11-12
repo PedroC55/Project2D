@@ -86,6 +86,11 @@ public class Agent : MonoBehaviour
 		agentMover.movemntInputX = movementInput;
     }
 
+	public void ParryAnimation()
+	{
+		agentAnimations.ParryAnimation();
+	}
+
 	public void StunAnimation()
 	{
 		agentAnimations.StunAnimation();

@@ -33,6 +33,11 @@ public class EnemyAction : MonoBehaviour
 		throw new System.NotImplementedException($"Metodo não implementado para classe: {this.GetType().FullName}, do objeto: {transform.parent.gameObject.name}");
 	}
 
+	public EnemyAI GetEnemyAI()
+	{
+		return enemyAI;
+	}
+
 	public virtual void InterruptAction()
 	{
 		this.enabled = false;

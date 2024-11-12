@@ -48,10 +48,12 @@ public class AgentMover : MonoBehaviour
 		if (wallJumpForce.x != 0)
         {
 			ApplyForce(wallJumpForce);
+			return;
 		}
 		else if (wallSlidingSpeed != 0)
         {
 			rb2d.velocity = new Vector2(MovementInput.x * currentSpeed, Mathf.Clamp(rb2d.velocity.y, -wallSlidingSpeed, float.MaxValue));
+			return;
 		}
 
 		if (!canWalkWalls)
