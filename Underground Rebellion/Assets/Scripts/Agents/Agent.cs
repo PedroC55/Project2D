@@ -127,7 +127,7 @@ public class Agent : MonoBehaviour
 			agentAnimations.IdleAnimation();
 		}
 
-		// Aten��o!! Fazer verifica��o do salto depois da corrida uma vez que o salto tem prioridade!!
+		// Atençao!! Fazer verifica��o do salto depois da corrida uma vez que o salto tem prioridade!!
 		if (rb2d.velocity.y > .1f)
 		{
 			agentAnimations.JumpingAnimation();

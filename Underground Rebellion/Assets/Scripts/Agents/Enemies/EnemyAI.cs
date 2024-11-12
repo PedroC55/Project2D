@@ -96,7 +96,7 @@ public class EnemyAI : MonoBehaviour
 
 	public void GetHit(int damage, GameObject sender, GameObject receiver)
 	{
-		Debug.Log(sender.tag);
+		//Debug.Log(sender.tag);
 		if (sender.CompareTag("Player") && receiver.CompareTag("Enemy"))
 		{
 			agent.GetHit(damage, sender);

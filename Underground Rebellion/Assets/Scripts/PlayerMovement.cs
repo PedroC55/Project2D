@@ -46,15 +46,15 @@ public class PlayerMovement : MonoBehaviour
     private void OnEnable()
     {
         playerParrySystem = GetComponent<ParrySystem>();
-        jump.action.Enable();
-        jump.action.performed += OnJump;
+        //jump.action.Enable();
+        //jump.action.performed += OnJump;
 
         HitEvent.OnHit += OnPlayerHit;
     }
     private void OnDisable()
     {
-        jump.action.Disable();
-        jump.action.performed -= OnJump;
+        //jump.action.Disable();
+        //jump.action.performed -= OnJump;
 
         HitEvent.OnHit -= OnPlayerHit;
     }
@@ -86,6 +86,12 @@ public class PlayerMovement : MonoBehaviour
         movementInput = movement.action.ReadValue<Vector2>();
 
         Movement();
+
+        if (jump.action.triggered)
+        {
+            Jump();
+        }
+
         if (attack.action.triggered)
         {
             attackComp.Attack();
@@ -121,6 +127,7 @@ public class PlayerMovement : MonoBehaviour
 			}
 			else if (sender.CompareTag("Enemy"))
             {
+                Debug.Log(sender);
 				if (playerParrySystem.CheckParryTiming())
 				{
                     ParryEvent.Parry(1, sender.transform.parent.gameObject);

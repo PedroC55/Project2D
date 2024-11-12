@@ -42338,6 +42338,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 802019626940412794, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 1453009775017814614, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
       propertyPath: OnDeathWithReference.m_PersistentCalls.m_Calls.Array.size
       value: 2
@@ -43114,6 +43118,14 @@ PrefabInstance:
     - target: {fileID: 2164851857205812239, guid: 2bbee86d04e5d504184a9369567d6671, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2738747772173335226, guid: 2bbee86d04e5d504184a9369567d6671, type: 3}
+      propertyPath: maxHealth
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2738747772173335226, guid: 2bbee86d04e5d504184a9369567d6671, type: 3}
+      propertyPath: currentHealth
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2791285761490514081, guid: 2bbee86d04e5d504184a9369567d6671, type: 3}
       propertyPath: patrolPositions.Array.size

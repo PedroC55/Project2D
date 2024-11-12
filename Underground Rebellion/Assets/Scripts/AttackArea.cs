@@ -11,8 +11,6 @@ public class AttackArea : MonoBehaviour
 	{
 		if (collision.GetComponent<Health>() != null)
 		{
-			//Debug.Log("Acertou o ataque");
-			//collision.gameObject.GetComponent<Health>().GetHit(damage, gameObject);
 			HitEvent.GetHit(damage, gameObject, collision.gameObject);
         }
 	}

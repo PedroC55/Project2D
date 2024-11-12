@@ -69,7 +69,7 @@ public class ParrySystem : MonoBehaviour
         {
             return false;
         }
-        if (parryAttempted && Mathf.Abs(parryTime - currentTime) <= parryWindow)
+        if (parryAttempted && Mathf.Abs(parryTime - currentTime) <= parryWindow ) //Falta verificar se o player esta olhar na direçao do ataque inimigo
         {
             sucess = true;
         }
