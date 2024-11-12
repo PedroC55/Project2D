@@ -127,8 +127,8 @@ public class PlayerMovement : MonoBehaviour
 			}
 			else if (sender.CompareTag("Enemy"))
             {
-                Debug.Log(sender);
-				if (playerParrySystem.CheckParryTiming())
+                
+				if (playerParrySystem.CheckParryTiming() && playerParrySystem.CheckDirection(sender))
 				{
                     ParryEvent.Parry(1, sender.transform.parent.gameObject);
 					Debug.Log("Parry");
@@ -210,7 +210,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    private bool IsGrounded()
+    public bool IsGrounded()
     {
         return Physics2D.BoxCast(collider.bounds.center, collider.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
     }

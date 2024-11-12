@@ -54,10 +54,14 @@ public class ParrySystem : MonoBehaviour
     // This method is triggered when the parry button is pressed
     private void OnParryPerformed(InputAction.CallbackContext context)
     {
-        StartCoroutine( player.DisableMovementDuringParry());
-        parryAttempted = true;
-        parryTime = Time.deltaTime;
-		StartCoroutine(ParryWindow());
+        if (player.IsGrounded())
+        {
+            StartCoroutine(player.DisableMovementDuringParry());
+            parryAttempted = true;
+            parryTime = Time.deltaTime;
+            StartCoroutine(ParryWindow());
+        }
+        
 	}
 
     public bool CheckParryTiming()
@@ -78,6 +82,19 @@ public class ParrySystem : MonoBehaviour
 
         return sucess;
         
+    }
+
+    public bool CheckDirection(GameObject enemy)
+    {
+        bool sucess = false;
+
+        Vector2 direction = (enemy.transform.position - player.transform.position).normalized;
+        if((direction.x > 0 && player.transform.localScale.x == 1) || (direction.x < 0 && player.transform.localScale.x == -1))
+        {
+            sucess = true;
+        }
+        
+        return sucess;
     }
 
     private IEnumerator ParryWindow()
