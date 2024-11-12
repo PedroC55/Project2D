@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Stalactite : MonoBehaviour
 {
     public float fallSpeed = 5f; // Speed at which the stalactite falls
@@ -57,17 +58,25 @@ public class Stalactite : MonoBehaviour
         }
 
         // Reset position and start falling
-        Physics2D.IgnoreLayerCollision(7, 9);
         transform.localPosition = originalPosition;
         isFalling = true;
         rb.bodyType = RigidbodyType2D.Dynamic; // Set to Dynamic to enable falling
     }
 
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if ((((1 << collision.gameObject.layer) & playerLayer) != 0) & !onGround)
+        {
+            Debug.Log("PLAYER");
+            Physics2D.IgnoreLayerCollision(7, 9);
+            isFalling = true;
+        }
+    }
+
     public void StopStalactite()
     {
-        Physics2D.IgnoreLayerCollision(7, 9, false);
         isFalling = false;
-        rb.velocity = Vector2.zero; // Stop the stalactite
+        Physics2D.IgnoreLayerCollision(7, 9, false);
         rb.bodyType = RigidbodyType2D.Static; // Change to Static
         gameObject.layer = LayerMask.NameToLayer("Ground"); // Change layer to Ground
         onGround = true;
