@@ -6,14 +6,14 @@ using UnityEngine.InputSystem.Interactions;
 
 public class PlayerInput : MonoBehaviour
 {
-    public new Rigidbody2D rigidbody;
+    public Rigidbody2D playerRb2d;
     private Agent agent;
     private Dash dashComp;
     private PlayerAttack attackComp;
     private WallJump wallJumpComp;
     private ParrySystem playerParrySystem;
     private SpriteRenderer spriteRenderer;
-    private new BoxCollider2D collider;
+    private BoxCollider2D playerCollider;
     [SerializeField] private LayerMask jumpableGround;
 
     public Vector2 movementInput;
@@ -48,9 +48,9 @@ public class PlayerInput : MonoBehaviour
 
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody2D>();
+		playerRb2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        collider = GetComponent<BoxCollider2D>();
+		playerCollider = GetComponent<BoxCollider2D>();
         agent = GetComponent<Agent>();
         dashComp = GetComponent<Dash>();
         wallJumpComp = GetComponent<WallJump>();
@@ -64,7 +64,7 @@ public class PlayerInput : MonoBehaviour
         if (!canMove)
         {
             agent.MovementInput = Vector2.zero;
-            rigidbody.drag = 10f;
+			playerRb2d.drag = 10f;
             return;
         }
 
@@ -88,7 +88,7 @@ public class PlayerInput : MonoBehaviour
             attackComp.ResetAttack();
         }
         //Da pra mudar isso para um metodo igual a IsGrounded
-        //Além disso, da pra tirar o objecto filho "wallCheck" e fazer igual fazemos no metodo IsGrounded, onde faz um box cast na direção que o player estiver olhando
+        //Alï¿½m disso, da pra tirar o objecto filho "wallCheck" e fazer igual fazemos no metodo IsGrounded, onde faz um box cast na direï¿½ï¿½o que o player estiver olhando
         isWallToutch = Physics2D.OverlapBox(wallCheck.position, new Vector2(0.92f, 1.39f), 0, jumpableGround);
 
         if (dashComp && dash.action.triggered && canDash)
@@ -141,7 +141,7 @@ public class PlayerInput : MonoBehaviour
 
     private void Slide()
     {
-        //Se transformar isWallToutch em um metodo é só chamar aqui igual ta fazendo com IsGrounded
+        //Se transformar isWallToutch em um metodo ï¿½ sï¿½ chamar aqui igual ta fazendo com IsGrounded
         if (isWallToutch && !IsGrounded() && movementInput.x != 0)
         {
             agent.wallSlidingSpeed = wallSlidingSpeed;
@@ -160,19 +160,19 @@ public class PlayerInput : MonoBehaviour
             if (movementInput.x != 0f)
             {
                 agent.MovementInput = movementInput;
-                rigidbody.drag = 0f;
+                playerRb2d.drag = 0f;
             }
             else
             {
-				//Não precisa fazer isso de colocar 'agent.MovementInput' igual a 0, pois o 'movementInput' ja vai receber 0 caso o player não esteja preciosando o botão
+				//Nï¿½o precisa fazer isso de colocar 'agent.MovementInput' igual a 0, pois o 'movementInput' ja vai receber 0 caso o player nï¿½o esteja preciosando o botï¿½o
 				agent.MovementInput = Vector2.zero;
-                rigidbody.drag = 10f;
+                playerRb2d.drag = 10f;
             }
         }
         else
         {
             agent.MovementInput = movementInput;
-            rigidbody.drag = 0f;
+            playerRb2d.drag = 0f;
         }
     }
 
@@ -180,7 +180,7 @@ public class PlayerInput : MonoBehaviour
     {
         if (IsGrounded())
         {
-            rigidbody.velocity = new Vector2(movementInput.x, jumpForce);
+            playerRb2d.velocity = new Vector2(movementInput.x, jumpForce);
         }
         else if (wallJumpComp && isSliding)
         {
@@ -192,7 +192,7 @@ public class PlayerInput : MonoBehaviour
 
     public bool IsGrounded()
     {
-        return Physics2D.BoxCast(collider.bounds.center, collider.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
+        return Physics2D.BoxCast(playerCollider.bounds.center, playerCollider.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
     }
 
 	void OnTriggerStay2D(Collider2D collision)

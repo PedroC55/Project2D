@@ -31,13 +31,13 @@ public class Dash : MonoBehaviour
         }
         player.canDash = false;
         agent.IsExecutingDash();
-        float originalGravity = player.rigidbody.gravityScale;
-        player.rigidbody.gravityScale = 0f;
+        float originalGravity = player.playerRb2d.gravityScale;
+        player.playerRb2d.gravityScale = 0f;
         agent.Dash(dashingPowerX, dashingPowerY, player.movementInput);
         trailRenderer.emitting = true;
         yield return new WaitForSeconds(dashingTime);
         trailRenderer.emitting = false;
-        player.rigidbody.gravityScale = originalGravity;
+        player.playerRb2d.gravityScale = originalGravity;
         agent.ResetDash();
         yield return new WaitForSeconds(dashingCooldown);
         player.canDash = true;

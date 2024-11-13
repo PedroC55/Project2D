@@ -182,7 +182,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  shakeDuration: 1.2
+  shakeDuration: 0.5
   shakeMagnitude: 0.1
 --- !u!251 &-951107589255063686
 PlatformEffector2D:
@@ -197,7 +197,7 @@ PlatformEffector2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RotationalOffset: 0
-  m_UseOneWay: 1
+  m_UseOneWay: 0
   m_UseOneWayGrouping: 0
   m_SurfaceArc: 180
   m_UseSideFriction: 0
