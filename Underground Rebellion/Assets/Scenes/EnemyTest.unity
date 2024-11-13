@@ -46898,11 +46898,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!4 &1983613690 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3225902259485079757, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
-  m_PrefabInstance: {fileID: 5108084074732345068}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1987980280
 GameObject:
   m_ObjectHideFlags: 0
@@ -47126,6 +47121,10 @@ PrefabInstance:
       propertyPath: patrolPositions.Array.data[1]
       value: 
       objectReference: {fileID: 398530872459406671}
+    - target: {fileID: 3832403255725402687, guid: 2bbee86d04e5d504184a9369567d6671, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3980132299998094347, guid: 2bbee86d04e5d504184a9369567d6671, type: 3}
       propertyPath: m_Name
       value: Worm
@@ -47165,7 +47164,9 @@ MonoBehaviour:
   jumpForce: 0
   wallSlidingSpeed: 0
   movemntInputX: 0
-  dashingPower: 0
+  movementInputY: 0
+  dashingPowerX: 0
+  dashingPowerY: 0
 --- !u!95 &2988772329773821663
 Animator:
   serializedVersion: 5
@@ -47331,6 +47332,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 802019626940412794, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 802019626940412794, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 1185688167791041642, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
       propertyPath: cherriesText
       value: 
@@ -47372,22 +47381,6 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2117903320574819507, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
-      propertyPath: dash
-      value: 
-      objectReference: {fileID: 6609651753626705726, guid: 08a94d735aa936f40a9b42a3afc4c6bd, type: 3}
-    - target: {fileID: 2117903320574819507, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
-      propertyPath: jump
-      value: 
-      objectReference: {fileID: -6329733106836858139, guid: 08a94d735aa936f40a9b42a3afc4c6bd, type: 3}
-    - target: {fileID: 2117903320574819507, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
-      propertyPath: movement
-      value: 
-      objectReference: {fileID: -2245739549774326616, guid: 08a94d735aa936f40a9b42a3afc4c6bd, type: 3}
-    - target: {fileID: 2117903320574819507, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
-      propertyPath: wallCheck
-      value: 
-      objectReference: {fileID: 1983613690}
-    - target: {fileID: 2117903320574819507, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
       propertyPath: trailRenderer
       value: 
       objectReference: {fileID: 803430071}
@@ -47403,13 +47396,25 @@ PrefabInstance:
       propertyPath: wallJumpDuration
       value: 0.1
       objectReference: {fileID: 0}
-    - target: {fileID: 2117903320574819507, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
-      propertyPath: wallSlidingSpeed
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2806821240566795578, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
       propertyPath: m_Parameters.colorGradient.m_ColorSpace
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3179920808007216205, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
+      propertyPath: wallJumpForce.x
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3179920808007216205, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
+      propertyPath: wallJumpForce.y
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 3179920808007216205, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
+      propertyPath: wallJumpDuration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3179920808007216205, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
+      propertyPath: stop_movement_durantion
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 4022934457941099702, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
       propertyPath: m_RootOrder
@@ -47455,6 +47460,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5058483752254243227, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
+      propertyPath: trailRenderer
+      value: 
+      objectReference: {fileID: 803430071}
     - target: {fileID: 5616279431631585705, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
       propertyPath: m_Name
       value: Player
@@ -47627,30 +47636,6 @@ MonoBehaviour:
         m_CallState: 2
   startDirection: 1
   contactHitDamage: 1
-  curve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1001 &7761765029172212463
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47706,6 +47691,22 @@ PrefabInstance:
     - target: {fileID: 7532616541735400470, guid: 8cceb56701f98c243acea4a2820fd080, type: 3}
       propertyPath: m_Name
       value: Worm - PatrolPositions
+      objectReference: {fileID: 0}
+    - target: {fileID: 7939997446919413664, guid: 8cceb56701f98c243acea4a2820fd080, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7939997446919413664, guid: 8cceb56701f98c243acea4a2820fd080, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8517872796869652182, guid: 8cceb56701f98c243acea4a2820fd080, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8517872796869652182, guid: 8cceb56701f98c243acea4a2820fd080, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

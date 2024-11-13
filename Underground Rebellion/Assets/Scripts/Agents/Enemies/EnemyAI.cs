@@ -37,8 +37,6 @@ public class EnemyAI : MonoBehaviour
 	protected WallMovement wallMovement;
 	#endregion
 
-	public AnimationCurve curve;
-
 	protected virtual void Awake()
 	{
 		agent = GetComponent<Agent>();
@@ -78,7 +76,7 @@ public class EnemyAI : MonoBehaviour
 	{
 		bool canAggro = true;
 
-		if (!enemyEnergy.HasEnergy() || isReseting || (wallMovement && wallMovement.IsRotating()))
+		if (isAggroed || !enemyEnergy.HasEnergy() || isReseting || (wallMovement && wallMovement.IsRotating()))
 		{
 			canAggro = false;
 		}
@@ -101,7 +99,7 @@ public class EnemyAI : MonoBehaviour
 
 	public void GetHit(int damage, GameObject sender, GameObject receiver)
 	{
-		if (receiver.GetInstanceID() == gameObject.GetInstanceID() && !enemyEnergy.HasEnergy())
+		if (sender.CompareTag("Player") && receiver.GetInstanceID() == gameObject.GetInstanceID() && !enemyEnergy.HasEnergy())
 		{
 			agent.GetHit(damage, sender);
 		}
@@ -109,13 +107,16 @@ public class EnemyAI : MonoBehaviour
 
 	public void EnemyDied()
 	{
+		//Ganha pontos por matar os inimigos, mas o ideal depois é ganhar ponto por limpar a sala
+		LevelEvent.WinCroissant();
+
 		currentAction.InterruptAction();
 		
 		OnMovementInput?.Invoke(Vector2.zero);
-		
+
 		//Collider2D collider = GetComponent<Collider2D>();
 		//collider.enabled = false;
-		Destroy(gameObject);
+		Destroy(gameObject, 1f);
 
 		isDead = true;
 	}
@@ -160,7 +161,7 @@ public class EnemyAI : MonoBehaviour
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		if (collision.gameObject.CompareTag("Player"))
+		if (collision.gameObject.CompareTag("Player") && !isDead)
 		{
 			Debug.Log("Colidiu e deu dano");
 			HitEvent.GetHit(contactHitDamage, gameObject, collision.gameObject);

@@ -38,6 +38,7 @@ public class AgentAnimations : MonoBehaviour
 		animator.SetInteger("state", (int)MovementState.falling);
 	}
 
+
 	public void LookDirection(Vector2 direction)
 	{
 		var scale = transform.parent.localScale;
@@ -55,6 +56,11 @@ public class AgentAnimations : MonoBehaviour
 		}
 
 		transform.parent.localScale = scale;
+	}
+
+	public float GetDirection()
+	{
+		return transform.parent.localScale.x;
 	}
 
 	public void AttackAnimation(string triggerName)
@@ -80,7 +86,7 @@ public class AgentAnimations : MonoBehaviour
 
 	public void RestartLevel()
 	{
-		StartCoroutine(RestartLevelWithDelay(5f));
+		StartCoroutine(RestartLevelWithDelay(2f));
 	}
 
 	private IEnumerator RestartLevelWithDelay(float delay)

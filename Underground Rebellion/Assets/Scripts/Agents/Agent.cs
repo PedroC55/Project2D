@@ -15,7 +15,7 @@ public class Agent : MonoBehaviour
 
 	public Vector2 wallJumpForce;
 
-	private Vector2 lookDirection, movementInput;
+	private Vector2 movementInput;
 	public Vector2 MovementInput { get => movementInput; set => movementInput = value; }
 
 	private void Awake()
@@ -35,21 +35,33 @@ public class Agent : MonoBehaviour
 		agentMover.MovementInput = movementInput;
 		if (wallCheck != null)
 		{
-			agentMover.jumpForce = jumpForce;
 			agentMover.wallSlidingSpeed = wallSlidingSpeed;
-			agentMover.wallJumpForce = wallJumpForce;
 			agentAnimations.wallCheck = wallCheck;
 		}
 		AnimateCharacter();
 	}
 
+	public void IsExecutingDash()
+    {
+		agentMover.IsExecutingDash();
+    }
+
+	public void WallJump(Vector2 wallJF)
+    {
+		agentMover.WallJump(wallJF);
+		//agentAnimations.ChangeLookDirection(wallJF);
+    }
+
+	public void ResetWallJump()
+    {
+		agentMover.ResetWallJump();
+    }
 	public void ApplyForce(Vector2 direction)
 	{
 		agentMover.ApplyForce(direction);
 	}
 	public void FaceDirection(Vector2 direction)
 	{
-		lookDirection = direction;
 		agentAnimations.LookDirection(direction);
 	}
 
@@ -69,9 +81,9 @@ public class Agent : MonoBehaviour
 		agentMover.SlowMovement(slowPercentage);
 	}
 
-	public void GetHit(int damage, GameObject sender)
+	public int GetHit(int damage, GameObject sender)
 	{
-		health.GetHit(damage);
+		return health.GetHit(damage);
 	}
 
 	public void ResetDash()
@@ -79,11 +91,10 @@ public class Agent : MonoBehaviour
 		agentMover.ResetDash();
     }
 
-	public void Dash(float movementInput, float dashingPower)
+	public void Dash(float dashingPowerX,float dashingPowerY ,Vector2 movementInput)
     {
-		
-		agentMover.dashingPower = dashingPower;
-		agentMover.movemntInputX = movementInput;
+		float direction_x = agentAnimations.GetDirection();
+		agentMover.Dash(direction_x, movementInput.y, dashingPowerX, dashingPowerY);
     }
 
 	public void ParryAnimation()
@@ -112,7 +123,7 @@ public class Agent : MonoBehaviour
 			agentAnimations.IdleAnimation();
 		}
 
-		// Aten��o!! Fazer verifica��o do salto depois da corrida uma vez que o salto tem prioridade!!
+		// Atençao!! Fazer verifica��o do salto depois da corrida uma vez que o salto tem prioridade!!
 		if (rb2d.velocity.y > .1f)
 		{
 			agentAnimations.JumpingAnimation();
@@ -121,7 +132,5 @@ public class Agent : MonoBehaviour
 		{
 			agentAnimations.FallingAnimation();
 		}
-		
-			
 	}
 }
