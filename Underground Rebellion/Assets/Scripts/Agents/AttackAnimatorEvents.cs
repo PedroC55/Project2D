@@ -8,21 +8,27 @@ public class AttackAnimatorEvents : ActionAnimatorEvent
     /// <summary>
     /// EXCLUIR DEPOIS
     /// </summary>
-	public SpriteRenderer Sprite;
-	public Collider2D AttackCollider;
-    //public ParticleSystem impactEffect;
-    //public Transform impactTransform;
-    //public float cameraShakeIntensity = 0.2f;
+	private SpriteRenderer sprite;
+	private Collider2D attackCollider;
+	//public ParticleSystem impactEffect;
+	//public Transform impactTransform;
+	//public float cameraShakeIntensity = 0.2f;
 
-    public override void OnActionStart()
+	private void Start()
+	{
+		sprite = GetComponent<SpriteRenderer>();
+		attackCollider = GetComponent<Collider2D>();
+	}
+
+	public override void OnActionStart()
     {
-		Sprite.enabled = true;
-		AttackCollider.enabled = true;
+		sprite.enabled = true;
+		attackCollider.enabled = true;
     }
 
     public override void OnActionEnd()
     {
-		Sprite.enabled = false;
-		AttackCollider.enabled = false;
+		sprite.enabled = false;
+		attackCollider.enabled = false;
 	}
 }

@@ -8,12 +8,15 @@ public class AntAI : EnemyAI
 
 	private EnemyPatrol patrol;
 	//private EnemyMeleeAttack meleeAttack;
+	private EnemyRangedAttack rangedAttack;
 	#endregion
 
 	protected override void Awake()
 	{
 		base.Awake();
+		wallMovement = GetComponent<WallMovement>();
 		patrol = GetComponentInChildren<EnemyPatrol>();
+		rangedAttack = GetComponentInChildren<EnemyRangedAttack>();
 		//meleeAttack = GetComponentInChildren<EnemyMeleeAttack>();
 	}
 
@@ -24,6 +27,8 @@ public class AntAI : EnemyAI
 
 		if (isAggroed)
 		{
+			rangedAttack.ExecuteAction(player);
+			currentAction = rangedAttack;
 			//meleeAttack.ExecuteAction(player);
 			//currentAction = meleeAttack;
 		}

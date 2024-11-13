@@ -63,7 +63,6 @@ public class AgentAnimations : MonoBehaviour
 		return transform.parent.localScale.x;
 	}
 
-
 	public void AttackAnimation(string triggerName)
 	{
 		animator.SetTrigger(triggerName);
@@ -78,6 +77,11 @@ public class AgentAnimations : MonoBehaviour
 	public void StunAnimation()
 	{
 		animator.SetTrigger("stun");
+	}
+
+	public void ParryAnimation()
+	{
+		animator.SetTrigger("parry");
 	}
 
 	public void RestartLevel()

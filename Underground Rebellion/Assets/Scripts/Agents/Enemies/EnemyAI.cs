@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -75,8 +76,10 @@ public class EnemyAI : MonoBehaviour
 	{
 		bool canAggro = true;
 
-		if (!enemyEnergy.HasEnergy() || isReseting)
+		if (isAggroed || !enemyEnergy.HasEnergy() || isReseting || (wallMovement && wallMovement.IsRotating()))
+		{
 			canAggro = false;
+		}
 
 		return canAggro;
 	}
@@ -96,9 +99,7 @@ public class EnemyAI : MonoBehaviour
 
 	public void GetHit(int damage, GameObject sender, GameObject receiver)
 	{
-		//Debug.Log(sender.tag);
-		Debug.Log("Inimigo recebeu ataque");
-		if (sender.CompareTag("Player") && receiver.GetInstanceID() == gameObject.GetInstanceID())
+		if (sender.CompareTag("Player") && receiver.GetInstanceID() == gameObject.GetInstanceID() && !enemyEnergy.HasEnergy())
 		{
 			agent.GetHit(damage, sender);
 		}
@@ -106,12 +107,16 @@ public class EnemyAI : MonoBehaviour
 
 	public void EnemyDied()
 	{
+		//Ganha pontos por matar os inimigos, mas o ideal depois é ganhar ponto por limpar a sala
+		LevelEvent.WinCroissant();
+
 		currentAction.InterruptAction();
 		
 		OnMovementInput?.Invoke(Vector2.zero);
-		
-		Collider2D collider = GetComponent<Collider2D>();
-		collider.enabled = false;
+
+		//Collider2D collider = GetComponent<Collider2D>();
+		//collider.enabled = false;
+		Destroy(gameObject, 1f);
 
 		isDead = true;
 	}
@@ -156,7 +161,7 @@ public class EnemyAI : MonoBehaviour
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		if (collision.gameObject.CompareTag("Player"))
+		if (collision.gameObject.CompareTag("Player") && !isDead)
 		{
 			Debug.Log("Colidiu e deu dano");
 			HitEvent.GetHit(contactHitDamage, gameObject, collision.gameObject);

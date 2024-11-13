@@ -54,6 +54,7 @@ public class AgentMover : MonoBehaviour
 		else if (wallSlidingSpeed != 0)
 		{
 			rb2d.velocity = new Vector2(MovementInput.x * currentSpeed, Mathf.Clamp(rb2d.velocity.y, -wallSlidingSpeed, float.MaxValue));
+			return;
 		}
 
 		if (!canWalkWalls)
@@ -103,7 +104,6 @@ public class AgentMover : MonoBehaviour
 		isDashing = true;
     }
 
-
     public void ResetWallJump()
 	{
 		isWallJumping = false;
@@ -111,14 +111,12 @@ public class AgentMover : MonoBehaviour
 	}
 	public void ApplyForce(Vector2 direction)
     {
-
 		rb2d.AddForce(direction, ForceMode2D.Impulse);
 	}
 	public void StopMoving()
 	{
 		rb2d.bodyType = RigidbodyType2D.Static;
 	}
-
 	public void SlowMovement(int percentage)
 	{
 		if (slowPercentage < percentage || percentage == 0)

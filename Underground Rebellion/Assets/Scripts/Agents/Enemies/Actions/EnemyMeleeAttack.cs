@@ -71,9 +71,9 @@ public class EnemyMeleeAttack : EnemyAction
 		isAttacking = false;
 	}
 
-	private void OnDrawGizmosSelected()
-	{
-		Gizmos.color = Color.green;
-		Gizmos.DrawWireSphere(transform.position, attackDistanceThreshold);
-	}
+	//private void OnDrawGizmosSelected()
+	//{
+	//	Gizmos.color = Color.green;
+	//	Gizmos.DrawWireSphere(transform.position, attackDistanceThreshold);
+	//}
 }

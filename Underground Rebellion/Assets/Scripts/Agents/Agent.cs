@@ -15,11 +15,8 @@ public class Agent : MonoBehaviour
 
 	public Vector2 wallJumpForce;
 
-
-	private Vector2 lookDirection, movementInput;
+	private Vector2 movementInput;
 	public Vector2 MovementInput { get => movementInput; set => movementInput = value; }
-
-
 
 	private void Awake()
 	{
@@ -65,7 +62,6 @@ public class Agent : MonoBehaviour
 	}
 	public void FaceDirection(Vector2 direction)
 	{
-		lookDirection = direction;
 		agentAnimations.LookDirection(direction);
 	}
 
@@ -85,26 +81,26 @@ public class Agent : MonoBehaviour
 		agentMover.SlowMovement(slowPercentage);
 	}
 
-	public void GetHit(int damage, GameObject sender)
+	public int GetHit(int damage, GameObject sender)
 	{
-		health.GetHit(damage);
+		return health.GetHit(damage);
 	}
 
 	public void ResetDash()
     {
-
 		agentMover.ResetDash();
     }
 
 	public void Dash(float dashingPowerX,float dashingPowerY ,Vector2 movementInput)
     {
 		float direction_x = agentAnimations.GetDirection();
-
 		agentMover.Dash(direction_x, movementInput.y, dashingPowerX, dashingPowerY);
-		
-
-
     }
+
+	public void ParryAnimation()
+	{
+		agentAnimations.ParryAnimation();
+	}
 
 	public void StunAnimation()
 	{
@@ -136,7 +132,5 @@ public class Agent : MonoBehaviour
 		{
 			agentAnimations.FallingAnimation();
 		}
-		
-			
 	}
 }
