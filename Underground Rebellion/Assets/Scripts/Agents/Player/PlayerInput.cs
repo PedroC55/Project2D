@@ -30,7 +30,14 @@ public class PlayerInput : MonoBehaviour
 
     [SerializeField] private float jumpForce = 14f;
 
+    private float lastJumpTime;
+    private float lastGroundedTime;
+    public float jumpBufferTime;
+    public float jumpCoyoteTime;
+    
+
     private bool canMove = true;
+    private float jumpCut = -0.2f;
 
     private enum MovementState { idle, running, jumping, falling}
     public InputActionReference movement, jump, dash, attack;
@@ -63,6 +70,9 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        lastJumpTime -= Time.deltaTime;
+        lastGroundedTime = IsGrounded() ? jumpCoyoteTime : lastGroundedTime -Time.deltaTime;
+
         if (!canMove)
         {
             agent.MovementInput = Vector2.zero;
@@ -75,9 +85,12 @@ public class PlayerInput : MonoBehaviour
 
         Movement();
 
+
         if (jump.action.triggered)
         {
+            lastJumpTime = jumpBufferTime;
             Jump();
+            jump.action.canceled += context => OnJumpUp();
         }
 
         if (attack.action.triggered)
@@ -186,9 +199,16 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
+    private void OnJumpUp()
+    {
+        if(playerRb2d.velocity.y > 0)
+        {
+            agent.ApplyForce(Vector2.down * playerRb2d.velocity.y * ( 1 - jumpCut));
+        }
+    }
     private void Jump()
     {
-        if (IsGrounded())
+        if ((lastGroundedTime > 0 && lastJumpTime > 0 && playerRb2d.velocity.y <= 0) || IsGrounded() )
         {
             playerRb2d.velocity = new Vector2(movementInput.x, jumpForce);
         }

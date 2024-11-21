@@ -24,6 +24,8 @@ public class AgentMover : MonoBehaviour
 	private bool isWallJumping = false;
 
 	private int slowPercentage;
+
+	private float gravityScale;
 	
 	private bool canWalkWalls = false;
 	private WallMovement agentWM;
@@ -31,7 +33,7 @@ public class AgentMover : MonoBehaviour
 	private void Awake()
 	{
 		rb2d = GetComponent<Rigidbody2D>();
-		
+		gravityScale = rb2d.gravityScale;
 		currentSpeed = moveSpeed;
 
 		agentWM = GetComponent<WallMovement>();
@@ -68,6 +70,17 @@ public class AgentMover : MonoBehaviour
 
 			rb2d.velocity = new Vector2(xSpeed, ySpeed);
 		}
+
+
+		if (rb2d.velocity.y < 0)
+        {
+			rb2d.gravityScale = gravityScale * 1.5f;
+        }
+        else
+        {
+			rb2d.gravityScale = gravityScale;
+        }
+
 	}
 
 	public void ResetDash()
