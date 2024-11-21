@@ -269,11 +269,6 @@ Transform:
   m_Father: {fileID: 1903412280}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!223 &94522592 stripped
-Canvas:
-  m_CorrespondingSourceObject: {fileID: 5957164084194568623, guid: 2bbee86d04e5d504184a9369567d6671, type: 3}
-  m_PrefabInstance: {fileID: 2247129246949664758}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &132028317 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4022934457941099702, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
@@ -546,6 +541,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9451b5cbdb792b469b9f58132cb438d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aggroMarkAnimator: {fileID: 0}
 --- !u!60 &397809165
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -45482,9 +45478,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxEnergy: 2
   energyRechargeTime: 5
-  canvas: {fileID: 94522592}
-  energySlider: {fileID: 1424131353}
-  fillSliderImage: {fileID: 1507800562}
+  canvas: {fileID: 1862085824}
+  energySlider: {fileID: 1903640771}
+  fillSliderImage: {fileID: 1415120560}
 --- !u!1 &1025401356
 GameObject:
   m_ObjectHideFlags: 0
@@ -46095,7 +46091,7 @@ RectTransform:
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -0.0000076293945, y: 0}
   m_SizeDelta: {x: 0.000019073486, y: -15}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -46137,28 +46133,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1415120558}
   m_CullTransparentMesh: 1
---- !u!114 &1424131353 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5129921752854451443, guid: 2bbee86d04e5d504184a9369567d6671, type: 3}
-  m_PrefabInstance: {fileID: 2247129246949664758}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1507800562 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3180560916351918108, guid: 2bbee86d04e5d504184a9369567d6671, type: 3}
-  m_PrefabInstance: {fileID: 2247129246949664758}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1783622371
 GameObject:
   m_ObjectHideFlags: 0
@@ -47211,7 +47185,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &4599152482335801772
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -47560,8 +47534,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7864decdd29f29a42bf5dc308cd48b46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1
-  currentHealth: 1
   OnHitWithReference:
     m_PersistentCalls:
       m_Calls: []
@@ -47592,6 +47564,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  maxHealth: 1
 --- !u!114 &5415640113182454742
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -24,6 +24,9 @@ public class WormAI : EnemyAI
 
 		if (isAggroed)
 		{
+			if (player.GetComponent<Health>().IsDead())
+				return;
+
 			meleeAttack.ExecuteAction(player);
 			currentAction = meleeAttack;
 		}

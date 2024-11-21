@@ -6,7 +6,7 @@ using UnityEngine.InputSystem.Interactions;
 
 public class PlayerInput : MonoBehaviour
 {
-    public Rigidbody2D playerRb2d;
+    private Rigidbody2D playerRb2d;
     private Agent agent;
     private Dash dashComp;
     private PlayerAttack attackComp;
@@ -40,11 +40,14 @@ public class PlayerInput : MonoBehaviour
         playerParrySystem = GetComponent<ParrySystem>();
 
         HitEvent.OnHit += OnPlayerHit;
+        LevelEvent.OnResetPlayer += ResetPlayer;
     }
+
     private void OnDisable()
     {
         HitEvent.OnHit -= OnPlayerHit;
-    }
+		LevelEvent.OnResetPlayer -= ResetPlayer;
+	}
 
     void Start()
     {
@@ -60,14 +63,12 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-
         if (!canMove)
         {
             agent.MovementInput = Vector2.zero;
 			playerRb2d.drag = 10f;
             return;
         }
-
 
         agent.wallCheck = wallCheck;
         movementInput = movement.action.ReadValue<Vector2>();
@@ -105,6 +106,7 @@ public class PlayerInput : MonoBehaviour
         Jump();
     }
 
+    //COLOCAR EM OUTRO SCRIPT
     private void OnPlayerHit(int damage, GameObject sender, GameObject receiver)
     {
         if (receiver.CompareTag("Player"))
@@ -129,6 +131,14 @@ public class PlayerInput : MonoBehaviour
 				}
 			}
         }
+    }
+
+    //COLOCAR EM OUTRO SCRIPT
+    private void ResetPlayer(Transform lastSavedPosition)
+    {
+        Debug.Log("Reset Player");
+        transform.position = lastSavedPosition.position;
+        agent.ResetAgent(true);
     }
 
     public IEnumerator DisableMovementDuringParry()
@@ -186,7 +196,6 @@ public class PlayerInput : MonoBehaviour
         {
             wallJumpComp.PerformWallJump();
             isSliding = false;
-            
         }
     }
 

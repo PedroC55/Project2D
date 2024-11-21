@@ -28,7 +28,6 @@ public class EnemyMeleeAttack : EnemyAction
 
 	public override void ExecuteAction(Transform player)
 	{
-
 		enemyChase.ExecuteAction(player, attackDistanceThreshold);
 
 		isExecuting = true;

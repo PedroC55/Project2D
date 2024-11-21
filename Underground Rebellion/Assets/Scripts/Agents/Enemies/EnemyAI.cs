@@ -104,20 +104,26 @@ public class EnemyAI : MonoBehaviour
 		}
 	}
 
+	public bool IsDead()
+	{
+		return isDead;
+	}
+
 	public void EnemyDied()
 	{
 		//Ganha pontos por matar os inimigos, mas o ideal depois é ganhar ponto por limpar a sala
 		LevelEvent.WinCroissant();
-
+		
+		isDead = true;
 		currentAction.InterruptAction();
 		
+		Collider2D collider = GetComponent<Collider2D>();
+		collider.isTrigger = true;
 		OnMovementInput?.Invoke(Vector2.zero);
 
-		//Collider2D collider = GetComponent<Collider2D>();
-		//collider.enabled = false;
-		Destroy(gameObject, 1f);
+		agent.Died();
 
-		isDead = true;
+		Destroy(gameObject, 1f);
 	}
 
 	public void DecreaseEnergy(int amount, GameObject receiver)
