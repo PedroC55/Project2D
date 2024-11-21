@@ -29,16 +29,6 @@ public class Elevator : MonoBehaviour
 		elevatorInteraction.OnInteraction += UseElevator;
 	}
 
-	void Update()
-	{
-		// Check if the player is in range and presses the "E" key
-		if (elevatorInteraction.PlayerInRange() && Input.GetKeyDown(KeyCode.E))
-		{
-			// Make the box disappear by disabling the GameObject
-			gameObject.SetActive(false);
-		}
-	}
-
 	public void FixElevator()
 	{
 		GetComponent<SpriteRenderer>().sprite = fixedElevatorSprite;

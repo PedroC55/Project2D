@@ -72,8 +72,17 @@ public class Agent : MonoBehaviour
 
 	public void Died()
 	{
-		agentMover.StopMoving();
+		agentMover.AgentDied();
 		agentAnimations.DeathAnimation();
+	}
+
+	public void ResetAgent(bool isPlayer)
+	{
+		agentMover.Reset();
+		health.ResetHealth();
+
+		if (isPlayer)
+			CanvasEvent.UpdateHealth(health.GetMaxHealth());
 	}
 
 	public void SlowMovement(int slowPercentage)

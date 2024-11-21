@@ -9,7 +9,7 @@ public class Interaction : MonoBehaviour
 	public delegate void InteractionHandler();
 	public event InteractionHandler OnInteraction;
 
-    public GameObject breakableIcon;
+    public GameObject buttonIcon;
 
     private bool playerInRange = false;
 
@@ -39,8 +39,8 @@ public class Interaction : MonoBehaviour
         // Check if the player is within range
         if (other.CompareTag("Player"))
         {
-            // Show the icon and the E key prompt
-            breakableIcon.SetActive(true);
+			// Show the icon and the E key prompt
+			buttonIcon.SetActive(true);
 			playerInRange = true;
 		}
     }
@@ -50,9 +50,8 @@ public class Interaction : MonoBehaviour
         // Hide the icon and E key prompt when the player leaves
         if (other.CompareTag("Player"))
         {
-            breakableIcon.SetActive(false);
+			buttonIcon.SetActive(false);
 			playerInRange = false;
-
 		}
     }
 }

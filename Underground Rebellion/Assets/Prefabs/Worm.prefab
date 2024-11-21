@@ -664,26 +664,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7864decdd29f29a42bf5dc308cd48b46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1
-  currentHealth: 1
   OnHitWithReference:
     m_PersistentCalls:
       m_Calls: []
   OnDeathWithReference:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2905173454188212561}
-        m_TargetAssemblyTypeName: AgentAnimations, Assembly-CSharp
-        m_MethodName: DeathAnimation
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 8348641699354034396}
         m_TargetAssemblyTypeName: EnemyAI, Assembly-CSharp
         m_MethodName: EnemyDied
@@ -696,6 +682,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  maxHealth: 1
 --- !u!114 &8348641699354034396
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -38,7 +38,6 @@ public class AgentAnimations : MonoBehaviour
 		animator.SetInteger("state", (int)MovementState.falling);
 	}
 
-
 	public void LookDirection(Vector2 direction)
 	{
 		var scale = transform.parent.localScale;
@@ -84,14 +83,14 @@ public class AgentAnimations : MonoBehaviour
 		animator.SetTrigger("parry");
 	}
 
-	public void RestartLevel()
-	{
-		StartCoroutine(RestartLevelWithDelay(2f));
-	}
+	//public void RestartLevel()
+	//{
+	//	StartCoroutine(RestartLevelWithDelay(2f));
+	//}
 
-	private IEnumerator RestartLevelWithDelay(float delay)
-	{
-		yield return new WaitForSeconds(delay);
-		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-	}
+	//private IEnumerator RestartLevelWithDelay(float delay)
+	//{
+	//	yield return new WaitForSeconds(delay);
+	//	SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+	//}
 }

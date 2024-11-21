@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem.Processors;
 
 public class AgentMover : MonoBehaviour
 {
@@ -14,12 +15,13 @@ public class AgentMover : MonoBehaviour
 	private float currentSpeed;
 	public Vector2 MovementInput { get; set; }
 
+	private bool isDead = false;
+
 	public float jumpForce, wallSlidingSpeed;
 	private bool isDashing = false;
 
 	public float movemntInputX, movementInputY, dashingPowerX, dashingPowerY;
 	private bool isWallJumping = false;
-
 
 	private int slowPercentage;
 
@@ -41,13 +43,7 @@ public class AgentMover : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-
-		if (isDashing)
-		{
-			return;
-		}
-
-		if (isWallJumping)
+		if (isDead || isDashing || isWallJumping)
 		{
 			return;
 		}
@@ -86,6 +82,7 @@ public class AgentMover : MonoBehaviour
         }
 
 	}
+
 	public void ResetDash()
     {
 		isDashing = false;
@@ -95,14 +92,17 @@ public class AgentMover : MonoBehaviour
 		dashingPowerY = 0f;
 		rb2d.velocity = Vector2.zero;
     }
+
 	public void Dash(float movemntInputX, float movementInputY, float dashingPowerX, float dashingPowerY)
     {
 		rb2d.velocity = new Vector2(movemntInputX * dashingPowerX, movementInputY * dashingPowerY);
 	}
+
 	public float GetCurrentSpeed()
 	{
 		return currentSpeed;
 	}
+
 	public void WallJump(Vector2 wallJF)
     {
 		wallJumpForce = wallJF;
@@ -116,19 +116,30 @@ public class AgentMover : MonoBehaviour
 		isDashing = true;
     }
 
+
     public void ResetWallJump()
 	{
 		isWallJumping = false;
 		wallJumpForce = Vector2.zero;
 	}
+
 	public void ApplyForce(Vector2 direction)
     {
 		rb2d.AddForce(direction, ForceMode2D.Impulse);
 	}
-	public void StopMoving()
+
+	public void AgentDied()
 	{
 		rb2d.bodyType = RigidbodyType2D.Static;
+		isDead = true;
 	}
+
+	public void Reset()
+	{
+		rb2d.bodyType = RigidbodyType2D.Dynamic;
+		isDead = false;
+	}
+
 	public void SlowMovement(int percentage)
 	{
 		if (slowPercentage < percentage || percentage == 0)
