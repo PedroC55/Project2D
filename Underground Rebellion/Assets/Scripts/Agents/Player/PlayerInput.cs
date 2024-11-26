@@ -17,7 +17,17 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private LayerMask jumpableGround;
 
     public Vector2 movementInput;
+    private bool canMove = true;
+    
+    //Jump
+    [SerializeField] private float jumpForce;
+    private float lastJumpTime;
+    private float lastGroundedTime;
+    public float jumpBufferTime;
+    public float jumpCoyoteTime;
+    private float jumpCut = -0.2f;
 
+    //Wall Jumping
     public Transform wallCheck;
     bool isWallToutch;
     bool isSliding;
@@ -26,18 +36,8 @@ public class PlayerInput : MonoBehaviour
     // Attack
     public bool attacking = false;
 
+    //Dash
     public bool canDash = true;
-
-    [SerializeField] private float jumpForce = 14f;
-
-    private float lastJumpTime;
-    private float lastGroundedTime;
-    public float jumpBufferTime;
-    public float jumpCoyoteTime;
-    
-
-    private bool canMove = true;
-    private float jumpCut = -0.2f;
 
     private enum MovementState { idle, running, jumping, falling}
     public InputActionReference movement, jump, dash, attack;
@@ -65,17 +65,19 @@ public class PlayerInput : MonoBehaviour
         dashComp = GetComponent<Dash>();
         wallJumpComp = GetComponent<WallJump>();
         attackComp = GetComponent<PlayerAttack>();
-    }
+
+		jump.action.canceled += context => OnJumpUp();
+	}
 
     // Update is called once per frame
     private void Update()
     {
         lastJumpTime -= Time.deltaTime;
-        lastGroundedTime = IsGrounded() ? jumpCoyoteTime : lastGroundedTime -Time.deltaTime;
+        lastGroundedTime = IsGrounded() ? jumpCoyoteTime : lastGroundedTime - Time.deltaTime;
 
         if (!canMove)
         {
-            agent.MovementInput = Vector2.zero;
+			agent.MovementInput = Vector2.zero;
 			playerRb2d.drag = 10f;
             return;
         }
@@ -85,13 +87,12 @@ public class PlayerInput : MonoBehaviour
 
         Movement();
 
-
         if (jump.action.triggered)
         {
             lastJumpTime = jumpBufferTime;
-            Jump();
-            jump.action.canceled += context => OnJumpUp();
         }
+
+        Jump();
 
         if (attack.action.triggered)
         {
@@ -113,11 +114,6 @@ public class PlayerInput : MonoBehaviour
         if(wallJumpComp)
             Slide();
     }
-    private void OnJump(InputAction.CallbackContext context)
-    {
-        // Call your jump function here.
-        Jump();
-    }
 
     //COLOCAR EM OUTRO SCRIPT
     private void OnPlayerHit(int damage, GameObject sender, GameObject receiver)
@@ -135,7 +131,6 @@ public class PlayerInput : MonoBehaviour
 				if (playerParrySystem.CheckParryTiming() && playerParrySystem.CheckDirection(sender))
 				{
                     ParryEvent.Parry(1, sender.transform.parent.gameObject);
-					Debug.Log("Parry");
 				}
 				else
 				{
@@ -178,39 +173,30 @@ public class PlayerInput : MonoBehaviour
     }
     private void Movement()
     {
-        if (IsGrounded())
+		agent.MovementInput = movementInput;
+        playerRb2d.drag = 0f;
+
+        if (IsGrounded() && movementInput.x == 0f)
         {
-            if (movementInput.x != 0f)
-            {
-                agent.MovementInput = movementInput;
-                playerRb2d.drag = 0f;
-            }
-            else
-            {
-				//N�o precisa fazer isso de colocar 'agent.MovementInput' igual a 0, pois o 'movementInput' ja vai receber 0 caso o player n�o esteja preciosando o bot�o
-				agent.MovementInput = Vector2.zero;
-                playerRb2d.drag = 10f;
-            }
-        }
-        else
-        {
-            agent.MovementInput = movementInput;
-            playerRb2d.drag = 0f;
+            playerRb2d.drag = 10f;
         }
     }
 
     private void OnJumpUp()
     {
+        lastJumpTime = 0f;
         if(playerRb2d.velocity.y > 0)
         {
-            agent.ApplyForce(Vector2.down * playerRb2d.velocity.y * ( 1 - jumpCut));
+			agent.ApplyForce((1 - jumpCut) * playerRb2d.velocity.y * Vector2.down);
         }
     }
+
     private void Jump()
     {
-        if ((lastGroundedTime > 0 && lastJumpTime > 0 && playerRb2d.velocity.y <= 0) || IsGrounded() )
+        if (lastGroundedTime > 0f && lastJumpTime > 0f)
         {
-            playerRb2d.velocity = new Vector2(movementInput.x, jumpForce);
+            playerRb2d.velocity = new Vector2(0, jumpForce);
+            lastJumpTime = 0f;
         }
         else if (wallJumpComp && isSliding)
         {

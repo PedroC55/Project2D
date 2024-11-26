@@ -6,9 +6,10 @@ public class LevelManager : MonoBehaviour
 {
 	private int croissants = 0;
 
+	[SerializeField]
 	private Transform lastSavePosition;
 
-	
+	private Dictionary<int, string> objectsState = new();
 	/* inimios = {id: {isdead}}
 	 * objetos = {id:}
 	 */
@@ -27,13 +28,18 @@ public class LevelManager : MonoBehaviour
 		LevelEvent.OnPlayerDied -= PlayerDied;
 	}
 
-	public void WinCroissant()
+	private void InitializeObject(GameObject worldObject, string state)
+	{
+		objectsState.Add(worldObject.GetInstanceID(), state);
+	}
+
+	private void WinCroissant()
 	{
 		croissants++;
 		CanvasEvent.WinCroissant(croissants);
 	}
 
-	public void PlayerSave(Transform player)
+	private void PlayerSave(Transform player)
 	{
 		lastSavePosition = player;
 
@@ -46,7 +52,7 @@ public class LevelManager : MonoBehaviour
 		//No ObjectsManager salvar o estado dos objetos e a posição dos objetos que se mexem
 	}
 
-	public void PlayerDied()
+	private void PlayerDied()
 	{
 		LevelEvent.ResetPlayer(lastSavePosition);
 
