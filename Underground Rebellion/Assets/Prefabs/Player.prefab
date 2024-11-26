@@ -427,11 +427,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   movementInput: {x: 0, y: 0}
+  jumpForce: 18.5
+  jumpBufferTime: 0.1
+  jumpCoyoteTime: 0.05
   wallCheck: {fileID: 3225902259485079757}
   wallSlidingSpeed: 1
   attacking: 0
   canDash: 1
-  jumpForce: 18
   movement: {fileID: -2245739549774326616, guid: 08a94d735aa936f40a9b42a3afc4c6bd, type: 3}
   jump: {fileID: -6329733106836858139, guid: 08a94d735aa936f40a9b42a3afc4c6bd, type: 3}
   dash: {fileID: 6609651753626705726, guid: 08a94d735aa936f40a9b42a3afc4c6bd, type: 3}

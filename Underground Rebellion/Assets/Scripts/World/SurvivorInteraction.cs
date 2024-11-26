@@ -25,6 +25,7 @@ public class SurvivorInteraction : MonoBehaviour
 		LevelEvent.FixElevator();
         animator.SetTrigger("Press");
 
-        Destroy(gameObject, 1f);
+        //Destroy(gameObject, 1f);
+		gameObject.SetActive(false);
     }
 }
