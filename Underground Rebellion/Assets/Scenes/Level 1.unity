@@ -4667,7 +4667,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -38.160057, y: -64.55, z: -10}
+  m_LocalPosition: {x: -38.15778, y: -64.55, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5122,7 +5122,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &569627080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36626,8 +36626,8 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 18.9, y: 9.4}
-      - {x: -19.8, y: 9.4}
+    - - {x: 18.9, y: 9.2}
+      - {x: -19.8, y: 9.2}
       - {x: -19.8, y: -11.5}
       - {x: 18.9, y: -11.5}
   m_UseDelaunayMesh: 0

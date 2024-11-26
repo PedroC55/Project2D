@@ -12,6 +12,7 @@ public class KeyRebinder : MonoBehaviour
     public TMP_Text jumpbindingDisplayText;   // Text to display the current binding
     public Button jumprebindButton;          // Button to trigger rebinding
     public TMP_Text jumprebindPromptText;    // Prompt text for rebinding
+    public TMP_Text errorPromptText;
 
     [Header("Dash")]
     public TMP_Text dashbindingDisplayText;   // Text to display the current binding
@@ -35,6 +36,7 @@ public class KeyRebinder : MonoBehaviour
 
     private InputAction jump, dash, parry, attack, interact;
     private int bindingIndex;
+    private const string RebindingOverridesKey = "RebindingOverrides";
 
     private void Start()
     {
@@ -93,6 +95,20 @@ public class KeyRebinder : MonoBehaviour
         jumprebindPromptText.gameObject.SetActive(true);
 
         jump.PerformInteractiveRebinding(bindingIndex)
+            .OnApplyBinding((operation, newPath) =>
+            {
+                if (IsKeyConflict(newPath))
+                {
+                    // Conflict detected
+                    operation.Cancel();
+                    errorPromptText.text = $"Key '{InputControlPath.ToHumanReadableString(newPath)}' is already in use!";
+                    errorPromptText.gameObject.SetActive(true);
+                }
+                else
+                {
+                    errorPromptText.gameObject.SetActive(false);
+                }
+            })
             .OnComplete(operation =>
             {
                 operation.Dispose();
@@ -179,5 +195,37 @@ public class KeyRebinder : MonoBehaviour
                 UpdateBindingDisplay();
             })
             .Start();
+    }
+    private bool IsKeyConflict(string newPath)
+    {
+        foreach (var action in inputActions)
+        {
+            foreach (var binding in action.bindings)
+            {
+                if (binding.effectivePath == newPath)
+                {
+                    return true; // Key is already in use
+                }
+            }
+        }
+        return false; // Key is available
+    }
+
+    private void SaveBindingOverrides()
+    {
+        string overrides = inputActions.ToJson();
+        PlayerPrefs.SetString(RebindingOverridesKey, overrides);
+        PlayerPrefs.Save();
+        Debug.Log("Binding overrides saved.");
+    }
+
+    private void LoadBindingOverrides()
+    {
+        if (PlayerPrefs.HasKey(RebindingOverridesKey))
+        {
+            string overrides = PlayerPrefs.GetString(RebindingOverridesKey);
+            inputActions.LoadFromJson(overrides);
+            Debug.Log("Binding overrides loaded.");
+        }
     }
 }
