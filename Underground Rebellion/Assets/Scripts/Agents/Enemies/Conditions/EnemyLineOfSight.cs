@@ -39,9 +39,7 @@ public class EnemyLineOfSight : MonoBehaviour
 				aggroMarkAnimator.SetBool("LossingAggro", true);
 				if (currentTime > loseAggroTime)
 				{
-					player = null;
-					aggroMarkAnimator.SetBool("LossingAggro", false);
-					enemyAI.ResetEnemy();
+					enemyAI.LostAggro();
 				}
 			}
 		}
@@ -69,8 +67,10 @@ public class EnemyLineOfSight : MonoBehaviour
 		}
 	}
 
-	public void ActiveLineOfSight()
+	public void ResetLineOfSight()
 	{
+		player = null;
+		aggroMarkAnimator.SetBool("LossingAggro", false);
 		GetComponent<Collider2D>().enabled = true;
 	}
 }

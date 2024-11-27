@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class LevelEvent : MonoBehaviour
 {
-	public delegate void WinCroissantHandler();
-	public static event WinCroissantHandler OnWinCroissant;
+	public delegate void RegisterEnemyHandler(EnemyAI enemyAI);
+	public static event RegisterEnemyHandler OnRegisterEnemy;
 
 	public delegate void FixElevatorHandler();
 	public static event FixElevatorHandler OnFixElevator;
@@ -16,12 +16,18 @@ public class LevelEvent : MonoBehaviour
 	public delegate void PlayerDiedHandler();
 	public static event PlayerDiedHandler OnPlayerDied;
 
+	public delegate void EnemyDiedHandler(int enemyID);
+	public static event EnemyDiedHandler OnEnemyDied;
+
 	public delegate void ResetPlayerHandler(Transform lastSavePosition);
 	public static event ResetPlayerHandler OnResetPlayer;
 
-	public static void WinCroissant()
+	public delegate void ResetRoomEnemiesHandler(int roomID);
+	public static event ResetRoomEnemiesHandler OnResetRoomEnemies;
+
+	public static void RegisterEnemy(EnemyAI enemyAI)
 	{
-		OnWinCroissant?.Invoke();
+		OnRegisterEnemy?.Invoke(enemyAI);
 	}
 
 	public static void FixElevator()
@@ -39,8 +45,18 @@ public class LevelEvent : MonoBehaviour
 		OnPlayerDied?.Invoke();
 	}
 
+	public static void EnemyDied(int enemyID)
+	{
+		OnEnemyDied?.Invoke(enemyID);
+	}
+
 	public static void ResetPlayer(Transform lastSavePosition)
 	{
 		OnResetPlayer?.Invoke(lastSavePosition);
+	}
+
+	public static void ResetRoomEnemies(int roomID)
+	{
+		OnResetRoomEnemies?.Invoke(roomID);
 	}
 }

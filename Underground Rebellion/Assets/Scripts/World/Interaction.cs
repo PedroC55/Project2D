@@ -37,7 +37,7 @@ public class Interaction : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         // Check if the player is within range
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !other.isTrigger)
         {
 			// Show the icon and the E key prompt
 			buttonIcon.SetActive(true);
@@ -48,7 +48,7 @@ public class Interaction : MonoBehaviour
     void OnTriggerExit2D(Collider2D other)
     {
         // Hide the icon and E key prompt when the player leaves
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !other.isTrigger)
         {
 			buttonIcon.SetActive(false);
 			playerInRange = false;

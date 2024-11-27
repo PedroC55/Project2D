@@ -556,7 +556,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 10
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 3
@@ -629,7 +629,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallCheck: {fileID: 0}
-  jumpForce: 0
   wallSlidingSpeed: 0
   wallJumpForce: {x: 0, y: 0}
 --- !u!114 &2962800635127505357
@@ -644,14 +643,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ee068076c4c0aa46b1f99f8990a553d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallJumpForce: {x: 0, y: 0}
   moveSpeed: 5
-  jumpForce: 0
-  wallSlidingSpeed: 0
-  movemntInputX: 0
-  movementInputY: 0
-  dashingPowerX: 0
-  dashingPowerY: 0
 --- !u!114 &2738747772173335226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -695,6 +687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fb18f93c0ad52b49ae8ab54586f9441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   OnMovementInput:
     m_PersistentCalls:
       m_Calls:
@@ -727,6 +720,7 @@ MonoBehaviour:
         m_CallState: 2
   startDirection: -1
   contactHitDamage: 1
+  roomID: 0
 --- !u!1 &4100881680981077053
 GameObject:
   m_ObjectHideFlags: 0
@@ -937,7 +931,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bcc9ffd29fee4240a81cd43eb5574a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallCheck: {fileID: 0}
 --- !u!114 &199758874940890796
 MonoBehaviour:
   m_ObjectHideFlags: 0

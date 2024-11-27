@@ -120,7 +120,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bcc9ffd29fee4240a81cd43eb5574a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallCheck: {fileID: 3225902259485079757}
 --- !u!114 &3648050971994674703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,10 +308,10 @@ GameObject:
   - component: {fileID: 5530332394764959316}
   - component: {fileID: 2806821240566795578}
   - component: {fileID: 2418389645722234026}
+  - component: {fileID: 1173937951491170409}
   - component: {fileID: 5058483752254243227}
   - component: {fileID: 6347332323213443017}
   - component: {fileID: 3179920808007216205}
-  - component: {fileID: 1173937951491170409}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -494,7 +493,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallCheck: {fileID: 0}
-  jumpForce: 0
   wallSlidingSpeed: 0
   wallJumpForce: {x: 0, y: 0}
 --- !u!114 &5530332394764959316
@@ -509,14 +507,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ee068076c4c0aa46b1f99f8990a553d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallJumpForce: {x: 0, y: 0}
-  moveSpeed: 7
-  jumpForce: 0
-  wallSlidingSpeed: 0
-  movemntInputX: 0
-  movementInputY: 0
-  dashingPowerX: 0
-  dashingPowerY: 0
+  moveSpeed: 7.3
 --- !u!96 &2806821240566795578
 TrailRenderer:
   serializedVersion: 3
@@ -644,6 +635,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parryWindow: 0.5
   parry: {fileID: 1209616658118524915, guid: 08a94d735aa936f40a9b42a3afc4c6bd, type: 3}
+--- !u!114 &1173937951491170409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5616279431631585705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aae910c3f36cee4c8325a420dbc1a10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5058483752254243227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -685,18 +688,6 @@ MonoBehaviour:
   wallJumpForce: {x: 0, y: 0}
   stop_movement_durantion: 0
   walljumpPower: 10
---- !u!114 &1173937951491170409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5616279431631585705}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1aae910c3f36cee4c8325a420dbc1a10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7575714466832097448
 GameObject:
   m_ObjectHideFlags: 0

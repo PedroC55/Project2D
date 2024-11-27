@@ -67,7 +67,6 @@ public class Stalactite : MonoBehaviour
     {
         if ((((1 << collision.gameObject.layer) & playerLayer) != 0) & !onGround)
         {
-            Debug.Log("PLAYER");
             Physics2D.IgnoreLayerCollision(7, 9);
             isFalling = true;
         }
