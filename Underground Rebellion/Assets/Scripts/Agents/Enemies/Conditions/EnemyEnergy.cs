@@ -59,11 +59,7 @@ public class EnemyEnergy : EnemyCondition
 
 			if (currentRechargeTime >= energyRechargeTime)
 			{
-				currentEnergy = maxEnergy;
-				currentRechargeTime = 0f;
-				hasEnergy = true;
-
-				fillSliderImage.color = normalColor;
+				ResetEnergy();
 			}
 		}
 	}
@@ -84,6 +80,15 @@ public class EnemyEnergy : EnemyCondition
     public bool HasEnergy()
     {
 		return hasEnergy;
+	}
+
+	public void ResetEnergy()
+	{
+		currentEnergy = maxEnergy;
+		currentRechargeTime = 0f;
+		hasEnergy = true;
+
+		fillSliderImage.color = normalColor;
 	}
 
 	private void UpdateCanvas()

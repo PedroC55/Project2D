@@ -82,6 +82,7 @@ public class EnemyChase : EnemyAction
 
 	private void StopChase()
 	{
+		enemyAI.OnDirectionInput?.Invoke(GetCorrectDirection());
 		enemyAI.OnMovementInput?.Invoke(Vector2.zero);
 		isExecuting = false;
 		chaseFinished = true;

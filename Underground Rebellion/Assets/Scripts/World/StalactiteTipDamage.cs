@@ -16,7 +16,6 @@ public class StalactiteTipDamage : MonoBehaviour
             Health playerHealth = collision.gameObject.GetComponent<Health>();
             if (playerHealth != null)
             {
-                Debug.Log("PLAYER OI");
                 playerHealth.GetHit(damage);
             }
         }

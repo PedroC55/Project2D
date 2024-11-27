@@ -11,7 +11,7 @@ public class Agent : MonoBehaviour
 	private AgentMover agentMover;
 	private Health health;
 	public Transform wallCheck;
-	public float jumpForce, wallSlidingSpeed;
+	public float wallSlidingSpeed;
 
 	public Vector2 wallJumpForce;
 
@@ -35,8 +35,7 @@ public class Agent : MonoBehaviour
 		agentMover.MovementInput = movementInput;
 		if (wallCheck != null)
 		{
-			agentMover.wallSlidingSpeed = wallSlidingSpeed;
-			agentAnimations.wallCheck = wallCheck;
+			agentMover.WallSlidingSpeed = wallSlidingSpeed;
 		}
 		AnimateCharacter();
 	}
@@ -56,6 +55,7 @@ public class Agent : MonoBehaviour
     {
 		agentMover.ResetWallJump();
     }
+	
 	public void ApplyForce(Vector2 direction)
 	{
 		agentMover.ApplyForce(direction);

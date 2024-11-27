@@ -33,6 +33,7 @@ public class EnemyPatrol : EnemyAction
 
 	protected override void OnDisable()
 	{
+		currentPosition = 0;
 		isExecuting = false;
 		isObserving = false;
 		enemyAI.OnMovementInput?.Invoke(Vector2.zero);
