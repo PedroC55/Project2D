@@ -7,14 +7,17 @@ using UnityEngine.InputSystem.Interactions;
 public class PlayerInput : MonoBehaviour
 {
     private Rigidbody2D playerRb2d;
+    private SpriteRenderer spriteRenderer;
+    private BoxCollider2D playerCollider;
     private Agent agent;
     private Dash dashComp;
     private PlayerAttack attackComp;
     private WallJump wallJumpComp;
     private ParrySystem playerParrySystem;
-    private SpriteRenderer spriteRenderer;
-    private BoxCollider2D playerCollider;
+    private KnockBackFeedback knockBack;
     [SerializeField] private LayerMask jumpableGround;
+    public ParticleSystem hitVFX;
+
 
     public Vector2 movementInput;
     private bool canMove = true;
@@ -44,8 +47,6 @@ public class PlayerInput : MonoBehaviour
 
     private void OnEnable()
     {
-        playerParrySystem = GetComponent<ParrySystem>();
-
         HitEvent.OnHit += OnPlayerHit;
         LevelEvent.OnResetPlayer += ResetPlayer;
     }
@@ -56,18 +57,23 @@ public class PlayerInput : MonoBehaviour
 		LevelEvent.OnResetPlayer -= ResetPlayer;
 	}
 
-    void Start()
-    {
+	private void Awake()
+	{
 		playerRb2d = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+		spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 		playerCollider = GetComponent<BoxCollider2D>();
-        agent = GetComponent<Agent>();
-        dashComp = GetComponent<Dash>();
-        wallJumpComp = GetComponent<WallJump>();
-        attackComp = GetComponent<PlayerAttack>();
+		agent = GetComponent<Agent>();
+		dashComp = GetComponent<Dash>();
+		wallJumpComp = GetComponent<WallJump>();
+		attackComp = GetComponent<PlayerAttack>();
+		playerParrySystem = GetComponent<ParrySystem>();
+		knockBack = GetComponent<KnockBackFeedback>();
+		
+        jump.action.canceled += context => OnJumpUp();
+	}
 
-		jump.action.canceled += context => OnJumpUp();
-
+	void Start()
+    {
 		//Antes tava no Update, coloquei no Start, pq não acho que precisar estar lá
 		agent.wallCheck = wallCheck;
 	}
@@ -168,7 +174,8 @@ public class PlayerInput : MonoBehaviour
 		{
 			if (sender.CompareTag("Trap"))
 			{
-				agent.GetHit(damage, sender);
+				//agent.GetHit(damage, sender);
+                PlayHitVFX(sender);
 				CanvasEvent.UpdateHealth(0);
 			}
 			else if (sender.CompareTag("Enemy"))
@@ -180,11 +187,22 @@ public class PlayerInput : MonoBehaviour
 				}
 				else
 				{
-					int health = agent.GetHit(damage, sender);
-					CanvasEvent.UpdateHealth(health);
+					//int health = agent.GetHit(damage, sender);
+					PlayHitVFX(sender);
+					CanvasEvent.UpdateHealth(4);
 				}
 			}
 		}
+	}
+
+    private void PlayHitVFX(GameObject sender)
+    {
+        Vector2 direction = Vector2.up;
+        direction.x = Mathf.Sign(gameObject.transform.position.x - sender.transform.position.x);
+
+		EffectsManager.Instance.PlayOneShot(hitVFX, transform.position, direction * 5);
+        CameraManager.Instance.ShakeCamera(0.25f);
+        knockBack.PlayFeedback(sender);
 	}
 
 	//COLOCAR EM OUTRO SCRIPT (Criar o script 'Player')
