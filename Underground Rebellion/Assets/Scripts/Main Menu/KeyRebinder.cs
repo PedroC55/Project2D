@@ -94,23 +94,43 @@ public class KeyRebinder : MonoBehaviour
         jumpbindingDisplayText.gameObject.SetActive(false);
         jumprebindPromptText.gameObject.SetActive(true);
 
+        jump.Disable();
+
         jump.PerformInteractiveRebinding(bindingIndex)
-            .OnApplyBinding((operation, newPath) =>
+            .OnMatchWaitForAnother(0.1f)
+            .WithCancelingThrough("<Keyboard>/escape")
+            .OnPotentialMatch((context) =>
             {
+                var newPath = context.candidates[bindingIndex].path;
+                Debug.Log(context.candidates[bindingIndex].path);
+                Debug.Log(newPath);
                 if (IsKeyConflict(newPath))
                 {
+                    Debug.Log("Conflito");
                     // Conflict detected
-                    operation.Cancel();
+                    context.Cancel();
                     errorPromptText.text = $"Key '{InputControlPath.ToHumanReadableString(newPath)}' is already in use!";
                     errorPromptText.gameObject.SetActive(true);
                 }
                 else
                 {
+                    Debug.Log("Passou");
                     errorPromptText.gameObject.SetActive(false);
                 }
             })
             .OnComplete(operation =>
             {
+                Debug.Log("Entramos no complete");
+                jump.Enable();
+                operation.Dispose();
+                jumprebindPromptText.gameObject.SetActive(false);
+                jumpbindingDisplayText.gameObject.SetActive(true);
+                UpdateBindingDisplay();
+                
+            })
+            .OnCancel(operation =>
+            {
+                Debug.Log("OnCancel");
                 operation.Dispose();
                 jumprebindPromptText.gameObject.SetActive(false);
                 jumpbindingDisplayText.gameObject.SetActive(true);
