@@ -21,18 +21,18 @@ public class LevelManager : MonoBehaviour
 
 	private void OnEnable()
 	{
+		LevelEvent.OnRegisterEnemy += RegisterEnemy;
 		LevelEvent.OnPlayerSave += PlayerSave;
 		LevelEvent.OnPlayerDied += PlayerDied;
 		LevelEvent.OnEnemyDied += EnemyDied;
-		LevelEvent.OnRegisterEnemy += RegisterEnemy;
 	}
 
 	private void OnDisable()
 	{
+		LevelEvent.OnRegisterEnemy -= RegisterEnemy;
 		LevelEvent.OnPlayerSave -= PlayerSave;
 		LevelEvent.OnPlayerDied -= PlayerDied;
 		LevelEvent.OnEnemyDied -= EnemyDied;
-		LevelEvent.OnRegisterEnemy -= RegisterEnemy;
 	}
 
 	private void RegisterEnemy(EnemyAI enemy)

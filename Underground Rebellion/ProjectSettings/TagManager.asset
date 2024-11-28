@@ -51,3 +51,6 @@ TagManager:
   - name: Terrain
     uniqueID: 1784601499
     locked: 0
+  - name: Particles
+    uniqueID: 2562111673
+    locked: 0
