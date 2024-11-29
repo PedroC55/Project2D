@@ -8,7 +8,6 @@ using System;
 public class AgentAnimations : MonoBehaviour
 {
 	private Animator animator;
-	public Transform wallCheck;
 
 	private enum MovementState { idle, running, jumping, falling }
 
