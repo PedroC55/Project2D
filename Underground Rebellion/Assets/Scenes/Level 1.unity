@@ -4391,6 +4391,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 802019626940412794, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173937951491170409, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
+      propertyPath: attackArea
+      value: 
+      objectReference: {fileID: 468598668}
     - target: {fileID: 1453009775017814614, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
       propertyPath: OnHitWithReference.m_PersistentCalls.m_Calls.Array.size
       value: 0
@@ -4427,6 +4435,26 @@ PrefabInstance:
       propertyPath: hitVFX
       value: 
       objectReference: {fileID: 8333548975571410774, guid: 74524fd173ca39f418e58ab923316cd5, type: 3}
+    - target: {fileID: 2185924977511233748, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
+      propertyPath: m_Size.x
+      value: 1.0246811
+      objectReference: {fileID: 0}
+    - target: {fileID: 2185924977511233748, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
+      propertyPath: m_Size.y
+      value: 2.5941086
+      objectReference: {fileID: 0}
+    - target: {fileID: 2185924977511233748, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.10668564
+      objectReference: {fileID: 0}
+    - target: {fileID: 2185924977511233748, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.08865738
+      objectReference: {fileID: 0}
+    - target: {fileID: 2418389645722234026, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
+      propertyPath: parryWindow
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2806821240566795578, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
       propertyPath: m_Parameters.colorGradient.m_ColorSpace
       value: -1
@@ -4457,11 +4485,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4022934457941099702, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -40
+      value: -37.49
       objectReference: {fileID: 0}
     - target: {fileID: 4022934457941099702, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -71
+      value: -70.53
       objectReference: {fileID: 0}
     - target: {fileID: 4022934457941099702, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4612,6 +4640,11 @@ Transform:
   m_Father: {fileID: 1466458466}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &468598668 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 802019626940412794, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
+  m_PrefabInstance: {fileID: 459180979}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &470036531 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 282963249435338934, guid: 2bbee86d04e5d504184a9369567d6671, type: 3}
@@ -5433,7 +5466,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &569627080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36443,8 +36476,8 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 18.9, y: 9.4}
-      - {x: -19.8, y: 9.4}
+    - - {x: 18.9, y: 9.2}
+      - {x: -19.8, y: 9.2}
       - {x: -19.8, y: -11.5}
       - {x: 18.9, y: -11.5}
   m_UseDelaunayMesh: 0

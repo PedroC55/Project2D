@@ -82,6 +82,11 @@ public class AgentAnimations : MonoBehaviour
 		animator.SetTrigger("parry");
 	}
 
+	public void AttackAnimation()
+	{
+		animator.SetTrigger("attack");
+	}
+
 	//public void RestartLevel()
 	//{
 	//	StartCoroutine(RestartLevelWithDelay(2f));

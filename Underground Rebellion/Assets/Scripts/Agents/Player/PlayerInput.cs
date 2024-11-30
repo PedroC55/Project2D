@@ -100,9 +100,12 @@ public class PlayerInput : MonoBehaviour
 
         Jump();
 
-        if (attack.action.triggered)
+        if (attack.action.triggered && !attacking)
         {
+            Debug.Log("Atacou");
             attackComp.Attack();
+            agent.AttackAnimation();
+            
         }
         if (attacking)
         {
@@ -199,7 +202,7 @@ public class PlayerInput : MonoBehaviour
     {
         Vector2 direction = Vector2.up;
         direction.x = Mathf.Sign(gameObject.transform.position.x - sender.transform.position.x);
-
+        
 		EffectsManager.Instance.PlayOneShot(hitVFX, transform.position, direction * 5);
         CameraManager.Instance.ShakeCamera(0.25f);
         knockBack.PlayFeedback(sender);
