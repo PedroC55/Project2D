@@ -100,8 +100,9 @@ public class PlayerInput : MonoBehaviour
 
         Jump();
 
-        if (attack.action.triggered)
+        if (attack.action.triggered && !attacking)
         {
+            Debug.Log("Atacou");
             attackComp.Attack();
             agent.AttackAnimation();
             
