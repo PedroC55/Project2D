@@ -17,6 +17,9 @@ public class Stalactite : MonoBehaviour
     private bool onGround = false;
     private Vector3 originalPosition;
 
+    public bool fallOnlyOnEnemyDead = false;
+    public GameObject enemy;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -26,6 +29,13 @@ public class Stalactite : MonoBehaviour
 
     void Update()
     {
+
+        if (enemy != null && !enemy.activeSelf && !isFalling && !onGround && fallOnlyOnEnemyDead) // If enemy is destroyed or disabled
+        {
+            StartCoroutine(ShakeAndFall());
+        }
+
+
         if (isFalling)
         {
             rb.velocity = new Vector2(0, -fallSpeed); // Make the stalactite fall
@@ -35,7 +45,7 @@ public class Stalactite : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         // Check if the player enters the trigger zone using layers
-        if (((1 << other.gameObject.layer) & playerLayer) != 0 && !detected)
+        if(((1 << other.gameObject.layer) & playerLayer) != 0 && !detected && !fallOnlyOnEnemyDead)
         {
             detected = true;
             StartCoroutine(ShakeAndFall()); // Start the shaking effect
