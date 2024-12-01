@@ -18,6 +18,7 @@ public class LeverController : MonoBehaviour
         {
             // Toggle the movement direction
             moveToPosition1 = !moveToPosition1;
+            SoundManager.PlaySound(SoundType.LEVER);
         }
 
         // Move the platform to the selected position
