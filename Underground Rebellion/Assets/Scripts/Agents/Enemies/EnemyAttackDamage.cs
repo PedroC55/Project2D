@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TerrainHitDamage : MonoBehaviour
+public class EnemyAttackDamage : MonoBehaviour
 {
 	[SerializeField]
 	private int damage;
@@ -11,7 +11,7 @@ public class TerrainHitDamage : MonoBehaviour
 	{
 		if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Enemy"))
 		{
-			HitEvent.GetHit(damage, gameObject, collision.gameObject);
+			HitEvent.GetHit(damage, transform.parent.gameObject, collision.gameObject);
 		}
 	}
 }

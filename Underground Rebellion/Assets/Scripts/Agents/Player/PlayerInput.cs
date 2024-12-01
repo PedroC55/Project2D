@@ -195,7 +195,7 @@ public class PlayerInput : MonoBehaviour
 
 				if (playerParrySystem.CheckParryTiming() && playerParrySystem.CheckDirection(sender))
 				{
-					ParryEvent.Parry(1, sender.transform.parent.gameObject);
+					ParryEvent.Parry(1, sender);
 				}
 				else
 				{
