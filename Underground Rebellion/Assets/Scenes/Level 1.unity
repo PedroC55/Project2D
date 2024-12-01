@@ -5029,7 +5029,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -38.160137, y: -64.55, z: -10}
+  m_LocalPosition: {x: -38.15778, y: -64.55, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -40798,7 +40798,7 @@ GameObject:
   - component: {fileID: 1961439232}
   - component: {fileID: 1961439231}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: SoundManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40822,17 +40822,17 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 8300000, guid: 90c91a02f55f1d144977b4f23ffc1a3a, type: 3}
+  - {fileID: 8300000, guid: c75095fc6291f1346ab4313f3d1a37d5, type: 3}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: cdcdb18522bdd3a468192a79728c2266, type: 3}
+  - {fileID: 8300000, guid: 9617aea181b1a8a4d95bd5091196d8a2, type: 3}
   - {fileID: 8300000, guid: 1814949ab77cd6041a5f63733830867c, type: 3}
   - {fileID: 8300000, guid: 8bf7c65ea668ef24f99b00445ebc5743, type: 3}
   - {fileID: 0}
   - {fileID: 8300000, guid: b92b6666f7049b14f8acafa4cdcbdf62, type: 3}
   - {fileID: 8300000, guid: ea49010d057739346bc633e17357c9f2, type: 3}
   - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: fa521d429905dec4baaf358d53e8fcd7, type: 3}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
