@@ -11,6 +11,8 @@ public class Stalactite : MonoBehaviour
     public float shakeDuration = 3f; // Duration of the shaking in seconds
     public float shakeMagnitude = 0.1f; // Magnitude of the shake effect
 
+    public BoxCollider2D damageBoxCollider;
+
     private Rigidbody2D rb;
     private bool isFalling = false;
     private bool detected = false;
@@ -89,5 +91,6 @@ public class Stalactite : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Static; // Change to Static
         gameObject.layer = LayerMask.NameToLayer("Ground"); // Change layer to Ground
         onGround = true;
+        damageBoxCollider.enabled = false;
     }
 }
