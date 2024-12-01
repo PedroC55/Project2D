@@ -2,45 +2,44 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class KeyRebinder : MonoBehaviour
 {
     [Header("References")]
     public InputActionAsset inputActions; // The Input Actions asset
+    public TMP_Text errorPrompt;
 
     [Header("Jump")]
     public TMP_Text jumpbindingDisplayText;   // Text to display the current binding
     public Button jumprebindButton;          // Button to trigger rebinding
     public TMP_Text jumprebindPromptText;    // Prompt text for rebinding
-    public TMP_Text jumperrorPromptText;
 
     [Header("Dash")]
     public TMP_Text dashbindingDisplayText;   // Text to display the current binding
     public Button dashrebindButton;          // Button to trigger rebinding
     public TMP_Text dashrebindPromptText;    // Prompt text for rebinding
-    public TMP_Text dasherrorPromptText;
 
     [Header("Parry")]
     public TMP_Text parrybindingDisplayText;   // Text to display the current binding
     public Button parryrebindButton;          // Button to trigger rebinding
     public TMP_Text parryrebindPromptText;    // Prompt text for rebinding
-    public TMP_Text parryerrorPromptText;
 
     [Header("Attack")]
     public TMP_Text attackbindingDisplayText;   // Text to display the current binding
     public Button attackrebindButton;          // Button to trigger rebinding
     public TMP_Text attackrebindPromptText;    // Prompt text for rebinding
-    public TMP_Text attackerrorPromptText;
 
     [Header("Interact")]
     public TMP_Text interactbindingDisplayText;   // Text to display the current binding
     public Button interactrebindButton;          // Button to trigger rebinding
     public TMP_Text interactrebindPromptText;    // Prompt text for rebinding
-    public TMP_Text interacterrorPromptText;
 
     private InputAction jump, dash, parry, attack, interact;
     private int bindingIndex;
     private const string RebindingOverridesKey = "RebindingOverrides";
+
+    private bool rebinding = false;
 
     private void Start()
     {
@@ -87,23 +86,27 @@ public class KeyRebinder : MonoBehaviour
             string bindingName = interact.bindings[bindingIndex].ToDisplayString();
             interactbindingDisplayText.text = $"Interact Key: {bindingName}";
         }
-    }
+
+        EventSystem.current.SetSelectedGameObject(null);
+
+	}
 
     private void StartRebindingJump()
     {
-        if (jump == null)
+        if (jump == null && rebinding)
             return;
 
+        rebinding = true;
         jumprebindPromptText.text = "Press any key...";
         jumpbindingDisplayText.gameObject.SetActive(false);
-        jumperrorPromptText.gameObject.SetActive(false);
+        errorPrompt.gameObject.SetActive(false);
         jumprebindPromptText.gameObject.SetActive(true);
 
         jump.Disable();
 
         jump.PerformInteractiveRebinding(bindingIndex)
             .OnMatchWaitForAnother(0.1f)
-            .WithCancelingThrough("<Keyboard>/escape")
+			.WithCancelingThrough("<Keyboard>/escape")
             .OnPotentialMatch((context) =>
             {
                 var newPath = context.candidates[bindingIndex].path;
@@ -111,14 +114,14 @@ public class KeyRebinder : MonoBehaviour
                 {
                     // Conflict detected
                     context.Cancel();
-                    jumperrorPromptText.text = $"Key '{InputControlPath.ToHumanReadableString(newPath)}' is already in use!";
-                    jumperrorPromptText.gameObject.SetActive(true);
+					errorPrompt.text = $"Key '{InputControlPath.ToHumanReadableString(newPath)}' is already in use!";
+					errorPrompt.gameObject.SetActive(true);
                     jumprebindPromptText.gameObject.SetActive(false);
-                    jumpbindingDisplayText.gameObject.SetActive(false);
+                    jumpbindingDisplayText.gameObject.SetActive(true);
                 }
                 else
                 {
-                    jumperrorPromptText.gameObject.SetActive(false);
+                    errorPrompt.gameObject.SetActive(false);
                 }
             })
             .OnComplete(operation =>
@@ -128,6 +131,7 @@ public class KeyRebinder : MonoBehaviour
                 jumprebindPromptText.gameObject.SetActive(false);
                 jumpbindingDisplayText.gameObject.SetActive(true);
                 UpdateBindingDisplay();
+                rebinding = false;
                 
             })
             .OnCancel(operation =>
@@ -136,18 +140,21 @@ public class KeyRebinder : MonoBehaviour
                 jumprebindPromptText.gameObject.SetActive(false);
                 jumpbindingDisplayText.gameObject.SetActive(true);
                 UpdateBindingDisplay();
-            })
+				rebinding = false;
+			})
             .Start();
     }
 
     private void StartRebindingDash()
     {
-        if (dash == null)
+        if (dash == null && rebinding)
             return;
 
-        dashrebindPromptText.text = "Press any key...";
+		rebinding = true;
+
+		dashrebindPromptText.text = "Press any key...";
         dashbindingDisplayText.gameObject.SetActive(false);
-        dasherrorPromptText.gameObject.SetActive(false);
+		errorPrompt.gameObject.SetActive(false);
         dashrebindPromptText.gameObject.SetActive(true);
 
         dash.Disable();
@@ -162,14 +169,14 @@ public class KeyRebinder : MonoBehaviour
                 {
                     // Conflict detected
                     context.Cancel();
-                    dasherrorPromptText.text = $"Key '{InputControlPath.ToHumanReadableString(newPath)}' is already in use!";
-                    dasherrorPromptText.gameObject.SetActive(true);
+                    errorPrompt.text = $"Key '{InputControlPath.ToHumanReadableString(newPath)}' is already in use!";
+                    errorPrompt.gameObject.SetActive(true);
                     dashrebindPromptText.gameObject.SetActive(false);
-                    dashbindingDisplayText.gameObject.SetActive(false);
+                    dashbindingDisplayText.gameObject.SetActive(true);
                 }
                 else
                 {
-                    dasherrorPromptText.gameObject.SetActive(false);
+                    errorPrompt.gameObject.SetActive(false);
                 }
             })
             .OnComplete(operation =>
@@ -179,26 +186,30 @@ public class KeyRebinder : MonoBehaviour
                 dashrebindPromptText.gameObject.SetActive(false);
                 dashbindingDisplayText.gameObject.SetActive(true);
                 UpdateBindingDisplay();
+				rebinding = false;
 
-            })
+			})
             .OnCancel(operation =>
             {
                 operation.Dispose();
                 dashrebindPromptText.gameObject.SetActive(false);
                 dashbindingDisplayText.gameObject.SetActive(true);
                 UpdateBindingDisplay();
-            })
+				rebinding = false;
+			})
             .Start();
     }
 
     private void StartRebindingParry()
     {
-        if (parry == null)
+        if (parry == null && rebinding)
             return;
+
+        rebinding = true;
 
         parryrebindPromptText.text = "Press any key...";
         parrybindingDisplayText.gameObject.SetActive(false);
-        parryerrorPromptText.gameObject.SetActive(false);
+		errorPrompt.gameObject.SetActive(false);
         parryrebindPromptText.gameObject.SetActive(true);
 
         parry.Disable();
@@ -213,14 +224,14 @@ public class KeyRebinder : MonoBehaviour
                 {
                     // Conflict detected
                     context.Cancel();
-                    parryerrorPromptText.text = $"Key '{InputControlPath.ToHumanReadableString(newPath)}' is already in use!";
-                    parryerrorPromptText.gameObject.SetActive(true);
+                    errorPrompt.text = $"Key '{InputControlPath.ToHumanReadableString(newPath)}' is already in use!";
+                    errorPrompt.gameObject.SetActive(true);
                     parryrebindPromptText.gameObject.SetActive(false);
-                    parrybindingDisplayText.gameObject.SetActive(false);
+                    parrybindingDisplayText.gameObject.SetActive(true);
                 }
                 else
                 {
-                    parryerrorPromptText.gameObject.SetActive(false);
+                    errorPrompt.gameObject.SetActive(false);
                 }
             })
             .OnComplete(operation =>
@@ -230,25 +241,29 @@ public class KeyRebinder : MonoBehaviour
                 parryrebindPromptText.gameObject.SetActive(false);
                 parrybindingDisplayText.gameObject.SetActive(true);
                 UpdateBindingDisplay();
+				rebinding = false;
 
-            })
+			})
             .OnCancel(operation =>
             {
                 operation.Dispose();
                 parryrebindPromptText.gameObject.SetActive(false);
                 parrybindingDisplayText.gameObject.SetActive(true);
                 UpdateBindingDisplay();
-            })
+				rebinding = false;
+			})
             .Start();
     }
     private void StartRebindingAttack()
     {
-        if (attack == null)
+        if (attack == null && rebinding)
             return;
+
+        rebinding = true;
 
         attackrebindPromptText.text = "Press any key...";
         attackbindingDisplayText.gameObject.SetActive(false);
-        attackerrorPromptText.gameObject.SetActive(false);
+		errorPrompt.gameObject.SetActive(false);
         attackrebindPromptText.gameObject.SetActive(true);
 
         attack.Disable();
@@ -263,14 +278,14 @@ public class KeyRebinder : MonoBehaviour
                 {
                     // Conflict detected
                     context.Cancel();
-                    attackerrorPromptText.text = $"Key '{InputControlPath.ToHumanReadableString(newPath)}' is already in use!";
-                    attackerrorPromptText.gameObject.SetActive(true);
-                    attackbindingDisplayText.gameObject.SetActive(false);
+                    errorPrompt.text = $"Key '{InputControlPath.ToHumanReadableString(newPath)}' is already in use!";
+                    errorPrompt.gameObject.SetActive(true);
                     attackrebindPromptText.gameObject.SetActive(false);
+                    attackbindingDisplayText.gameObject.SetActive(true);
                 }
                 else
                 {
-                    attackerrorPromptText.gameObject.SetActive(false);
+                    errorPrompt.gameObject.SetActive(false);
                 }
             })
             .OnComplete(operation =>
@@ -280,32 +295,35 @@ public class KeyRebinder : MonoBehaviour
                 attackrebindPromptText.gameObject.SetActive(false);
                 attackbindingDisplayText.gameObject.SetActive(true);
                 UpdateBindingDisplay();
-
-            })
+				rebinding = false;
+			})
             .OnCancel(operation =>
             {
                 operation.Dispose();
                 attackrebindPromptText.gameObject.SetActive(false);
                 attackbindingDisplayText.gameObject.SetActive(true);
                 UpdateBindingDisplay();
-            })
+				rebinding = false;
+			})
             .Start();
     }
     private void StartRebindingInteract()
     {
-        if (interact == null)
+        if (interact == null && rebinding)
             return;
+
+        rebinding = true;
 
         interactrebindPromptText.text = "Press any key...";
         interactbindingDisplayText.gameObject.SetActive(false);
-        interacterrorPromptText.gameObject.SetActive(false);
+		errorPrompt.gameObject.SetActive(false);
         interactrebindPromptText.gameObject.SetActive(true);
 
         interact.Disable();
 
         interact.PerformInteractiveRebinding(bindingIndex)
             .OnMatchWaitForAnother(0.1f)
-            .WithCancelingThrough("<Keyboard>/escape")
+			.WithCancelingThrough("<Keyboard>/escape")
             .OnPotentialMatch((context) =>
             {
                 var newPath = context.candidates[bindingIndex].path;
@@ -313,14 +331,14 @@ public class KeyRebinder : MonoBehaviour
                 {
                     // Conflict detected
                     context.Cancel();
-                    interacterrorPromptText.text = $"Key '{InputControlPath.ToHumanReadableString(newPath)}' is already in use!";
-                    interacterrorPromptText.gameObject.SetActive(true);
+                    errorPrompt.text = $"Key '{InputControlPath.ToHumanReadableString(newPath)}' is already in use!";
+                    errorPrompt.gameObject.SetActive(true);
                     interactrebindPromptText.gameObject.SetActive(false);
-                    interactbindingDisplayText.gameObject.SetActive(false);
+                    interactbindingDisplayText.gameObject.SetActive(true);
                 }
                 else
                 {
-                    interacterrorPromptText.gameObject.SetActive(false);
+                    errorPrompt.gameObject.SetActive(false);
                 }
             })
             .OnComplete(operation =>
@@ -330,15 +348,17 @@ public class KeyRebinder : MonoBehaviour
                 interactrebindPromptText.gameObject.SetActive(false);
                 interactbindingDisplayText.gameObject.SetActive(true);
                 UpdateBindingDisplay();
+				rebinding = false;
 
-            })
+			})
             .OnCancel(operation =>
             {
                 operation.Dispose();
                 interactrebindPromptText.gameObject.SetActive(false);
                 interactbindingDisplayText.gameObject.SetActive(true);
                 UpdateBindingDisplay();
-            })
+				rebinding = false;
+			})
             .Start();
     }
     private bool IsKeyConflict(string newPath)

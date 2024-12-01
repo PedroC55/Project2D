@@ -14,16 +14,22 @@ public class PlayerInput : MonoBehaviour
     private PlayerAttack attackComp;
     private WallJump wallJumpComp;
     private ParrySystem playerParrySystem;
-    private KnockBackFeedback knockBack;
     [SerializeField] private LayerMask jumpableGround;
-    public ParticleSystem hitVFX;
-
+    
 
     public Vector2 movementInput;
     private bool canMove = true;
     
-    //Jump
-    [SerializeField] private float jumpForce;
+    //Hit Feedback
+    private KnockBackFeedback knockBack;
+    public ParticleSystem hitVFX;
+    public float slowMotionTime;
+    public float immunityTime = 2f;
+    private int playerLayer;
+	private int layerIgnoreCollision;
+
+	//Jump
+	[SerializeField] private float jumpForce;
     private float lastJumpTime;
     private float lastGroundedTime;
     public float jumpBufferTime;
@@ -68,14 +74,17 @@ public class PlayerInput : MonoBehaviour
 		attackComp = GetComponent<PlayerAttack>();
 		playerParrySystem = GetComponent<ParrySystem>();
 		knockBack = GetComponent<KnockBackFeedback>();
+
 		
         jump.action.canceled += context => OnJumpUp();
-	}
+}
 
 	void Start()
     {
 		//Antes tava no Update, coloquei no Start, pq não acho que precisar estar lá
 		agent.wallCheck = wallCheck;
+		playerLayer = LayerMask.NameToLayer("Player");
+		layerIgnoreCollision = LayerMask.NameToLayer("Player Ignore");
 	}
 
     // Update is called once per frame
@@ -102,7 +111,6 @@ public class PlayerInput : MonoBehaviour
 
         if (attack.action.triggered && !attacking)
         {
-            Debug.Log("Atacou");
             attackComp.Attack();
             agent.AttackAnimation();
             
@@ -177,9 +185,9 @@ public class PlayerInput : MonoBehaviour
 		{
 			if (sender.CompareTag("Trap"))
 			{
-				//agent.GetHit(damage, sender);
-                PlayHitVFX(sender);
-				CanvasEvent.UpdateHealth(0);
+				int health = agent.GetHit(damage, sender);
+				PlayHitVFX(sender);
+				CanvasEvent.UpdateHealth(health);
 			}
 			else if (sender.CompareTag("Enemy"))
 			{
@@ -190,22 +198,28 @@ public class PlayerInput : MonoBehaviour
 				}
 				else
 				{
-					//int health = agent.GetHit(damage, sender);
+					int health = agent.GetHit(damage, sender);
 					PlayHitVFX(sender);
-					CanvasEvent.UpdateHealth(4);
+					CanvasEvent.UpdateHealth(health);
 				}
 			}
 		}
 	}
 
-    private void PlayHitVFX(GameObject sender)
+	//COLOCAR EM OUTRO SCRIPT (Criar o script 'Player')
+	private void PlayHitVFX(GameObject sender)
     {
+        StartCoroutine(ImmunityCooldown());
+
+        TimeManager.Instance.StopTime(slowMotionTime);
+        
         Vector2 direction = Vector2.up;
         direction.x = Mathf.Sign(gameObject.transform.position.x - sender.transform.position.x);
-        
+
+        CameraManager.Instance.ShakeCamera(0.5f);
 		EffectsManager.Instance.PlayOneShot(hitVFX, transform.position, direction * 5);
-        CameraManager.Instance.ShakeCamera(0.25f);
         knockBack.PlayFeedback(sender);
+
 	}
 
 	//COLOCAR EM OUTRO SCRIPT (Criar o script 'Player')
@@ -213,6 +227,15 @@ public class PlayerInput : MonoBehaviour
 	{
 		transform.position = lastSavedPosition.position;
 		agent.ResetAgent(true);
+	}
+
+    private IEnumerator ImmunityCooldown()
+    {
+		spriteRenderer.color = Color.gray; //So vai funcionar quando tirar a mudança de cor do parry na animção do player
+		Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"));
+		yield return new WaitForSecondsRealtime(immunityTime);
+		Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), false);
+		spriteRenderer.color = Color.white; //So vai funcionar quando tirar a mudança de cor do parry na animção do player
 	}
 
 	public IEnumerator DisableMovementDuringParry()
