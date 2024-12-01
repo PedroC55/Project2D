@@ -96,6 +96,7 @@ public class PlayerInput : MonoBehaviour
         if (jump.action.triggered)
         {
             lastJumpTime = jumpBufferTime;
+            SoundManager.PlaySound(SoundType.JUMP_1);
         }
 
         Jump();
