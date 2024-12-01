@@ -64,6 +64,7 @@ public class ParrySystem : MonoBehaviour
         if (parryAttempted && Mathf.Abs(parryTime - currentTime) <= parryWindow )
         {
             sucess = true;
+            SoundManager.PlaySound(SoundType.PARRY);
         }
 
         parryAttempted = false;
