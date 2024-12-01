@@ -310,6 +310,7 @@ GameObject:
   - component: {fileID: 2418389645722234026}
   - component: {fileID: 1173937951491170409}
   - component: {fileID: 5058483752254243227}
+  - component: {fileID: 7329066638057131732}
   - component: {fileID: 6347332323213443017}
   - component: {fileID: 3179920808007216205}
   m_Layer: 7
@@ -426,6 +427,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   movementInput: {x: 0, y: 0}
+  hitVFX: {fileID: 8333548975571410774, guid: 74524fd173ca39f418e58ab923316cd5, type: 3}
+  slowMotionTime: 0.25
+  immunityTime: 1.5
   jumpForce: 18.5
   jumpBufferTime: 0.1
   jumpCoyoteTime: 0.05
@@ -455,18 +459,6 @@ MonoBehaviour:
   OnDeathWithReference:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3524193373077331448}
-        m_TargetAssemblyTypeName: AgentAnimations, Assembly-CSharp
-        m_MethodName: DeathAnimation
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 2428029014338820272}
         m_TargetAssemblyTypeName: Agent, Assembly-CSharp
         m_MethodName: Died
@@ -660,6 +652,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trailRenderer: {fileID: 2806821240566795578}
+--- !u!114 &7329066638057131732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5616279431631585705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2fcc9dbed364e04b90c999d10c6cabd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  strength: 16
+  delay: 0.15
+  OnBegin:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5530332394764959316}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnDone:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5530332394764959316}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &6347332323213443017
 MonoBehaviour:
   m_ObjectHideFlags: 0

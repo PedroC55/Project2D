@@ -21,10 +21,11 @@ public class KnockBackFeedback : MonoBehaviour
     {
         StopAllCoroutines();
         OnBegin?.Invoke();
+
         Vector2 direction = (gameObject.transform.position - sender.transform.position).normalized;
-		Debug.Log(direction);
 		direction.x = Mathf.Sign(direction.x);
         direction.y = (direction.y > -0.5f) ? 1 : -1 ;
+
         rb2d.AddForce(direction * strength, ForceMode2D.Impulse);
         StartCoroutine(Reset());
 	}
