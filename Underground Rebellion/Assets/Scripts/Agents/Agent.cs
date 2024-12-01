@@ -111,6 +111,11 @@ public class Agent : MonoBehaviour
 		agentAnimations.ParryAnimation();
 	}
 
+	public void AttackAnimation()
+	{
+		agentAnimations.AttackAnimation();
+	}
+
 	public void StunAnimation()
 	{
 		agentAnimations.StunAnimation();

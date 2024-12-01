@@ -109,9 +109,11 @@ public class PlayerInput : MonoBehaviour
 
         Jump();
 
-        if (attack.action.triggered)
+        if (attack.action.triggered && !attacking)
         {
             attackComp.Attack();
+            agent.AttackAnimation();
+            
         }
         if (attacking)
         {

@@ -8,7 +8,8 @@ using UnityEngine.InputSystem.Interactions;
 public class ParrySystem : MonoBehaviour
 {
     public float parryWindow = 0.5f;
-    private bool parryAttempted = false;
+	public float parryCoolDown = 0.75f;
+	private bool parryAttempted = false;
 
     private PlayerInput player;
 
@@ -42,13 +43,13 @@ public class ParrySystem : MonoBehaviour
     // This method is triggered when the parry button is pressed
     private void OnParryPerformed(InputAction.CallbackContext context)
     {
-        if (player.IsGrounded())
+        if (!parryAttempted)
         {
-            StartCoroutine(player.DisableMovementDuringParry());
-            parryAttempted = true;
-            parryTime = Time.deltaTime;
-            StartCoroutine(ParryWindow());
-        }
+			StartCoroutine(player.DisableMovementDuringParry());
+			parryAttempted = true;
+			parryTime = Time.deltaTime;
+			StartCoroutine(ParryCoolDown());
+		}
 	}
 
     public bool CheckParryTiming()
@@ -60,7 +61,7 @@ public class ParrySystem : MonoBehaviour
         {
             return false;
         }
-        if (parryAttempted && Mathf.Abs(parryTime - currentTime) <= parryWindow ) //Falta verificar se o player esta olhar na direçao do ataque inimigo
+        if (parryAttempted && Mathf.Abs(parryTime - currentTime) <= parryWindow )
         {
             sucess = true;
         }
@@ -84,9 +85,9 @@ public class ParrySystem : MonoBehaviour
         return sucess;
     }
 
-    private IEnumerator ParryWindow()
+    private IEnumerator ParryCoolDown()
     {
-		yield return new WaitForSeconds(parryWindow);
+		yield return new WaitForSeconds(parryCoolDown);
         parryAttempted = false;
 	}
 }
