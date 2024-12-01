@@ -711,11 +711,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 3948834d-e28c-4bc8-b044-58773aaafc00
+  cloudProjectId: 3e765c3c-18c5-47e2-aafd-42f13bfdaa41
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 2dTutorial
-  organizationId: swehtam
+  projectName: Underground Rebellion (1)
+  organizationId: pepiro5
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
