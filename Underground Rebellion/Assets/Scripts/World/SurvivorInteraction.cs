@@ -11,7 +11,6 @@ public class SurvivorInteraction : MonoBehaviour
 	private void OnDisable()
 	{
 		survivorInteraction.OnInteraction -= FixElevator;
-		SoundManager.PlaySound(SoundType.SURVIVOR);
 	}
 
 	private void Start()
@@ -23,6 +22,8 @@ public class SurvivorInteraction : MonoBehaviour
 
     private void FixElevator()
     {
+		SoundManager.PlaySound(SoundType.SURVIVOR, 0.25f);
+
 		LevelEvent.FixElevator();
         animator.SetTrigger("Press");
 

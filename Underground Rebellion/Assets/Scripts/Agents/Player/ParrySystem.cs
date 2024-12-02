@@ -4,16 +4,19 @@ using UnityEngine;
 using System;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class ParrySystem : MonoBehaviour
 {
-    public float parryWindow = 0.5f;
+    public float parryWindow = 0.25f;
 	public float parryCoolDown = 0.75f;
 	private bool parryAttempted = false;
 
     private PlayerInput player;
 
     private float parryTime;
+
+    private Coroutine parryCDCoroutine;
 
     // InputAction references for the new input system
     [SerializeField]
@@ -47,44 +50,43 @@ public class ParrySystem : MonoBehaviour
         {
 			StartCoroutine(player.DisableMovementDuringParry());
 			parryAttempted = true;
-			parryTime = Time.deltaTime;
-			StartCoroutine(ParryCoolDown());
+			parryTime = Time.time;
+			parryCDCoroutine = StartCoroutine(ParryCoolDown());
 		}
 	}
 
-    public bool CheckParryTiming()
+    public bool CheckParry(GameObject enemy)
     {
-        float currentTime = Time.deltaTime;
-        bool sucess = false;
+        float currentTime = Time.time;
+        bool timingSuccess = false;
         // Check if player's parry attempt was within the allowed time window
         if (!parryAttempted)
         {
             return false;
         }
+        Debug.Log(Mathf.Abs(parryTime - currentTime));
         if (parryAttempted && Mathf.Abs(parryTime - currentTime) <= parryWindow )
         {
-            sucess = true;
-            SoundManager.PlaySound(SoundType.PARRY);
+			timingSuccess = true;
         }
 
-        parryAttempted = false;
+		bool directionSuccess = false;
 
-        return sucess;
-        
-    }
+		Vector2 direction = (enemy.transform.position - player.transform.position).normalized;
+		if ((direction.x > 0 && player.transform.localScale.x == 1) || (direction.x < 0 && player.transform.localScale.x == -1))
+		{
+			directionSuccess = true;
+		}
 
-    public bool CheckDirection(GameObject enemy)
-    {
-        bool sucess = false;
-
-        Vector2 direction = (enemy.transform.position - player.transform.position).normalized;
-        if((direction.x > 0 && player.transform.localScale.x == 1) || (direction.x < 0 && player.transform.localScale.x == -1))
+        if(timingSuccess && directionSuccess)
         {
-            sucess = true;
+            parryAttempted = false;
+            StopCoroutine(parryCDCoroutine);
+            return true;
         }
-        
-        return sucess;
-    }
+
+        return false;
+	}
 
     private IEnumerator ParryCoolDown()
     {

@@ -42,9 +42,6 @@ public class Health : MonoBehaviour
 			isDead = true;
 		}
 
-		SoundManager.PlaySound(SoundType.DAMAGE);
-		Debug.Log("DAMAGE");
-
 		return currentHealth;
 	}   
 	

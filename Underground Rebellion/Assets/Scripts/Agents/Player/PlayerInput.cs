@@ -16,7 +16,6 @@ public class PlayerInput : MonoBehaviour
     private ParrySystem playerParrySystem;
     [SerializeField] private LayerMask jumpableGround;
     
-
     public Vector2 movementInput;
     private bool canMove = true;
     
@@ -25,8 +24,6 @@ public class PlayerInput : MonoBehaviour
     public ParticleSystem hitVFX;
     public float slowMotionTime;
     public float immunityTime = 2f;
-    private int playerLayer;
-	private int layerIgnoreCollision;
 
 	//Jump
 	[SerializeField] private float jumpForce;
@@ -83,8 +80,6 @@ public class PlayerInput : MonoBehaviour
     {
 		//Antes tava no Update, coloquei no Start, pq não acho que precisar estar lá
 		agent.wallCheck = wallCheck;
-		playerLayer = LayerMask.NameToLayer("Player");
-		layerIgnoreCollision = LayerMask.NameToLayer("Player Ignore");
 	}
 
     // Update is called once per frame
@@ -105,7 +100,7 @@ public class PlayerInput : MonoBehaviour
         if (jump.action.triggered)
         {
             lastJumpTime = jumpBufferTime;
-            SoundManager.PlaySound(SoundType.JUMP_1);
+            SoundManager.PlaySound(SoundType.JUMP_1, 0.25f);
         }
 
         Jump();
@@ -193,8 +188,9 @@ public class PlayerInput : MonoBehaviour
 			else if (sender.CompareTag("Enemy"))
 			{
 
-				if (playerParrySystem.CheckParryTiming() && playerParrySystem.CheckDirection(sender))
+				if (playerParrySystem.CheckParry(sender))
 				{
+					SoundManager.PlaySound(SoundType.PARRY, 0.5f);
 					ParryEvent.Parry(1, sender);
 				}
 				else
@@ -221,6 +217,7 @@ public class PlayerInput : MonoBehaviour
 		EffectsManager.Instance.PlayOneShot(hitVFX, transform.position, direction * 5);
         knockBack.PlayFeedback(sender);
 
+		SoundManager.PlaySound(SoundType.DAMAGE, 0.25f);
 	}
 
 	//COLOCAR EM OUTRO SCRIPT (Criar o script 'Player')

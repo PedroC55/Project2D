@@ -275,7 +275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sound: 9
-  volume: 1
+  volume: 0.25
 --- !u!1102 &2190857800648981598
 AnimatorState:
   serializedVersion: 6
