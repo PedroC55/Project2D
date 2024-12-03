@@ -116,7 +116,11 @@ public class EnemyAI : MonoBehaviour
 		{
 			agent.GetHit(damage, sender);
 		}
-	}
+		if (sender.CompareTag("Player") && receiver.GetInstanceID() == gameObject.GetInstanceID() && enemyEnergy.HasEnergy())
+        {
+			SoundManager.PlaySound(SoundType.HIT_DENIED);
+        }
+    }
 
 	public bool IsDead()
 	{

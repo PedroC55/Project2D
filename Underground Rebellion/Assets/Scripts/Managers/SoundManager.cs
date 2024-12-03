@@ -11,7 +11,7 @@ public enum SoundType
     JUMP_3,
     LANDING,
     PARRY,
-    HIT, 
+    HIT_DENIED, 
     MELEE,
     REMOVE_WEAPON,
     KILL,
@@ -22,8 +22,8 @@ public enum SoundType
     PLATFORM_MOVING,
     SURVIVOR,
     SPIKE,
-    ENEMY_ALERT,
-    ENEMY_FORGETS
+    HOVER,
+    SELECT
 }
 
 [RequireComponent(typeof(AudioSource))]
@@ -48,4 +48,5 @@ public class SoundManager : MonoBehaviour
     {
         instance.audioSource.PlayOneShot(instance.soundList[(int)sound], volume);
     }
+
 }
