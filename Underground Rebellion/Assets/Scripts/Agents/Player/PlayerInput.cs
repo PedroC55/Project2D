@@ -84,49 +84,52 @@ public class PlayerInput : MonoBehaviour
 
     // Update is called once per frame
     private void Update()
-    {
-        if (!canMove)
+    {   
+        if (!PauseMenuManager.isPaused)
         {
-			agent.MovementInput = Vector2.zero;
-            return;
-        }
+            if (!canMove)
+            {
+                agent.MovementInput = Vector2.zero;
+                return;
+            }
 
-        lastJumpTime -= Time.deltaTime;
+            lastJumpTime -= Time.deltaTime;
 
-        lastGroundedTime = IsGrounded() ? jumpCoyoteTime : lastGroundedTime - Time.deltaTime;
+            lastGroundedTime = IsGrounded() ? jumpCoyoteTime : lastGroundedTime - Time.deltaTime;
 
-        Movement();
+            Movement();
 
-        if (jump.action.triggered)
-        {
-            lastJumpTime = jumpBufferTime;
-            SoundManager.PlaySound(SoundType.JUMP_1, 0.25f);
-        }
+            if (jump.action.triggered)
+            {
+                lastJumpTime = jumpBufferTime;
+                SoundManager.PlaySound(SoundType.JUMP_1, SettingsManager.Instance.SFXVolume * SettingsManager.Instance.MasterVolume);
+            }
 
-        Jump();
+            Jump();
 
-        if (attack.action.triggered && !attacking)
-        {
-            attackComp.Attack();
-            agent.AttackAnimation();
-            
-        }
-        if (attacking)
-        {
-            attackComp.ResetAttack();
-        }
+            if (attack.action.triggered && !attacking)
+            {
+                attackComp.Attack();
+                agent.AttackAnimation();
 
-        if (dashComp && dash.action.triggered && canDash)
-        {
-            dashComp.StartDash();
-        }
+            }
+            if (attacking)
+            {
+                attackComp.ResetAttack();
+            }
 
-        if (wallJumpComp)
-        {
-            //Da pra mudar isso para um metodo igual a IsGrounded
-            //Al�m disso, da pra tirar o objecto filho "wallCheck" e fazer igual fazemos no metodo IsGrounded, onde faz um box cast na dire��o que o player estiver olhando
-            isWallToutch = Physics2D.OverlapBox(wallCheck.position, new Vector2(0.92f, 1.39f), 0, jumpableGround);
-            Slide();
+            if (dashComp && dash.action.triggered && canDash)
+            {
+                dashComp.StartDash();
+            }
+
+            if (wallJumpComp)
+            {
+                //Da pra mudar isso para um metodo igual a IsGrounded
+                //Al�m disso, da pra tirar o objecto filho "wallCheck" e fazer igual fazemos no metodo IsGrounded, onde faz um box cast na dire��o que o player estiver olhando
+                isWallToutch = Physics2D.OverlapBox(wallCheck.position, new Vector2(0.92f, 1.39f), 0, jumpableGround);
+                Slide();
+            }
         }
     }
 
@@ -190,7 +193,7 @@ public class PlayerInput : MonoBehaviour
 
 				if (playerParrySystem.CheckParry(sender))
 				{
-					SoundManager.PlaySound(SoundType.PARRY, 0.5f);
+					SoundManager.PlaySound(SoundType.PARRY, SettingsManager.Instance.SFXVolume * SettingsManager.Instance.MasterVolume);
 					ParryEvent.Parry(1, sender);
 				}
 				else
@@ -217,7 +220,7 @@ public class PlayerInput : MonoBehaviour
 		EffectsManager.Instance.PlayOneShot(hitVFX, transform.position, direction * 5);
         knockBack.PlayFeedback(sender);
 
-		SoundManager.PlaySound(SoundType.DAMAGE, 0.25f);
+		SoundManager.PlaySound(SoundType.DAMAGE, SettingsManager.Instance.SFXVolume *SettingsManager.Instance.MasterVolume);
 	}
 
 	//COLOCAR EM OUTRO SCRIPT (Criar o script 'Player')
