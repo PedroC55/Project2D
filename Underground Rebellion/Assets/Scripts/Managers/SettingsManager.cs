@@ -13,11 +13,27 @@ public class SettingsManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Keeps the object between scenes
+            DontDestroyOnLoad(gameObject);
         }
-        else
+        else if (Instance != this)
         {
-            Destroy(gameObject); // Ensures only one instance exists
+            Debug.LogWarning("Duplicate SettingsManager detected. Destroying new instance.");
+            Destroy(gameObject);
+        }
+        else if (Instance.gameObject == null)
+        {
+            // Reassign if the existing instance was destroyed
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        // Clear the static reference when this instance is destroyed
+        if (Instance == this)
+        {
+            Instance = null;
         }
     }
 }

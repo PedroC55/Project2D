@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SettingsMenu : MonoBehaviour
+public class PauseSettingsMenu : MonoBehaviour
 {
     // References to the sliders in the UI
     public Slider masterVolumeSlider;
@@ -10,15 +10,23 @@ public class SettingsMenu : MonoBehaviour
 
     private void Start()
     {
-        // Initialize sliders with current settings
-        if (SettingsManager.Instance != null)
+        if (SettingsManager.Instance == null || SettingsManager.Instance.gameObject == null)
         {
-            masterVolumeSlider.value = SettingsManager.Instance.MasterVolume;
-            musicVolumeSlider.value = SettingsManager.Instance.MusicVolume;
-            sfxVolumeSlider.value = SettingsManager.Instance.SFXVolume;
-
-            Debug.Log("Master nos menus: " + masterVolumeSlider.value);
+            Debug.LogError("SettingsManager.Instance is null or destroyed.");
         }
+        if (SettingsManager.Instance == null)
+        {
+            Debug.LogError("SettingsManager instance is null in PauseSettingsMenu. Ensure it exists in the first scene.");
+            return;
+        }
+
+        Debug.Log("Entrei no if");
+        masterVolumeSlider.value = SettingsManager.Instance.MasterVolume;
+        musicVolumeSlider.value = SettingsManager.Instance.MusicVolume;
+        sfxVolumeSlider.value = SettingsManager.Instance.SFXVolume;
+
+        Debug.Log("Master na pausa " + masterVolumeSlider.value);
+        
 
         // Add listeners to sliders to handle value changes
         masterVolumeSlider.onValueChanged.AddListener(SetMasterVolume);
