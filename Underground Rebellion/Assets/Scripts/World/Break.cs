@@ -13,7 +13,7 @@ public class Break : MonoBehaviour
         {
             // Make the box disappear by disabling the GameObject
             gameObject.SetActive(false);
-            SoundManager.PlaySound(SoundType.BREAK, 0.25f);
+            SoundManager.PlaySound(SoundType.BREAK, SettingsManager.Instance.SFXVolume * SettingsManager.Instance.MasterVolume);
         }
     }
 

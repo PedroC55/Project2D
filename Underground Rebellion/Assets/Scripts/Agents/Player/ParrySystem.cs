@@ -46,13 +46,16 @@ public class ParrySystem : MonoBehaviour
     // This method is triggered when the parry button is pressed
     private void OnParryPerformed(InputAction.CallbackContext context)
     {
-        if (!parryAttempted)
+        if (!PauseMenuManager.isPaused)
         {
-			StartCoroutine(player.DisableMovementDuringParry());
-			parryAttempted = true;
-			parryTime = Time.time;
-			parryCDCoroutine = StartCoroutine(ParryCoolDown());
-		}
+            if (!parryAttempted)
+            {
+                StartCoroutine(player.DisableMovementDuringParry());
+                parryAttempted = true;
+                parryTime = Time.time;
+                parryCDCoroutine = StartCoroutine(ParryCoolDown());
+            }
+        }
 	}
 
     public bool CheckParry(GameObject enemy)
