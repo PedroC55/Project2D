@@ -22,7 +22,7 @@ public class SurvivorInteraction : MonoBehaviour
 
     private void FixElevator()
     {
-		SoundManager.PlaySound(SoundType.SURVIVOR, 0.25f);
+		SoundManager.PlaySound(SoundType.SURVIVOR, SettingsManager.Instance.SFXVolume * SettingsManager.Instance.MasterVolume);
 
 		LevelEvent.FixElevator();
         animator.SetTrigger("Press");

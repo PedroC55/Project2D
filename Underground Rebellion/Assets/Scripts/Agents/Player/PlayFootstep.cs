@@ -6,6 +6,6 @@ public class PlayFootstep : MonoBehaviour
 {
     public void PlaySound()
     {
-        SoundManager.PlaySound(SoundType.WALK, 0.2f);
+        SoundManager.PlaySound(SoundType.WALK, SettingsManager.Instance.SFXVolume * SettingsManager.Instance.MasterVolume);
     }
 }

@@ -20,12 +20,9 @@ public class PauseSettingsMenu : MonoBehaviour
             return;
         }
 
-        Debug.Log("Entrei no if");
         masterVolumeSlider.value = SettingsManager.Instance.MasterVolume;
         musicVolumeSlider.value = SettingsManager.Instance.MusicVolume;
         sfxVolumeSlider.value = SettingsManager.Instance.SFXVolume;
-
-        Debug.Log("Master na pausa " + masterVolumeSlider.value);
         
 
         // Add listeners to sliders to handle value changes
