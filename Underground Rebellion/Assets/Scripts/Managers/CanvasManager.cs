@@ -19,6 +19,7 @@ public class CanvasManager : MonoBehaviour
 		CanvasEvent.OnUpdateHealth += UpdateHealth;
 		CanvasEvent.OnWinCroissant += WinCroissant;
 		CanvasEvent.OnFinishLevel += FinishLevel;
+		CanvasEvent.OnGameSave += GameSaved;
 	}
 
 	private void OnDisable()
@@ -26,6 +27,7 @@ public class CanvasManager : MonoBehaviour
 		CanvasEvent.OnUpdateHealth -= UpdateHealth;
 		CanvasEvent.OnWinCroissant -= WinCroissant;
 		CanvasEvent.OnFinishLevel -= FinishLevel;
+		CanvasEvent.OnGameSave -= GameSaved;
 	}
 
 	private void Start()
@@ -54,6 +56,11 @@ public class CanvasManager : MonoBehaviour
 	{
 		animator.SetTrigger("Finish");
 		StartCoroutine(ChangeLevel());
+	}
+
+	private void GameSaved()
+	{
+		animator.SetTrigger("Save");
 	}
 
 	private IEnumerator ChangeLevel()

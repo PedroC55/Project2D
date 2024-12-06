@@ -52,7 +52,7 @@ public class LevelManager : MonoBehaviour
 
 		lastSavePosition = player;
 
-		Debug.Log("Salvou");
+		CanvasEvent.GameSave();
 		//No EnemiesManager salvar quais deles estão vivos e mortos num dicionario
 		savedDeadEnemies.AddRange(deadEnemies);
 		deadEnemies.Clear();

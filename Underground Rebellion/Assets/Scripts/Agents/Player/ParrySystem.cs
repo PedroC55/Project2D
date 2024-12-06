@@ -67,7 +67,7 @@ public class ParrySystem : MonoBehaviour
         {
             return false;
         }
-        Debug.Log(Mathf.Abs(parryTime - currentTime));
+
         if (parryAttempted && Mathf.Abs(parryTime - currentTime) <= parryWindow )
         {
 			timingSuccess = true;
