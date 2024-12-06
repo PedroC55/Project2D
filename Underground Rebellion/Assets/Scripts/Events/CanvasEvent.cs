@@ -13,6 +13,9 @@ public class CanvasEvent : MonoBehaviour
 	public delegate void FinishLevelHandler();
 	public static event FinishLevelHandler OnFinishLevel;
 
+	public delegate void GameSaveHandler();
+	public static event GameSaveHandler OnGameSave;
+
 	public static void UpdateHealth(int health)
 	{
 		OnUpdateHealth?.Invoke(health);
@@ -26,5 +29,10 @@ public class CanvasEvent : MonoBehaviour
 	public static void FinishLevel() 
 	{ 
 		OnFinishLevel?.Invoke();
+	}
+
+	public static void GameSave()
+	{
+		OnGameSave?.Invoke();
 	}
 }

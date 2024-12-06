@@ -118,7 +118,7 @@ public class EnemyAI : MonoBehaviour
 		}
 		if (sender.CompareTag("Player") && receiver.GetInstanceID() == gameObject.GetInstanceID() && enemyEnergy.HasEnergy())
         {
-			SoundManager.PlaySound(SoundType.HIT_DENIED);
+			SoundManager.Instance.PlaySound(SoundType.HIT_DENIED);
         }
     }
 

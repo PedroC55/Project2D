@@ -31,22 +31,38 @@ public enum SoundType
 public class SoundManager : MonoBehaviour
 {
     [SerializeField] private AudioClip[] soundList;
-    private static SoundManager instance;
+    public static SoundManager Instance;
     private AudioSource audioSource;
 
     private void Awake()
     {
-        instance = this;
-    }
+		if (Instance == null)
+		{
+			Instance = this;
+		}
+		else if (Instance != this)
+		{
+			Destroy(gameObject);
+		}
+		else if (Instance.gameObject == null)
+		{
+			// Reassign if the existing instance was destroyed
+			Instance = this;
+		}
+	}
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
     }
 
-    public static void PlaySound(SoundType sound)
+    public void PlaySound(SoundType sound)
     {
-        instance.audioSource.PlayOneShot(instance.soundList[(int)sound], SettingsManager.Instance.SFXVolume * SettingsManager.Instance.MasterVolume);
+		audioSource.PlayOneShot(Instance.soundList[(int)sound], SettingsManager.Instance.SFXVolume * SettingsManager.Instance.MasterVolume);
     }
 
+	public void PlaySound(AudioClip audio)
+	{
+		audioSource.PlayOneShot(audio, SettingsManager.Instance.SFXVolume * SettingsManager.Instance.MasterVolume);
+	}
 }

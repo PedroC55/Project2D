@@ -153,14 +153,14 @@ public class PlayerInput : MonoBehaviour
         {
             agent.ApplyForce(new Vector2(0, jumpForce));
 			lastJumpTime = 0f;
-			SoundManager.PlaySound(SoundType.JUMP_1);
+			SoundManager.Instance.PlaySound(SoundType.JUMP_1);
 		}
         else if (wallJumpComp && isSliding && lastJumpTime > 0f)
         {
             wallJumpComp.PerformWallJump();
             isSliding = false;
 			lastJumpTime = 0f;
-			SoundManager.PlaySound(SoundType.JUMP_1);
+			SoundManager.Instance.PlaySound(SoundType.JUMP_1);
 		}
 	}
     private void Slide()
@@ -194,7 +194,7 @@ public class PlayerInput : MonoBehaviour
 
 				if (playerParrySystem.CheckParry(sender))
 				{
-					SoundManager.PlaySound(SoundType.PARRY);
+					SoundManager.Instance.PlaySound(SoundType.PARRY);
 					ParryEvent.Parry(1, sender);
 				}
 				else
@@ -221,7 +221,7 @@ public class PlayerInput : MonoBehaviour
 		EffectsManager.Instance.PlayOneShot(hitVFX, transform.position, direction * 5);
         knockBack.PlayFeedback(sender);
 
-		SoundManager.PlaySound(SoundType.DAMAGE);
+		SoundManager.Instance.PlaySound(SoundType.DAMAGE);
 	}
 
 	//COLOCAR EM OUTRO SCRIPT (Criar o script 'Player')
