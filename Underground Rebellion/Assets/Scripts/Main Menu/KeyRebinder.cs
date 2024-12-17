@@ -35,8 +35,19 @@ public class KeyRebinder : MonoBehaviour
     public Button interactrebindButton;          // Button to trigger rebinding
     public TMP_Text interactrebindPromptText;    // Prompt text for rebinding
 
-    private InputAction jump, dash, parry, attack, interact;
+    [Header("Movement Right")]
+    public TMP_Text movement_rightbindingDisplayText;   // Text to display the current binding
+    public Button movement_rightrebindButton;          // Button to trigger rebinding
+    public TMP_Text movement_rightrebindPromptText;    // Prompt text for rebinding
+
+    [Header("Movement Left")]
+    public TMP_Text movement_leftbindingDisplayText;   // Text to display the current binding
+    public Button movement_leftrebindButton;          // Button to trigger rebinding
+    public TMP_Text movement_leftrebindPromptText;    // Prompt text for rebinding
+
+    private InputAction jump, dash, parry, attack, interact, movement;
     private int bindingIndex;
+    private int movement_leftIndex, movement_rightIndex;
     private const string RebindingOverridesKey = "RebindingOverrides";
 
     private bool rebinding = false;
@@ -49,7 +60,10 @@ public class KeyRebinder : MonoBehaviour
         parry = inputActions.FindAction("Parry"); // Replace with your action name
         attack = inputActions.FindAction("Attack"); // Replace with your action name
         interact = inputActions.FindAction("Interact"); // Replace with your action name
+        movement = inputActions.FindAction("Movement");
         bindingIndex = 0; // Typically 0 unless you have multiple bindings for the same action
+        movement_leftIndex = 1;
+        movement_rightIndex = 2;
         UpdateBindingDisplay();
 
         jumprebindButton.onClick.AddListener(StartRebindingJump);
@@ -57,6 +71,8 @@ public class KeyRebinder : MonoBehaviour
         parryrebindButton.onClick.AddListener(StartRebindingParry);
         attackrebindButton.onClick.AddListener(StartRebindingAttack);
         interactrebindButton.onClick.AddListener(StartRebindingInteract);
+        movement_rightrebindButton.onClick.AddListener(StartRebindingMovementRight);
+        movement_leftrebindButton.onClick.AddListener(StartRebindingMovementLeft);
     }
 
     private void UpdateBindingDisplay()
@@ -86,6 +102,14 @@ public class KeyRebinder : MonoBehaviour
             string bindingName = interact.bindings[bindingIndex].ToDisplayString();
             interactbindingDisplayText.text = $"Interact Key: {bindingName}";
         }
+        if (movement != null)
+        {
+            string bindingName = movement.bindings[movement_leftIndex].ToDisplayString();
+            movement_leftbindingDisplayText.text = $"Movement Left Key: {bindingName}";
+            bindingName = movement.bindings[movement_rightIndex].ToDisplayString();
+            movement_rightbindingDisplayText.text = $"Movement Right Key: {bindingName}";
+        }
+
 
         EventSystem.current.SetSelectedGameObject(null);
 
@@ -361,6 +385,116 @@ public class KeyRebinder : MonoBehaviour
 			})
             .Start();
     }
+
+    private void StartRebindingMovementLeft()
+    {
+        if (movement == null && rebinding)
+            return;
+
+        rebinding = true;
+        movement_leftrebindPromptText.text = "Press any key...";
+        movement_leftbindingDisplayText.gameObject.SetActive(false);
+        errorPrompt.gameObject.SetActive(false);
+        movement_leftrebindPromptText.gameObject.SetActive(true);
+
+        movement.Disable();
+
+        movement.PerformInteractiveRebinding(movement_leftIndex)
+            .OnMatchWaitForAnother(0.1f)
+            .WithCancelingThrough("<Keyboard>/escape")
+            .OnPotentialMatch((context) =>
+            {
+                var newPath = context.candidates[bindingIndex].path;
+                if (IsKeyConflict(newPath))
+                {
+                    // Conflict detected
+                    context.Cancel();
+                    errorPrompt.text = $"Key '{InputControlPath.ToHumanReadableString(newPath)}' is already in use!";
+                    errorPrompt.gameObject.SetActive(true);
+                    movement_leftrebindPromptText.gameObject.SetActive(false);
+                    movement_leftbindingDisplayText.gameObject.SetActive(true);
+                }
+                else
+                {
+                    errorPrompt.gameObject.SetActive(false);
+                }
+            })
+            .OnComplete(operation =>
+            {
+                movement.Enable();
+                operation.Dispose();
+                movement_leftrebindPromptText.gameObject.SetActive(false);
+                movement_leftbindingDisplayText.gameObject.SetActive(true);
+                UpdateBindingDisplay();
+                rebinding = false;
+
+            })
+            .OnCancel(operation =>
+            {
+                operation.Dispose();
+                movement_leftrebindPromptText.gameObject.SetActive(false);
+                movement_leftbindingDisplayText.gameObject.SetActive(true);
+                UpdateBindingDisplay();
+                rebinding = false;
+            })
+            .Start();
+    }
+
+    private void StartRebindingMovementRight()
+    {
+        if (movement == null && rebinding)
+            return;
+
+        rebinding = true;
+        movement_rightrebindPromptText.text = "Press any key...";
+        movement_rightbindingDisplayText.gameObject.SetActive(false);
+        errorPrompt.gameObject.SetActive(false);
+        movement_rightrebindPromptText.gameObject.SetActive(true);
+
+        movement.Disable();
+
+        movement.PerformInteractiveRebinding(movement_rightIndex)
+            .OnMatchWaitForAnother(0.1f)
+            .WithCancelingThrough("<Keyboard>/escape")
+            .OnPotentialMatch((context) =>
+            {
+                var newPath = context.candidates[bindingIndex].path;
+                if (IsKeyConflict(newPath))
+                {
+                    // Conflict detected
+                    context.Cancel();
+                    errorPrompt.text = $"Key '{InputControlPath.ToHumanReadableString(newPath)}' is already in use!";
+                    errorPrompt.gameObject.SetActive(true);
+                    movement_rightrebindPromptText.gameObject.SetActive(false);
+                    movement_rightbindingDisplayText.gameObject.SetActive(true);
+                }
+                else
+                {
+                    errorPrompt.gameObject.SetActive(false);
+                }
+            })
+            .OnComplete(operation =>
+            {
+                movement.Enable();
+                operation.Dispose();
+                movement_rightrebindPromptText.gameObject.SetActive(false);
+                movement_rightbindingDisplayText.gameObject.SetActive(true);
+                UpdateBindingDisplay();
+                rebinding = false;
+
+            })
+            .OnCancel(operation =>
+            {
+                operation.Dispose();
+                movement_rightrebindPromptText.gameObject.SetActive(false);
+                movement_rightbindingDisplayText.gameObject.SetActive(true);
+                UpdateBindingDisplay();
+                rebinding = false;
+            })
+            .Start();
+    }
+
+
     private bool IsKeyConflict(string newPath)
     {
         string[] splitString = newPath.Split('/');
