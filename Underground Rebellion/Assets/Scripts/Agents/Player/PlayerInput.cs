@@ -85,10 +85,11 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {   
-        if (!PauseMenuManager.isPaused)
+        if (!PauseMenuManager.isPaused && !MapManager.isMapActive)
         {
             if (!canMove)
             {
+
                 agent.MovementInput = Vector2.zero;
                 return;
             }

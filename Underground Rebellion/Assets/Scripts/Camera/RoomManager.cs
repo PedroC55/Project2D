@@ -9,6 +9,7 @@ public class RoomManager : MonoBehaviour
 
     private List<EnemyAI> enemyAIList = new();
     public GameObject virtualCam;
+    public Transform playerIcon; // UI Image representing the player
 
     // Reference to the Map UI Manager or similar component
     public GameObject mapUI;
@@ -25,6 +26,11 @@ public class RoomManager : MonoBehaviour
             {
                 isVisited = true;
                 UpdateMapVisibility();
+                UpdatePlayerIcon();
+            }
+            else
+            {
+                UpdatePlayerIcon();
             }
         }
         else if (collision.CompareTag("Enemy") && !collision.isTrigger)
@@ -50,5 +56,11 @@ public class RoomManager : MonoBehaviour
         {
             roomIcon.gameObject.SetActive(true); // Show the room icon on the map
         }
+    }
+
+    private void UpdatePlayerIcon()
+    {
+        playerIcon.position = mapUI.transform.Find("Room" + roomId).position;
+        Debug.Log("Icon:" + playerIcon.position + ", Room " + roomId + ":" + mapUI.transform.Find("Room" + roomId).position);
     }
 }

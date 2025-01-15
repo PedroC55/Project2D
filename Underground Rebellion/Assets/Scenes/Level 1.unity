@@ -765,6 +765,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 18
   virtualCam: {fileID: 1341546687}
+  playerIcon: {fileID: 1417754262}
   mapUI: {fileID: 115249023}
 --- !u!60 &72764250
 PolygonCollider2D:
@@ -1526,8 +1527,8 @@ Canvas:
   m_GameObject: {fileID: 115249023}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -1537,7 +1538,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -16358601
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &115249027
@@ -1552,6 +1553,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1417754262}
   - {fileID: 1873935318}
   - {fileID: 1561985041}
   - {fileID: 1919626310}
@@ -4767,6 +4769,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 8
   virtualCam: {fileID: 1391544745}
+  playerIcon: {fileID: 1417754262}
   mapUI: {fileID: 115249023}
 --- !u!60 &358799323
 PolygonCollider2D:
@@ -4870,6 +4873,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 17
   virtualCam: {fileID: 555762279}
+  playerIcon: {fileID: 1417754262}
   mapUI: {fileID: 115249023}
 --- !u!60 &387635033
 PolygonCollider2D:
@@ -5327,7 +5331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.69803923}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5869,8 +5873,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 202.13106, y: -60}
-  m_SizeDelta: {x: 100.2832, y: 50}
+  m_AnchoredPosition: {x: 224.46, y: -43.07}
+  m_SizeDelta: {x: 112.86, y: 66.33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &456295485
 MonoBehaviour:
@@ -5885,14 +5889,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.11904589, g: 0.41509432, b: 0.18319198, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 6ae61a21c33ea914ab67abfdd2bf1481, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5964,11 +5968,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4022934457941099702, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -40
+      value: -38.6
       objectReference: {fileID: 0}
     - target: {fileID: 4022934457941099702, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -70.67
+      value: -69.8
       objectReference: {fileID: 0}
     - target: {fileID: 4022934457941099702, guid: 3ffdf82283f80f34bacb948b001e12fe, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6052,6 +6056,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 13
   virtualCam: {fileID: 2090839994}
+  playerIcon: {fileID: 1417754262}
   mapUI: {fileID: 115249023}
 --- !u!60 &463917974
 PolygonCollider2D:
@@ -6236,8 +6241,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -98.71844, y: 64}
-  m_SizeDelta: {x: 100.2832, y: 50}
+  m_AnchoredPosition: {x: -112.53996, y: 87.55007}
+  m_SizeDelta: {x: 112.86, y: 66.33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &479882681
 MonoBehaviour:
@@ -6252,14 +6257,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.11904589, g: 0.41509432, b: 0.18319198, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 5f4e8fefdcbf7d8448ea0118131a0053, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6349,8 +6354,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 202.13106, y: 64}
-  m_SizeDelta: {x: 100.2832, y: 50}
+  m_AnchoredPosition: {x: 224.46, y: 87.55007}
+  m_SizeDelta: {x: 112.86, y: 66.33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &506052712
 MonoBehaviour:
@@ -6365,14 +6370,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.11904589, g: 0.41509432, b: 0.18319198, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: eabb2affad026cd4588074f09c96d75e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -32732,6 +32737,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 16
   virtualCam: {fileID: 1694514504}
+  playerIcon: {fileID: 1417754262}
   mapUI: {fileID: 115249023}
 --- !u!60 &618788590
 PolygonCollider2D:
@@ -32974,6 +32980,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 2
   virtualCam: {fileID: 1691147991}
+  playerIcon: {fileID: 1417754262}
   mapUI: {fileID: 115249023}
 --- !u!60 &636648529
 PolygonCollider2D:
@@ -33078,6 +33085,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 20
   virtualCam: {fileID: 1834374954}
+  playerIcon: {fileID: 1417754262}
   mapUI: {fileID: 115249023}
 --- !u!60 &656083768
 PolygonCollider2D:
@@ -34914,8 +34922,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 101.84791, y: -122}
-  m_SizeDelta: {x: 100.2832, y: 50}
+  m_AnchoredPosition: {x: 111.59002, y: -109}
+  m_SizeDelta: {x: 112.86, y: 66.33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &819657533
 MonoBehaviour:
@@ -34930,14 +34938,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.11904589, g: 0.41509432, b: 0.18319198, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 553ccb74abfaadf409a3493578aeeb8c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -35574,6 +35582,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 7
   virtualCam: {fileID: 937428286}
+  playerIcon: {fileID: 1417754262}
   mapUI: {fileID: 115249023}
 --- !u!60 &884985969
 PolygonCollider2D:
@@ -35786,8 +35795,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.5647125, y: -60}
-  m_SizeDelta: {x: 100.2832, y: 50}
+  m_AnchoredPosition: {x: -1.2699873, y: -43.07}
+  m_SizeDelta: {x: 112.86, y: 66.33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &891808972
 MonoBehaviour:
@@ -35802,14 +35811,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.11904589, g: 0.41509432, b: 0.18319198, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: e547d809425e0984099d3b4ba7f8aa57, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -36094,7 +36103,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1088005564}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -36495,8 +36504,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 202.13106, y: -122}
-  m_SizeDelta: {x: 100.2832, y: 50}
+  m_AnchoredPosition: {x: 224.46, y: -109}
+  m_SizeDelta: {x: 112.86, y: 66.33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &974197009
 MonoBehaviour:
@@ -36511,14 +36520,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.11904589, g: 0.41509432, b: 0.18319198, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: d0b253779f7ef854f919b63eab1951af, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -36568,6 +36577,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 19
   virtualCam: {fileID: 1167312501}
+  playerIcon: {fileID: 1417754262}
   mapUI: {fileID: 115249023}
 --- !u!60 &976107711
 PolygonCollider2D:
@@ -36804,8 +36814,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.5647125, y: 2}
-  m_SizeDelta: {x: 100.2832, y: 50}
+  m_AnchoredPosition: {x: -1.2699873, y: 22.81007}
+  m_SizeDelta: {x: 112.86, y: 66.33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &999994605
 MonoBehaviour:
@@ -36820,14 +36830,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.11904589, g: 0.41509432, b: 0.18319198, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 570fd085fe12ac44684ec60ca31d76dc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -38298,6 +38308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 3
   virtualCam: {fileID: 238523730}
+  playerIcon: {fileID: 1417754262}
   mapUI: {fileID: 115249023}
 --- !u!60 &1156624881
 PolygonCollider2D:
@@ -38513,8 +38524,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -199, y: -60}
-  m_SizeDelta: {x: 100.2832, y: 50}
+  m_AnchoredPosition: {x: -225.4, y: -43.07}
+  m_SizeDelta: {x: 112.86, y: 66.33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1170037862
 MonoBehaviour:
@@ -38529,14 +38540,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.11904589, g: 0.41509432, b: 0.18319198, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 6bcaf9e6d48f31745b59a300a2799d82, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -38928,8 +38939,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -98.71844, y: -60}
-  m_SizeDelta: {x: 100.2832, y: 50}
+  m_AnchoredPosition: {x: -112.53996, y: -43.07}
+  m_SizeDelta: {x: 112.86, y: 66.33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1243683401
 MonoBehaviour:
@@ -38944,14 +38955,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.11904589, g: 0.41509432, b: 0.18319198, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 20737df7196adba4cb1d2f65a90a19ed, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -39391,8 +39402,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -199, y: 64}
-  m_SizeDelta: {x: 100.2832, y: 50}
+  m_AnchoredPosition: {x: -225.4, y: 87.55007}
+  m_SizeDelta: {x: 112.86, y: 66.33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1281406132
 MonoBehaviour:
@@ -39407,14 +39418,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.11904589, g: 0.41509432, b: 0.18319198, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 9a6fbabdfd556ea41b163c7d1adb6c94, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -41134,6 +41145,90 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8517872796869652182, guid: 8cceb56701f98c243acea4a2820fd080, type: 3}
   m_PrefabInstance: {fileID: 582584310}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1417754261
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1417754262}
+  - component: {fileID: 1417754263}
+  m_Layer: 0
+  m_Name: rogerio_icon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1417754262
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1417754261}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -194.6, y: -127.3, z: 0}
+  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 115249027}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1417754263
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1417754261}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -269516679
+  m_SortingLayer: 4
+  m_SortingOrder: 10
+  m_Sprite: {fileID: 21300000, guid: 7418b36416806f745b885845a1416bc8, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &1425027040
 GameObject:
   m_ObjectHideFlags: 0
@@ -41311,6 +41406,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 5
   virtualCam: {fileID: 569627079}
+  playerIcon: {fileID: 1417754262}
   mapUI: {fileID: 115249023}
 --- !u!60 &1432878449
 PolygonCollider2D:
@@ -42622,6 +42718,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapUI: {fileID: 115249023}
   mapOverlay: {fileID: 409971867}
+  playerIcon: {fileID: 1417754261}
 --- !u!4 &1498784855 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4428570326404097647, guid: 8cceb56701f98c243acea4a2820fd080, type: 3}
@@ -42659,6 +42756,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 12
   virtualCam: {fileID: 2000372715}
+  playerIcon: {fileID: 1417754262}
   mapUI: {fileID: 115249023}
 --- !u!60 &1521221979
 PolygonCollider2D:
@@ -42838,6 +42936,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 11
   virtualCam: {fileID: 1726482568}
+  playerIcon: {fileID: 1417754262}
   mapUI: {fileID: 115249023}
 --- !u!60 &1551137944
 PolygonCollider2D:
@@ -42940,8 +43039,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -98.71844, y: -122}
-  m_SizeDelta: {x: 100.2832, y: 50}
+  m_AnchoredPosition: {x: -112.53996, y: -109}
+  m_SizeDelta: {x: 112.86, y: 66.33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1561985042
 MonoBehaviour:
@@ -42956,14 +43055,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.11904589, g: 0.41509432, b: 0.18319198, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 8c33cce9a50d01241b947f45c0857be7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -43789,6 +43888,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 9
   virtualCam: {fileID: 1690041258}
+  playerIcon: {fileID: 1417754262}
   mapUI: {fileID: 115249023}
 --- !u!60 &1620375558
 PolygonCollider2D:
@@ -44030,6 +44130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 6
   virtualCam: {fileID: 673472223}
+  playerIcon: {fileID: 1417754262}
   mapUI: {fileID: 115249023}
 --- !u!60 &1649591892
 PolygonCollider2D:
@@ -44128,6 +44229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 15
   virtualCam: {fileID: 1225651562}
+  playerIcon: {fileID: 1417754262}
   mapUI: {fileID: 115249023}
 --- !u!60 &1651521888
 PolygonCollider2D:
@@ -45412,7 +45514,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1088005564}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -45608,6 +45710,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 4
   virtualCam: {fileID: 224637976}
+  playerIcon: {fileID: 1417754262}
   mapUI: {fileID: 115249023}
 --- !u!60 &1728422164
 PolygonCollider2D:
@@ -45799,8 +45902,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 101.84791, y: 64}
-  m_SizeDelta: {x: 100.2832, y: 50}
+  m_AnchoredPosition: {x: 111.59002, y: 87.55007}
+  m_SizeDelta: {x: 112.86, y: 66.33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1736154093
 MonoBehaviour:
@@ -45815,14 +45918,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.11904589, g: 0.41509432, b: 0.18319198, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 7a5cc2b006970a44487d47f3622546e4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -46218,6 +46321,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 14
   virtualCam: {fileID: 197695342}
+  playerIcon: {fileID: 1417754262}
   mapUI: {fileID: 115249023}
 --- !u!60 &1754393069
 PolygonCollider2D:
@@ -46316,6 +46420,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 1
   virtualCam: {fileID: 1593921969}
+  playerIcon: {fileID: 1417754262}
   mapUI: {fileID: 115249023}
 --- !u!60 &1764182240
 PolygonCollider2D:
@@ -47371,8 +47476,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.5647125, y: 64}
-  m_SizeDelta: {x: 100.2832, y: 50}
+  m_AnchoredPosition: {x: -1.2699873, y: 87.55007}
+  m_SizeDelta: {x: 112.86, y: 66.33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1858970216
 MonoBehaviour:
@@ -47387,14 +47492,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.11904589, g: 0.41509432, b: 0.18319198, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: f77d5cae29457524ea770e41a3bf6de6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -47540,8 +47645,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -199, y: -122}
-  m_SizeDelta: {x: 100.2832, y: 50}
+  m_AnchoredPosition: {x: -225.4, y: -109}
+  m_SizeDelta: {x: 112.86, y: 66.33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1873935319
 MonoBehaviour:
@@ -47556,14 +47661,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.11904589, g: 0.41509432, b: 0.18319198, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 23b1a896dfd6cc640a7a001d3713b1f9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -48277,8 +48382,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.5647125, y: -122}
-  m_SizeDelta: {x: 100.2832, y: 50}
+  m_AnchoredPosition: {x: -1.2699873, y: -109}
+  m_SizeDelta: {x: 112.86, y: 66.33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1919626311
 MonoBehaviour:
@@ -48293,14 +48398,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.11904589, g: 0.41509432, b: 0.18319198, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 2be7fb2cf54e6b44a99991037ead008d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -48353,8 +48458,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -98.71844, y: 2}
-  m_SizeDelta: {x: 100.2832, y: 50}
+  m_AnchoredPosition: {x: -112.53996, y: 22.81007}
+  m_SizeDelta: {x: 112.86, y: 66.33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1922449936
 MonoBehaviour:
@@ -48369,14 +48474,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.11904589, g: 0.41509432, b: 0.18319198, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 6a8ed57babdd5ae438b340a771da4cb0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -48785,8 +48890,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 101.84791, y: 2}
-  m_SizeDelta: {x: 100.2832, y: 50}
+  m_AnchoredPosition: {x: 111.59002, y: 22.81007}
+  m_SizeDelta: {x: 112.86, y: 66.33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1956812831
 MonoBehaviour:
@@ -48801,14 +48906,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.11904589, g: 0.41509432, b: 0.18319198, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: c679fb063c9b4ec43b903cd511cd3067, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -49087,8 +49192,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 101.84791, y: -60}
-  m_SizeDelta: {x: 100.2832, y: 50}
+  m_AnchoredPosition: {x: 111.59002, y: -43.07}
+  m_SizeDelta: {x: 112.86, y: 66.33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1969313372
 MonoBehaviour:
@@ -49103,14 +49208,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.11904589, g: 0.41509432, b: 0.18319198, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 4cc9569d24794b449a6b15ee7e0f160b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -49779,8 +49884,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 202.13106, y: 2}
-  m_SizeDelta: {x: 100.2832, y: 50}
+  m_AnchoredPosition: {x: 224.46, y: 22.81007}
+  m_SizeDelta: {x: 112.86, y: 66.33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2013252120
 MonoBehaviour:
@@ -49795,14 +49900,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.11904589, g: 0.41509432, b: 0.18319198, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: df1f828fed68a59439ae7629eb7ae1e9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -50273,6 +50378,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 10
   virtualCam: {fileID: 81835939}
+  playerIcon: {fileID: 1417754262}
   mapUI: {fileID: 115249023}
 --- !u!60 &2064639130
 PolygonCollider2D:
@@ -50374,8 +50480,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -199, y: 2}
-  m_SizeDelta: {x: 100.2832, y: 50}
+  m_AnchoredPosition: {x: -225.4, y: 22.8}
+  m_SizeDelta: {x: 112.86, y: 66.33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2066782514
 MonoBehaviour:
@@ -50390,14 +50496,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.11904589, g: 0.41509432, b: 0.18319198, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: eb0271fb48d5f17419545d4a44ea0eb0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
