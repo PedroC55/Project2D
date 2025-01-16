@@ -26,7 +26,7 @@ public class ScoreboardManager : MonoBehaviour
 		enemiesScoreManager = GetComponentInChildren<EnemiesScoreManager>();
 		pointsScoreManager = GetComponentInChildren<PointsScoreManager>();
 
-		AddTotalScore(ScoreManager.Instance.GetTotalPoints());
+		AddTotalScore(ScoreManager.Instance.TotalPoints);
 
 		enemiesScoreManager.Display();
     }

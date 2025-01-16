@@ -12,12 +12,16 @@ public class CanvasManager : MonoBehaviour
 	[SerializeField]
 	private TMP_Text pointsText;
 
+	[SerializeField] 
+	private TextMeshProUGUI timerText;
+	private float elapsedTime;
+
 	private Animator animator;
 
 	private void OnEnable()
 	{
 		CanvasEvent.OnUpdateHealth += UpdateHealth;
-		CanvasEvent.OnWinCroissant += WinCroissant;
+		CanvasEvent.OnUpdateScore += UpdateScore;
 		CanvasEvent.OnFinishLevel += FinishLevel;
 		CanvasEvent.OnGameSave += GameSaved;
 	}
@@ -25,7 +29,7 @@ public class CanvasManager : MonoBehaviour
 	private void OnDisable()
 	{
 		CanvasEvent.OnUpdateHealth -= UpdateHealth;
-		CanvasEvent.OnWinCroissant -= WinCroissant;
+		CanvasEvent.OnUpdateScore -= UpdateScore;
 		CanvasEvent.OnFinishLevel -= FinishLevel;
 		CanvasEvent.OnGameSave -= GameSaved;
 	}
@@ -33,6 +37,15 @@ public class CanvasManager : MonoBehaviour
 	private void Start()
 	{
 		animator = GetComponent<Animator>();
+	}
+
+	// Update is called once per frame
+	void Update()
+	{
+		elapsedTime += Time.deltaTime;
+		int minutes = Mathf.FloorToInt(elapsedTime / 60);
+		int seconds = Mathf.FloorToInt(elapsedTime % 60);
+		timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
 	}
 
 	private void UpdateHealth(int health)
@@ -46,14 +59,15 @@ public class CanvasManager : MonoBehaviour
 		}
 	}
 
-	private void WinCroissant(int points)
+	private void UpdateScore(int points)
 	{
 		pointsText.text = $"{points}";
-		animator.SetTrigger("Croissant");
 	}
 
 	private void FinishLevel()
 	{
+		ScoreManager.Instance.SaveTime(elapsedTime);
+
 		animator.SetTrigger("Finish");
 		StartCoroutine(ChangeLevel());
 	}
@@ -66,6 +80,6 @@ public class CanvasManager : MonoBehaviour
 	private IEnumerator ChangeLevel()
 	{
 		yield return new WaitForSeconds(2f);
-		SceneManager.LoadScene("End Scene");
+		SceneManager.LoadScene("Scoreboard");
 	}
 }

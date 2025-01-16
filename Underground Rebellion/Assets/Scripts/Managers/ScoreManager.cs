@@ -8,33 +8,49 @@ public class ScoreManager : MonoBehaviour
 {
 	public static ScoreManager Instance { get; private set; }
 
-	//private Dictionary<int, EnemiesConditions> enemies = new();
+	[SerializeField] private string levelName;
 
 	[Header("Points in Game")]
 	[SerializeField] private int defeatPoints;
 	[SerializeField] private int undetectedPoints;
+	[SerializeField] private int aggroedPoints;
+	[SerializeField] private int stunPoints;
 	[SerializeField] private int timeLimitInMinutes;
+	public int TimeLimitInMinutes { get => timeLimitInMinutes; }
 
 	[Header("Bonus at Scoreboard")]
 	[SerializeField] private int defeatBonus;
 	[SerializeField] private int undetectedBonus;
 	[SerializeField] private int timeBonus;
 	[SerializeField] private int noDeathBonus;
+	public int DefeatBonus { get => defeatBonus; }
+	public int UndetectedBonus { get => undetectedBonus; }
+	public int TimeBonus { get => timeBonus; }
+	public int NoDeathBonus { get => noDeathBonus; }
+
 
 	[Header("Goals")]
 	[SerializeField] private int firstGoal;
 	[SerializeField] private int secondGoal;
 	[SerializeField] private int thirdGoal;
+	public int FirstGoal { get => firstGoal; }
+	public int SecondGoal { get => secondGoal; }
+	public int ThirdGoal { get => thirdGoal; }
 
-	[SerializeField] private List<EnemiesConditions> enemies = new();
+	private Dictionary<int, EnemiesConditions> enemies = new();
+	public Dictionary<int, EnemiesConditions> Enemies { get => enemies; }
 
-	[SerializeField] private string levelName;
-	[SerializeField] private int totalPoints;
-	[SerializeField] private float timeToComplete;
-	[SerializeField] private int playerDeaths;
+
+	private int totalPoints = 0;
+	private float timeToComplete;
+	private int playerDeaths = 0;
+	public int TotalPoints { get => totalPoints; }
+	public float TimeToComplete { get => timeToComplete; }
+	public int PlayerDeaths { get => playerDeaths; }
 	/*Score Manager da cena anterior
 	 * Quantos e quais secrets achou
      */
+
 	private void Awake()
 	{
 		if (Instance != null && Instance != this)
@@ -48,85 +64,91 @@ public class ScoreManager : MonoBehaviour
 		}
 	}
 
-	//public Dictionary<int, EnemiesConditions> GetEnemies()
-	//{
-	//    return enemies;
-	//}
-
-	public List<EnemiesConditions> GetEnemies()
+	private void OnEnable()
 	{
-		return enemies;
+		CanvasEvent.OnUpdateScore += UpdateScore;
+		CanvasEvent.OnFinishLevel += FinishLevel;
+		LevelEvent.OnEnemyDied += EnemyDied;
+		LevelEvent.OnRegisterEnemy += RegisterEnemy;
+		LevelEvent.OnPlayerDied += PlayerDied;
+	}
+
+	private void OnDisable()
+	{
+		CanvasEvent.OnUpdateScore -= UpdateScore;
+		CanvasEvent.OnFinishLevel -= FinishLevel;
+		LevelEvent.OnEnemyDied -= EnemyDied;
+		LevelEvent.OnRegisterEnemy -= RegisterEnemy;
+		LevelEvent.OnPlayerDied -= PlayerDied;
 	}
 
 	public int GetEnemiesDefeated()
 	{
-		return enemies.Where(x => x == EnemiesConditions.EnemyDefeated).Count();
+		return enemies.Values.Where(x => x == EnemiesConditions.EnemyDefeated).Count();
 	}
 
 	public int GetEnemiesUndetected()
 	{
-		return enemies.Where(x => x == EnemiesConditions.EnemyUndetected).Count();
-	}
-
-	public int GetTotalPoints()
-	{
-		return totalPoints;
-	}
-
-	public float GetTimeToComplete()
-	{
-		return timeToComplete;
-	}
-
-	public int GetPlayerDeaths()
-	{
-		return playerDeaths;
-	}
-
-	public int GetDefeatBonus()
-	{
-		return defeatBonus;
-	}
-
-	public int GetUndetectedBonus()
-	{
-		return undetectedBonus;
-	}
-
-	public int GetTimeLimitInMinutes()
-	{
-		return timeLimitInMinutes;
-	}
-
-	public int GetTimeBonus()
-	{
-		return timeBonus;
-	}
-
-	public int GetNoDeathBonus()
-	{
-		return noDeathBonus;
-	}
-
-	public int GetFirstGoal()
-	{
-		return firstGoal;
-	}
-
-	public int GetSecondGoal()
-	{
-		return secondGoal;
-	}
-
-	public int GetThirdGoal()
-	{
-		return thirdGoal;
+		return enemies.Values.Where(x => x == EnemiesConditions.EnemyUndetected).Count();
 	}
 
 	public void DestroyScore()
 	{
 		Destroy(gameObject);
 	}
+
+	public void EnemyStunned()
+	{
+		totalPoints += stunPoints;
+		CanvasEvent.UpdateScore(totalPoints);
+		LevelEvent.ShowPointsInWorld(stunPoints, PointsTypes.Stun);
+	}
+
+	public void EnemyAggroed(int enemyID)
+	{
+		enemies[enemyID] = EnemiesConditions.EnemyAggroed;
+
+		totalPoints += aggroedPoints;
+		CanvasEvent.UpdateScore(totalPoints);
+		LevelEvent.ShowPointsInWorld(aggroedPoints, PointsTypes.Aggro);
+	}
+
+	public void SaveTime(float time)
+	{
+		timeToComplete = time;
+	}
+
+	public void PlayerDied()
+	{
+		playerDeaths++;
+	}
+
+	private void UpdateScore(int score)
+	{
+		totalPoints = score;
+	}
+
+	private void EnemyDied(int enemyID)
+	{
+		enemies[enemyID] = EnemiesConditions.EnemyDefeated;
+		
+		totalPoints += defeatPoints;
+		CanvasEvent.UpdateScore(totalPoints);
+		LevelEvent.ShowPointsInWorld(defeatPoints, PointsTypes.Defeat);
+	}
+
+	private void RegisterEnemy(EnemyAI enemy)
+	{
+		enemies.Add(enemy.GetID(), EnemiesConditions.EnemyUndetected);
+	}
+
+	private void FinishLevel()
+	{
+		int count = enemies.Values.Where(x => x == EnemiesConditions.EnemyUndetected).Count();
+
+		totalPoints += undetectedPoints * count;
+	}
 }
 
-public enum EnemiesConditions { EnemyDefeated, EnemyUndetected, EnemyDetected }
+public enum EnemiesConditions { EnemyDefeated, EnemyUndetected, EnemyAggroed }
+public enum PointsTypes { Defeat, Undetected, Aggro, Stun }

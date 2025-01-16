@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,9 +27,9 @@ public class GoalsScoreManager : MonoBehaviour
 
 	private void Start()
 	{
-		firstGoal = ScoreManager.Instance.GetFirstGoal();
-		secondGoal = ScoreManager.Instance.GetSecondGoal();
-		thirdGoal = ScoreManager.Instance.GetThirdGoal();
+		firstGoal = ScoreManager.Instance.FirstGoal;
+		secondGoal = ScoreManager.Instance.SecondGoal;
+		thirdGoal = ScoreManager.Instance.ThirdGoal;
 
 		firstGoalText.text = firstGoal.ToString();
 		secondGoalText.text = secondGoal.ToString();

@@ -4,7 +4,6 @@ using System.Xml;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static ScoreManager;
 
 public class EnemiesScoreManager : MonoBehaviour
 {
@@ -13,7 +12,7 @@ public class EnemiesScoreManager : MonoBehaviour
 	[SerializeField]
 	private Sprite enemyUndetected;
 	[SerializeField]
-	private Sprite enemyDetected;
+	private Sprite enemyAggroed;
 
 	[SerializeField]
 	private GameObject enemyImagePrefab;
@@ -25,32 +24,12 @@ public class EnemiesScoreManager : MonoBehaviour
 
 	private IEnumerator ShowEnemies()
 	{
-		//foreach (KeyValuePair<int, EnemiesConditions> enemy in scoreManager.GetEnemies())
-		//{
-		//	GameObject imageObject = Instantiate(enemyImagePrefab, transform);
-		//	Image image = imageObject.GetComponent<Image>();
-
-		//	switch (enemy.Value)
-		//	{
-		//		case EnemiesConditions.EnemeyDefeated:
-		//			image.sprite = enemyDefeated;
-		//			break;
-		//		case EnemiesConditions.EnemyUndetected:
-		//			image.sprite = enemyUndetected;
-		//			break;
-		//		case EnemiesConditions.EnemyDetected:
-		//			image.sprite = enemyDetected;
-		//			break;
-		//	}
-		//	yield return new WaitForSeconds(0.2f);
-		//}
-
-		foreach (EnemiesConditions enemy in ScoreManager.Instance.GetEnemies())
+		foreach (KeyValuePair<int, EnemiesConditions> enemy in ScoreManager.Instance.Enemies)
 		{
 			GameObject imageObject = Instantiate(enemyImagePrefab, transform);
 			Image image = imageObject.GetComponent<Image>();
 
-			switch (enemy)
+			switch (enemy.Value)
 			{
 				case EnemiesConditions.EnemyDefeated:
 					image.sprite = enemyDefeated;
@@ -58,11 +37,11 @@ public class EnemiesScoreManager : MonoBehaviour
 				case EnemiesConditions.EnemyUndetected:
 					image.sprite = enemyUndetected;
 					break;
-				case EnemiesConditions.EnemyDetected:
-					image.sprite = enemyDetected;
+				case EnemiesConditions.EnemyAggroed:
+					image.sprite = enemyAggroed;
 					break;
 			}
-			yield return new WaitForSeconds(0.1f);
+			yield return new WaitForSeconds(0.2f);
 		}
 
 		GetComponentInParent<ScoreboardManager>().EnemiesScoreFinished();

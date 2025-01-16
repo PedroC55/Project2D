@@ -56,30 +56,30 @@ public class PointsScoreManager : MonoBehaviour
 
 	private void UpdatePoints()
 	{
-		completeScore.text = ScoreManager.Instance.GetTotalPoints().ToString();
+		completeScore.text = ScoreManager.Instance.TotalPoints.ToString();
 
 		int count = ScoreManager.Instance.GetEnemiesDefeated();
-		int bonus = ScoreManager.Instance.GetDefeatBonus();
+		int bonus = ScoreManager.Instance.DefeatBonus;
 		defeatedScore = count * bonus;
 		timeBonusText.text = $"X {bonus.ToString()}";
 		defeatedCountText.text = count.ToString();
 
 		count = ScoreManager.Instance.GetEnemiesUndetected();
-		bonus = ScoreManager.Instance.GetUndetectedBonus();
+		bonus = ScoreManager.Instance.UndetectedBonus;
 		undetectedScore = count * bonus;
 		undetectedBonusText.text = $"X {bonus.ToString()}";
 		undetectedCountText.text = count.ToString();
 		
-		float time = ScoreManager.Instance.GetTimeToComplete();
+		float time = ScoreManager.Instance.TimeToComplete;
 		UpdateTimeCount(time);
-		timeAchieved = (time <= ScoreManager.Instance.GetTimeLimitInMinutes() * 60);
-		timeBonusText.text = ScoreManager.Instance.GetTimeBonus().ToString();
+		timeAchieved = (time <= ScoreManager.Instance.TimeLimitInMinutes * 60);
+		timeBonusText.text = ScoreManager.Instance.TimeBonus.ToString();
 		timeBonusText.color = timeAchieved ? achievedColor : notAchievedColor;
 
-		count = ScoreManager.Instance.GetPlayerDeaths();
+		count = ScoreManager.Instance.PlayerDeaths;
 		deathCountText.text = count.ToString();
 		deathAchieved = (count == 0);
-		deathBonusText.text = ScoreManager.Instance.GetNoDeathBonus().ToString();
+		deathBonusText.text = ScoreManager.Instance.NoDeathBonus.ToString();
 		deathBonusText.color = deathAchieved ? achievedColor : notAchievedColor;
 	}
 
@@ -106,7 +106,7 @@ public class PointsScoreManager : MonoBehaviour
 
 		if (timeAchieved)
 		{
-			int bonus = ScoreManager.Instance.GetTimeBonus();
+			int bonus = ScoreManager.Instance.TimeBonus;
 			timeScoreText.text = bonus.ToString();
 			scoreboardManager.AddTotalScore(bonus);
 		}
@@ -120,7 +120,7 @@ public class PointsScoreManager : MonoBehaviour
 
 		if (deathAchieved)
 		{
-			int bonus = ScoreManager.Instance.GetNoDeathBonus();
+			int bonus = ScoreManager.Instance.NoDeathBonus;
 			deathScoreText.text = bonus.ToString();
 			scoreboardManager.AddTotalScore(bonus);
 		}

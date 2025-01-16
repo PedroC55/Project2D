@@ -4986,8 +4986,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45a70313060883c4fa7a68acd1ae1e13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelName: First Level
   defeatPoints: 200
   undetectedPoints: 200
+  aggroedPoints: 0
+  stunPoints: 0
   timeLimitInMinutes: 15
   defeatBonus: 400
   undetectedBonus: 400
@@ -4996,11 +4999,6 @@ MonoBehaviour:
   firstGoal: 5000
   secondGoal: 10500
   thirdGoal: 23000
-  enemies: 00000000010000000200000000000000020000000100000000000000020000000000000001000000020000000000000001000000
-  levelName: First Level
-  totalPoints: 13650
-  timeToComplete: 455
-  playerDeaths: 5
 --- !u!4 &1696143943
 Transform:
   m_ObjectHideFlags: 0
@@ -6257,7 +6255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyDefeated: {fileID: 21300000, guid: 5af8c6d8ff8233d4e83ff09e2580cf19, type: 3}
   enemyUndetected: {fileID: 21300000, guid: b9a9c913bd932a94f96e5f20c1f203eb, type: 3}
-  enemyDetected: {fileID: 21300000, guid: 0b7dc4a2260f2f74bb94e946040c0fe8, type: 3}
+  enemyAggroed: {fileID: 21300000, guid: 0b7dc4a2260f2f74bb94e946040c0fe8, type: 3}
   enemyImagePrefab: {fileID: 1990516473139999504, guid: 9d1b1d1805f2e384f90001450a9b2ac5, type: 3}
 --- !u!1 &2134152420
 GameObject:

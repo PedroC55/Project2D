@@ -78,7 +78,8 @@ public class PlayerInput : MonoBehaviour
 
 	void Start()
     {
-		//Antes tava no Update, coloquei no Start, pq não acho que precisar estar lá
+        LevelEvent.RegisterPlayer(gameObject);
+		
 		agent.wallCheck = wallCheck;
 	}
 

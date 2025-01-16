@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-	private int croissants = 0;
-	private int savedCroissants = 0;
-
 	[SerializeField]
 	private Transform lastSavePosition;
+
+	[SerializeField]
+	private GameObject pointsPrefab;
+
+	private int savedPoints = 0;
 
 	//Dicionario com todos os inimigos do nivel
 	private Dictionary<int, EnemyAI> enemiesOnLevel = new();
@@ -19,20 +21,26 @@ public class LevelManager : MonoBehaviour
 
 	private List<int> savedDeadEnemies = new();
 
+	private GameObject playerGO;
+
 	private void OnEnable()
 	{
 		LevelEvent.OnRegisterEnemy += RegisterEnemy;
+		LevelEvent.OnRegisterPlayer += RegisterPlayer;
 		LevelEvent.OnPlayerSave += PlayerSave;
 		LevelEvent.OnPlayerDied += PlayerDied;
 		LevelEvent.OnEnemyDied += EnemyDied;
+		LevelEvent.OnShowPointsInWorld += ShowPointsInWorld;
 	}
 
 	private void OnDisable()
 	{
 		LevelEvent.OnRegisterEnemy -= RegisterEnemy;
+		LevelEvent.OnRegisterPlayer += RegisterPlayer;
 		LevelEvent.OnPlayerSave -= PlayerSave;
 		LevelEvent.OnPlayerDied -= PlayerDied;
 		LevelEvent.OnEnemyDied -= EnemyDied;
+		LevelEvent.OnShowPointsInWorld -= ShowPointsInWorld;
 	}
 
 	private void RegisterEnemy(EnemyAI enemy)
@@ -40,15 +48,19 @@ public class LevelManager : MonoBehaviour
 		enemiesOnLevel.Add(enemy.GetID(), enemy);
 	}
 
+	private void RegisterPlayer(GameObject player)
+	{
+		playerGO = player;
+	}
+
 	private void EnemyDied(int enemyID)
 	{
 		deadEnemies.Add(enemyID);
-		WinCroissant();
 	}
 
 	private void PlayerSave(Transform player)
 	{
-		savedCroissants = croissants;
+		savedPoints = ScoreManager.Instance.TotalPoints;
 
 		lastSavePosition = player;
 
@@ -62,7 +74,7 @@ public class LevelManager : MonoBehaviour
 
 	private void PlayerDied()
 	{
-		croissants = savedCroissants;
+		CanvasEvent.UpdateScore(savedPoints);
 
 		LevelEvent.ResetPlayer(lastSavePosition);
 
@@ -72,9 +84,13 @@ public class LevelManager : MonoBehaviour
 		
 		//Reseta os objetos
 	}
-	private void WinCroissant()
+
+	private void ShowPointsInWorld(int points, PointsTypes pointType)
 	{
-		croissants++;
-		CanvasEvent.WinCroissant(croissants);
+		Vector2 positionToInstantiate = playerGO.transform.position;
+		positionToInstantiate.y += 2.5f;
+
+		GameObject pointsGO = Instantiate(pointsPrefab, positionToInstantiate, Quaternion.identity);
+		pointsGO.GetComponent<PointsInWorld>().InitScore(points, pointType);
 	}
 }
