@@ -50,6 +50,7 @@ public class KeyRebinder : MonoBehaviour
     private int movement_leftIndex, movement_rightIndex;
     private const string RebindingOverridesKey = "RebindingOverrides";
 
+
     private bool rebinding = false;
 
     private void Start()
@@ -155,6 +156,7 @@ public class KeyRebinder : MonoBehaviour
                 jumprebindPromptText.gameObject.SetActive(false);
                 jumpbindingDisplayText.gameObject.SetActive(true);
                 UpdateBindingDisplay();
+                SettingsEvent.Rebind(jump);
                 rebinding = false;
                 
             })
@@ -210,7 +212,8 @@ public class KeyRebinder : MonoBehaviour
                 dashrebindPromptText.gameObject.SetActive(false);
                 dashbindingDisplayText.gameObject.SetActive(true);
                 UpdateBindingDisplay();
-				rebinding = false;
+                SettingsEvent.Rebind(dash);
+                rebinding = false;
 
 			})
             .OnCancel(operation =>
@@ -265,7 +268,8 @@ public class KeyRebinder : MonoBehaviour
                 parryrebindPromptText.gameObject.SetActive(false);
                 parrybindingDisplayText.gameObject.SetActive(true);
                 UpdateBindingDisplay();
-				rebinding = false;
+                SettingsEvent.Rebind(parry);
+                rebinding = false;
 
 			})
             .OnCancel(operation =>
@@ -319,7 +323,8 @@ public class KeyRebinder : MonoBehaviour
                 attackrebindPromptText.gameObject.SetActive(false);
                 attackbindingDisplayText.gameObject.SetActive(true);
                 UpdateBindingDisplay();
-				rebinding = false;
+                SettingsEvent.Rebind(attack);
+                rebinding = false;
 			})
             .OnCancel(operation =>
             {
@@ -372,7 +377,8 @@ public class KeyRebinder : MonoBehaviour
                 interactrebindPromptText.gameObject.SetActive(false);
                 interactbindingDisplayText.gameObject.SetActive(true);
                 UpdateBindingDisplay();
-				rebinding = false;
+                SettingsEvent.Rebind(interact);
+                rebinding = false;
 
 			})
             .OnCancel(operation =>
@@ -426,6 +432,7 @@ public class KeyRebinder : MonoBehaviour
                 movement_leftrebindPromptText.gameObject.SetActive(false);
                 movement_leftbindingDisplayText.gameObject.SetActive(true);
                 UpdateBindingDisplay();
+                SettingsEvent.Rebind(movement);
                 rebinding = false;
 
             })
@@ -480,6 +487,7 @@ public class KeyRebinder : MonoBehaviour
                 movement_rightrebindPromptText.gameObject.SetActive(false);
                 movement_rightbindingDisplayText.gameObject.SetActive(true);
                 UpdateBindingDisplay();
+                SettingsEvent.Rebind(movement);
                 rebinding = false;
 
             })

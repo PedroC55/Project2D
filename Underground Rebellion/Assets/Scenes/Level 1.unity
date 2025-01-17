@@ -1477,7 +1477,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &115249024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46034,7 +46034,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4042a7652c655646871c126e6bc2900, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorialText: {fileID: 774338570}
+  inputActions: {fileID: -944628639613478452, guid: 08a94d735aa936f40a9b42a3afc4c6bd, type: 3}
+  enemy: {fileID: 588924129}
+  movement_tutorialText: {fileID: 1622004205}
+  jump_tutorialText: {fileID: 1323442123}
+  parry1_tutorialText: {fileID: 1101439640}
+  parry2_tutorialText: {fileID: 774338570}
 --- !u!1001 &1728719120
 PrefabInstance:
   m_ObjectHideFlags: 0

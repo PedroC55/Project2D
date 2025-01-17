@@ -8,7 +8,7 @@ public class MapManager : MonoBehaviour
 
     public static bool isMapActive = false;
 
-    private void Awake()
+    private void Start()
     {
         mapUI.SetActive(false);
         playerIcon.gameObject.SetActive(false);

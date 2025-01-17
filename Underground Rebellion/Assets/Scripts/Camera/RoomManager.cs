@@ -61,7 +61,6 @@ public class RoomManager : MonoBehaviour
     private void UpdatePlayerIcon()
     {
         playerIcon.position = mapUI.transform.Find("Room" + roomId).position;
-        Debug.Log("Icon:" + playerIcon.position + ", Room " + roomId + ":" + mapUI.transform.Find("Room" + roomId).position);
     }
 
 }
