@@ -18,6 +18,9 @@ public class PlayerInput : MonoBehaviour
     
     public Vector2 movementInput;
     private bool canMove = true;
+
+    //Parry
+    private int nParries = 0;
     
     //Hit Feedback
     private KnockBackFeedback knockBack;
@@ -84,7 +87,7 @@ public class PlayerInput : MonoBehaviour
 
     // Update is called once per frame
     private void Update()
-    {   
+    {
         if (!PauseMenuManager.isPaused && !MapManager.isMapActive)
         {
             if (!canMove)
@@ -195,7 +198,12 @@ public class PlayerInput : MonoBehaviour
 
 				if (playerParrySystem.CheckParry(sender))
 				{
-					SoundManager.Instance.PlaySound(SoundType.PARRY);
+                    nParries += 1;
+                    if (nParries <= 2)
+                    {
+                        TutorialManager.Instance.UpdateParryProgress(nParries);
+                    }
+                    SoundManager.Instance.PlaySound(SoundType.PARRY);
 					ParryEvent.Parry(1, sender);
 				}
 				else
