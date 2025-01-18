@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GoalsScoreManager : MonoBehaviour
+public class GoalsScoreboard: MonoBehaviour
 {
 	[Header("Goals Text")]
 	[SerializeField] private TMP_Text firstGoalText;

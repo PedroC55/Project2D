@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class EnemiesScoreManager : MonoBehaviour
+public class EnemiesScoreboard: MonoBehaviour
 {
     [SerializeField]
     private Sprite enemyDefeated;

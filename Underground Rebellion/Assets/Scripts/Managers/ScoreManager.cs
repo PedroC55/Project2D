@@ -3,18 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class ScoreManager : MonoBehaviour
 {
 	public static ScoreManager Instance { get; private set; }
 
 	[SerializeField] private string levelName;
+	public string LevelName { get => levelName; }
 
 	[Header("Points in Game")]
 	[SerializeField] private int defeatPoints;
 	[SerializeField] private int undetectedPoints;
 	[SerializeField] private int aggroedPoints;
 	[SerializeField] private int stunPoints;
+	[SerializeField] private int secretPoints;
 	[SerializeField] private int timeLimitInMinutes;
 	public int TimeLimitInMinutes { get => timeLimitInMinutes; }
 
@@ -37,6 +40,9 @@ public class ScoreManager : MonoBehaviour
 	public int SecondGoal { get => secondGoal; }
 	public int ThirdGoal { get => thirdGoal; }
 
+	private Dictionary<int, SecretObject> secrets = new();
+	public Dictionary<int, SecretObject> Secrets { get => secrets; }
+
 	private Dictionary<int, EnemiesConditions> enemies = new();
 	public Dictionary<int, EnemiesConditions> Enemies { get => enemies; }
 
@@ -47,9 +53,6 @@ public class ScoreManager : MonoBehaviour
 	public int TotalPoints { get => totalPoints; }
 	public float TimeToComplete { get => timeToComplete; }
 	public int PlayerDeaths { get => playerDeaths; }
-	/*Score Manager da cena anterior
-	 * Quantos e quais secrets achou
-     */
 
 	private void Awake()
 	{
@@ -70,7 +73,9 @@ public class ScoreManager : MonoBehaviour
 		CanvasEvent.OnFinishLevel += FinishLevel;
 		LevelEvent.OnEnemyDied += EnemyDied;
 		LevelEvent.OnRegisterEnemy += RegisterEnemy;
+		LevelEvent.OnRegisterSecret += RegisterSecret;
 		LevelEvent.OnPlayerDied += PlayerDied;
+		LevelEvent.OnSecretFound += SecretFound;
 	}
 
 	private void OnDisable()
@@ -79,7 +84,9 @@ public class ScoreManager : MonoBehaviour
 		CanvasEvent.OnFinishLevel -= FinishLevel;
 		LevelEvent.OnEnemyDied -= EnemyDied;
 		LevelEvent.OnRegisterEnemy -= RegisterEnemy;
+		LevelEvent.OnRegisterSecret -= RegisterSecret;
 		LevelEvent.OnPlayerDied -= PlayerDied;
+		LevelEvent.OnSecretFound -= SecretFound;
 	}
 
 	public int GetEnemiesDefeated()
@@ -123,6 +130,14 @@ public class ScoreManager : MonoBehaviour
 		playerDeaths++;
 	}
 
+	public void SaveSecrets(List<int> secretsID)
+	{
+		foreach(int id in secretsID)
+		{
+			secrets[id].Found = true;
+		}
+	}
+
 	private void UpdateScore(int score)
 	{
 		totalPoints = score;
@@ -142,13 +157,36 @@ public class ScoreManager : MonoBehaviour
 		enemies.Add(enemy.GetID(), EnemiesConditions.EnemyUndetected);
 	}
 
+	private void RegisterSecret(Secret secret)
+	{
+		secrets.Add(secret.ID, new SecretObject() { 
+			SecretFoundSprite = secret.SecretFoundScoreboard,
+			SecretNotFoundSprite = secret.SecretNotFoundScoreboard,
+		});
+	}
+
 	private void FinishLevel()
 	{
 		int count = enemies.Values.Where(x => x == EnemiesConditions.EnemyUndetected).Count();
 
 		totalPoints += undetectedPoints * count;
 	}
+
+	private void SecretFound(int id)
+	{
+		totalPoints += secretPoints;
+		CanvasEvent.UpdateScore(totalPoints);
+		LevelEvent.ShowPointsInWorld(secretPoints, PointsTypes.Secret);
+	}
+}
+
+public class SecretObject
+{
+	public Sprite SecretFoundSprite;
+	public Sprite SecretNotFoundSprite;
+
+	public bool Found = false;
 }
 
 public enum EnemiesConditions { EnemyDefeated, EnemyUndetected, EnemyAggroed }
-public enum PointsTypes { Defeat, Undetected, Aggro, Stun }
+public enum PointsTypes { Defeat, Undetected, Aggro, Stun, Secret }

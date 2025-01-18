@@ -39,7 +39,6 @@ public class CanvasManager : MonoBehaviour
 		animator = GetComponent<Animator>();
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
 		elapsedTime += Time.deltaTime;

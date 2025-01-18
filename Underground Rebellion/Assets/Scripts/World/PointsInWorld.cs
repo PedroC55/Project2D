@@ -50,6 +50,9 @@ public class PointsInWorld : MonoBehaviour
 			case PointsTypes.Stun:
 				text = "Enemy Stunned";
 				break;
+			case PointsTypes.Secret:
+				text = "Secret Found!";
+				break;
 		}
 
 		pointsText.text = $"{sign}{score}\n{text}";

@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
-public class PointsScoreManager : MonoBehaviour
+public class PointsScoreboard : MonoBehaviour
 {
 	[Header("Level Complete")]
 	[SerializeField] private TMP_Text completeScore;

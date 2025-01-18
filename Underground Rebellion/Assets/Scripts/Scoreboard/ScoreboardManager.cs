@@ -8,9 +8,9 @@ using UnityEngine.UI;
 public class ScoreboardManager : MonoBehaviour
 {
 	[SerializeField]
-	private GoalsScoreManager goalsScoreManager;
-	private EnemiesScoreManager enemiesScoreManager;
-	private PointsScoreManager pointsScoreManager;
+	private GoalsScoreboard goalsScoreboard;
+	private EnemiesScoreboard enemiesScoreboard;
+	private PointsScoreboard pointsScoreboard;
 
 	[SerializeField]
 	private TMP_Text totalScoreText;
@@ -22,13 +22,14 @@ public class ScoreboardManager : MonoBehaviour
 	private Button continueButton;
 
 	void Start()
-    {			
-		enemiesScoreManager = GetComponentInChildren<EnemiesScoreManager>();
-		pointsScoreManager = GetComponentInChildren<PointsScoreManager>();
+    {
+		enemiesScoreboard = GetComponentInChildren<EnemiesScoreboard>();
+		pointsScoreboard = GetComponentInChildren<PointsScoreboard>();
 
+		levelNameText.text = ScoreManager.Instance.LevelName;
 		AddTotalScore(ScoreManager.Instance.TotalPoints);
 
-		enemiesScoreManager.Display();
+		enemiesScoreboard.Display();
     }
 
 	public int GetTotalScore()
@@ -50,7 +51,7 @@ public class ScoreboardManager : MonoBehaviour
 
 	public void PointsScoreFinished()
 	{
-		goalsScoreManager.Display(this);
+		goalsScoreboard.Display(this);
 	}
 
 	public void GoalsDisplayFinished()
@@ -61,13 +62,13 @@ public class ScoreboardManager : MonoBehaviour
 
 	private void DisplayPoints()
 	{
-		enemiesScoreManager.gameObject.SetActive(false);
+		enemiesScoreboard.gameObject.SetActive(false);
 
 		continueButton.onClick.RemoveAllListeners();
 		continueButton.gameObject.SetActive(false);
 
-		pointsScoreManager.gameObject.SetActive(true);
-		pointsScoreManager.Display();
+		pointsScoreboard.gameObject.SetActive(true);
+		pointsScoreboard.Display();
 	}
 
 	private void NextScene()

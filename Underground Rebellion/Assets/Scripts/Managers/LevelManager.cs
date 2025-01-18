@@ -13,13 +13,14 @@ public class LevelManager : MonoBehaviour
 
 	private int savedPoints = 0;
 
-	//Dicionario com todos os inimigos do nivel
+	[Header("Enemies")]
 	private Dictionary<int, EnemyAI> enemiesOnLevel = new();
-
-	//Lista com os ids dos inimigos
 	private List<int> deadEnemies = new();
-
 	private List<int> savedDeadEnemies = new();
+
+	[Header("Secrets")]
+	private Dictionary<int, Secret> secretsOnLevel = new();
+	private List<int> secretsFound = new();
 
 	private GameObject playerGO;
 
@@ -27,19 +28,23 @@ public class LevelManager : MonoBehaviour
 	{
 		LevelEvent.OnRegisterEnemy += RegisterEnemy;
 		LevelEvent.OnRegisterPlayer += RegisterPlayer;
+		LevelEvent.OnRegisterSecret += RegisterSecret;
 		LevelEvent.OnPlayerSave += PlayerSave;
 		LevelEvent.OnPlayerDied += PlayerDied;
 		LevelEvent.OnEnemyDied += EnemyDied;
+		LevelEvent.OnSecretFound += SecretFound;
 		LevelEvent.OnShowPointsInWorld += ShowPointsInWorld;
 	}
 
 	private void OnDisable()
 	{
 		LevelEvent.OnRegisterEnemy -= RegisterEnemy;
-		LevelEvent.OnRegisterPlayer += RegisterPlayer;
+		LevelEvent.OnRegisterPlayer -= RegisterPlayer;
+		LevelEvent.OnRegisterSecret -= RegisterSecret;
 		LevelEvent.OnPlayerSave -= PlayerSave;
 		LevelEvent.OnPlayerDied -= PlayerDied;
 		LevelEvent.OnEnemyDied -= EnemyDied;
+		LevelEvent.OnSecretFound -= SecretFound;
 		LevelEvent.OnShowPointsInWorld -= ShowPointsInWorld;
 	}
 
@@ -53,9 +58,19 @@ public class LevelManager : MonoBehaviour
 		playerGO = player;
 	}
 
+	private void RegisterSecret(Secret secret)
+	{
+		secretsOnLevel.Add(secret.ID, secret);
+	}
+
 	private void EnemyDied(int enemyID)
 	{
 		deadEnemies.Add(enemyID);
+	}
+
+	private void SecretFound(int secretID)
+	{
+		secretsFound.Add(secretID);
 	}
 
 	private void PlayerSave(Transform player)
@@ -65,11 +80,14 @@ public class LevelManager : MonoBehaviour
 		lastSavePosition = player;
 
 		CanvasEvent.GameSave();
-		//No EnemiesManager salvar quais deles estão vivos e mortos num dicionario
+
 		savedDeadEnemies.AddRange(deadEnemies);
 		deadEnemies.Clear();
 
 		//No ObjectsManager salvar o estado dos objetos e a posição dos objetos que se mexem
+
+		ScoreManager.Instance.SaveSecrets(secretsFound);
+		secretsFound.Clear();
 	}
 
 	private void PlayerDied()
@@ -78,11 +96,12 @@ public class LevelManager : MonoBehaviour
 
 		LevelEvent.ResetPlayer(lastSavePosition);
 
-		//Resta os inimigos
 		deadEnemies.ForEach(id => enemiesOnLevel[id].RespawnEnemy());
 		deadEnemies.Clear();
-		
+
 		//Reseta os objetos
+
+		secretsFound.ForEach(id => secretsOnLevel[id].ResetSecret());
 	}
 
 	private void ShowPointsInWorld(int points, PointsTypes pointType)
