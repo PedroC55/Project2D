@@ -16,6 +16,9 @@ public class CanvasEvent : MonoBehaviour
 	public delegate void GameSaveHandler();
 	public static event GameSaveHandler OnGameSave;
 
+	public delegate void UpdateMapHandler(int roomID);
+	public static event UpdateMapHandler OnUpdateMap;
+
 	public static void UpdateHealth(int health)
 	{
 		OnUpdateHealth?.Invoke(health);
@@ -34,5 +37,10 @@ public class CanvasEvent : MonoBehaviour
 	public static void GameSave()
 	{
 		OnGameSave?.Invoke();
+	}
+
+	public static void UpdateMap(int roomID)
+	{
+		OnUpdateMap?.Invoke(roomID);
 	}
 }

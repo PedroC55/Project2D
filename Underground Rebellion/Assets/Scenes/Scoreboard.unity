@@ -941,7 +941,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6083e1f5bd0bbf042933177b77d23d41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goalsScoreboard: {fileID: 0}
+  goalsScoreboard: {fileID: 1499593429}
   totalScoreText: {fileID: 1987252709}
   levelNameText: {fileID: 388801313}
   continueButton: {fileID: 240201843}

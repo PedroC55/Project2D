@@ -12,16 +12,18 @@ public class RoomManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player") && !collision.isTrigger)
+        if (collision.CompareTag("Player") && !collision.isTrigger)
         {
             virtualCam.SetActive(true);
+
+            CanvasEvent.UpdateMap(roomId);
         }
-		else if (collision.CompareTag("Enemy") && !collision.isTrigger)
-		{
+        else if (collision.CompareTag("Enemy") && !collision.isTrigger)
+        {
             enemyAIList.Add(collision.GetComponent<EnemyAI>());
-			collision.GetComponent<EnemyAI>().SetRoomID(roomId);
-		}
-	}
+            collision.GetComponent<EnemyAI>().SetRoomID(roomId);
+        }
+    }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
