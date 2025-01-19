@@ -7,8 +7,8 @@ public class CanvasEvent : MonoBehaviour
 	public delegate void UpdateHealthHandler(int health);
 	public static event UpdateHealthHandler OnUpdateHealth;
 
-	public delegate void WinCroissantHandler(int points);
-	public static event WinCroissantHandler OnWinCroissant;
+	public delegate void UpdateScoreHandler(int points);
+	public static event UpdateScoreHandler OnUpdateScore;
 
 	public delegate void FinishLevelHandler();
 	public static event FinishLevelHandler OnFinishLevel;
@@ -16,14 +16,17 @@ public class CanvasEvent : MonoBehaviour
 	public delegate void GameSaveHandler();
 	public static event GameSaveHandler OnGameSave;
 
+	public delegate void UpdateMapHandler(int roomID);
+	public static event UpdateMapHandler OnUpdateMap;
+
 	public static void UpdateHealth(int health)
 	{
 		OnUpdateHealth?.Invoke(health);
 	}
 
-	public static void WinCroissant(int points)
+	public static void UpdateScore(int points)
 	{
-		OnWinCroissant?.Invoke(points);
+		OnUpdateScore?.Invoke(points);
 	}
 
 	public static void FinishLevel() 
@@ -34,5 +37,10 @@ public class CanvasEvent : MonoBehaviour
 	public static void GameSave()
 	{
 		OnGameSave?.Invoke();
+	}
+
+	public static void UpdateMap(int roomID)
+	{
+		OnUpdateMap?.Invoke(roomID);
 	}
 }

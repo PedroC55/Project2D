@@ -39,6 +39,7 @@ public class Elevator : MonoBehaviour
 
 	public void UseElevator()
 	{
+		LevelEvent.PlayerSave(transform);
 		CanvasEvent.FinishLevel();
 	}
 }
