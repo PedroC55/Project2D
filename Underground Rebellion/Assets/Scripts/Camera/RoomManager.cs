@@ -9,11 +9,6 @@ public class RoomManager : MonoBehaviour
 
     private List<EnemyAI> enemyAIList = new();
     public GameObject virtualCam;
-    public Transform playerIcon; // UI Image representing the player
-
-    // Reference to the Map UI Manager or similar component
-    public GameObject mapUI;
-    private bool isVisited = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -21,17 +16,7 @@ public class RoomManager : MonoBehaviour
         {
             virtualCam.SetActive(true);
 
-            // Mark the room as visited and update the map
-            if (!isVisited)
-            {
-                isVisited = true;
-                UpdateMapVisibility();
-                UpdatePlayerIcon();
-            }
-            else
-            {
-                UpdatePlayerIcon();
-            }
+            CanvasEvent.UpdateMap(roomId);
         }
         else if (collision.CompareTag("Enemy") && !collision.isTrigger)
         {
@@ -48,19 +33,4 @@ public class RoomManager : MonoBehaviour
             LevelEvent.ResetRoomEnemies(roomId);
         }
     }
-
-    private void UpdateMapVisibility()
-    {
-        Transform roomIcon = mapUI.transform.Find("Room" + roomId);
-        if (roomIcon != null)
-        {
-            roomIcon.gameObject.SetActive(true); // Show the room icon on the map
-        }
-    }
-
-    private void UpdatePlayerIcon()
-    {
-        playerIcon.position = mapUI.transform.Find("Room" + roomId).position;
-    }
-
 }

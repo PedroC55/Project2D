@@ -24,6 +24,9 @@ public class EnemyAI : MonoBehaviour
 
 	public int roomID;
 
+	private bool wasStunned = false;
+	private bool hasDetectedPlayer = false;
+
 	#region Enemy Actions
 	protected EnemyAction currentAction;
 	#endregion
@@ -101,6 +104,12 @@ public class EnemyAI : MonoBehaviour
 			return;
 		}
 
+		if (!hasDetectedPlayer)
+		{
+			ScoreManager.Instance.EnemyAggroed(id);
+			hasDetectedPlayer = true;
+		}
+
 		player = playerTransform;
 		isAggroed = true;
 		
@@ -158,6 +167,12 @@ public class EnemyAI : MonoBehaviour
 
 	public void EnemyTired()
 	{
+		if(!wasStunned)
+		{
+			ScoreManager.Instance.EnemyStunned();
+			wasStunned = true;
+		}
+
 		LostAggro();
 		isActing = false;
 		OnMovementInput?.Invoke(Vector2.zero);

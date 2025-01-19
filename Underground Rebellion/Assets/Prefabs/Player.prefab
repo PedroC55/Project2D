@@ -433,7 +433,7 @@ MonoBehaviour:
   hitVFX: {fileID: 8333548975571410774, guid: 74524fd173ca39f418e58ab923316cd5, type: 3}
   slowMotionTime: 0.25
   immunityTime: 1.5
-  jumpForce: 18.5
+  jumpForce: 19
   jumpBufferTime: 0.1
   jumpCoyoteTime: 0.05
   wallCheck: {fileID: 3225902259485079757}

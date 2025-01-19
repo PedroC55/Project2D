@@ -1,22 +1,49 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MapManager : MonoBehaviour
 {
     public GameObject mapUI;
-    public GameObject mapOverlay;
-    public GameObject playerIcon;
+    public Transform playerIcon;
+
+	[Serializable]
+	private class RoomImage
+	{
+		public int ID;
+
+		public Image MapImage;
+	}
+	[SerializeField] private List<RoomImage> rooms = new();
+    private Dictionary<int,  Image> roomImages = new();
 
     public static bool isMapActive = false;
 
-    private void Start()
+	private void OnEnable()
+	{
+        CanvasEvent.OnUpdateMap += UpdateMap;
+	}
+
+	private void OnDisable()
+	{
+		CanvasEvent.OnUpdateMap -= UpdateMap;
+	}
+
+	private void Start()
     {
         mapUI.SetActive(false);
-        playerIcon.gameObject.SetActive(false);
+
+        foreach(RoomImage roomImage in rooms)
+        {
+            roomImages[roomImage.ID] = roomImage.MapImage;
+        }
+
+        rooms.Clear();
     }
 
     private void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.M))
         {
             if (!PauseMenuManager.isPaused)
@@ -28,13 +55,18 @@ public class MapManager : MonoBehaviour
 
     public void ToggleMap()
     {
-
         isMapActive = !isMapActive;
         mapUI.SetActive(isMapActive);
-        mapOverlay.SetActive(isMapActive);
-        playerIcon.gameObject.SetActive(isMapActive);
 
-        // Optionally pause the game
         Time.timeScale = isMapActive ? 0 : 1;
     }
+
+    private void UpdateMap(int roomID)
+    {
+        var tempColor = roomImages[roomID].color;
+        tempColor.a = 1f;
+
+		roomImages[roomID].color = tempColor;
+        playerIcon.position = roomImages[roomID].transform.position;
+	}
 }
