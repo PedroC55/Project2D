@@ -126,7 +126,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 6bd1935d84c1f8c439eac5a03dd04895, type: 2}
+  m_Motion: {fileID: 7400000, guid: 33128480a8d45ac4aadb570d18101eed, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -145,4 +145,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sound: 15
-  volume: 1

@@ -11,7 +11,7 @@ public class EnemyLineOfSight : MonoBehaviour
 
 	private readonly float loseAggroTime = 2f;
 	private float currentTime = 0f;
-	private Transform player;
+	public Transform player;
 
 	private void Awake()
 	{

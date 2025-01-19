@@ -115,6 +115,9 @@ public class EnemyAI : MonoBehaviour
 		if (sender.CompareTag("Player") && receiver.GetInstanceID() == gameObject.GetInstanceID() && !enemyEnergy.HasEnergy())
 		{
 			agent.GetHit(damage, sender);
+		} else if (sender.CompareTag("Player") && receiver.GetInstanceID() == gameObject.GetInstanceID() && lineOfSight.player == null)
+        {
+			agent.GetHit(damage, sender);
 		}
 		if (sender.CompareTag("Player") && receiver.GetInstanceID() == gameObject.GetInstanceID() && enemyEnergy.HasEnergy())
         {
