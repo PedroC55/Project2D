@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
+using static UnityEngine.InputSystem.InputAction;
 
 public class PlayerInput : MonoBehaviour
 {
@@ -55,12 +56,16 @@ public class PlayerInput : MonoBehaviour
     {
         HitEvent.OnHit += OnPlayerHit;
         LevelEvent.OnResetPlayer += ResetPlayer;
-    }
+
+		jump.action.canceled += OnJumpUp;
+	}
 
     private void OnDisable()
     {
         HitEvent.OnHit -= OnPlayerHit;
 		LevelEvent.OnResetPlayer -= ResetPlayer;
+
+		jump.action.canceled -= OnJumpUp;
 	}
 
 	private void Awake()
@@ -74,10 +79,7 @@ public class PlayerInput : MonoBehaviour
 		attackComp = GetComponent<PlayerAttack>();
 		playerParrySystem = GetComponent<ParrySystem>();
 		knockBack = GetComponent<KnockBackFeedback>();
-
-		
-        jump.action.canceled += context => OnJumpUp();
-}
+    }   
 
 	void Start()
     {
@@ -143,7 +145,7 @@ public class PlayerInput : MonoBehaviour
 		agent.MovementInput = movementInput;
     }
 
-    private void OnJumpUp()
+    private void OnJumpUp(CallbackContext ctx)
     {
         lastJumpTime = 0f;
         if(playerRb2d.velocity.y > 0)

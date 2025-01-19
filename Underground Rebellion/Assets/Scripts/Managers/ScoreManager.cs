@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -46,27 +47,14 @@ public class ScoreManager : MonoBehaviour
 	private Dictionary<int, EnemiesConditions> enemies = new();
 	public Dictionary<int, EnemiesConditions> Enemies { get => enemies; }
 
-
+	private string sceneName;
 	private int totalPoints = 0;
 	private float timeToComplete;
 	private int playerDeaths = 0;
 	public int TotalPoints { get => totalPoints; }
 	public float TimeToComplete { get => timeToComplete; }
 	public int PlayerDeaths { get => playerDeaths; }
-
-	private void Awake()
-	{
-		if (Instance != null && Instance != this)
-		{
-			Destroy(this);
-		}
-		else
-		{
-			Instance = this;
-			DontDestroyOnLoad(gameObject);
-		}
-	}
-
+	
 	private void OnEnable()
 	{
 		CanvasEvent.OnUpdateScore += UpdateScore;
@@ -76,6 +64,7 @@ public class ScoreManager : MonoBehaviour
 		LevelEvent.OnRegisterSecret += RegisterSecret;
 		LevelEvent.OnPlayerDied += PlayerDied;
 		LevelEvent.OnSecretFound += SecretFound;
+		SceneManager.sceneLoaded += OnSceneLoaded;
 	}
 
 	private void OnDisable()
@@ -87,6 +76,21 @@ public class ScoreManager : MonoBehaviour
 		LevelEvent.OnRegisterSecret -= RegisterSecret;
 		LevelEvent.OnPlayerDied -= PlayerDied;
 		LevelEvent.OnSecretFound -= SecretFound;
+		SceneManager.sceneLoaded -= OnSceneLoaded;
+	}
+
+	private void Awake()
+	{
+		if (Instance != null && Instance != this)
+		{
+			Destroy(this);
+		}
+		else
+		{
+			Instance = this;
+			DontDestroyOnLoad(gameObject);
+			sceneName = SceneManager.GetActiveScene().name;
+		}
 	}
 
 	public int GetEnemiesDefeated()
@@ -136,6 +140,12 @@ public class ScoreManager : MonoBehaviour
 		{
 			secrets[id].Found = true;
 		}
+	}
+
+	private void OnSceneLoaded(Scene scene, LoadSceneMode mode) 
+	{ 
+		if(scene.name != "Scoreboard" && scene.name != sceneName)
+			Destroy(gameObject);
 	}
 
 	private void UpdateScore(int score)
