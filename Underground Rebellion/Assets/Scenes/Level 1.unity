@@ -1130,28 +1130,13 @@ GameObject:
   - component: {fileID: 79398638}
   - component: {fileID: 79398637}
   - component: {fileID: 79398636}
-  - component: {fileID: 79398635}
   m_Layer: 6
   m_Name: BO1
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &79398635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79398634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 535b2149a1088684aa7f630f89dfbe9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttonIcon: {fileID: 2439336}
-  interaction: {fileID: 750432951348871329, guid: 08a94d735aa936f40a9b42a3afc4c6bd, type: 3}
 --- !u!114 &79398636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4332,28 +4317,13 @@ GameObject:
   - component: {fileID: 317182465}
   - component: {fileID: 317182464}
   - component: {fileID: 317182463}
-  - component: {fileID: 317182462}
   m_Layer: 6
   m_Name: BO4
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &317182462
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 317182461}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 535b2149a1088684aa7f630f89dfbe9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttonIcon: {fileID: 2439336}
-  interaction: {fileID: 750432951348871329, guid: 08a94d735aa936f40a9b42a3afc4c6bd, type: 3}
 --- !u!114 &317182463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36074,28 +36044,13 @@ GameObject:
   - component: {fileID: 606032957}
   - component: {fileID: 606032956}
   - component: {fileID: 606032955}
-  - component: {fileID: 606032954}
   m_Layer: 6
   m_Name: BO2
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &606032954
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 606032953}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 535b2149a1088684aa7f630f89dfbe9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttonIcon: {fileID: 2439336}
-  interaction: {fileID: 750432951348871329, guid: 08a94d735aa936f40a9b42a3afc4c6bd, type: 3}
 --- !u!114 &606032955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46008,28 +45963,13 @@ GameObject:
   - component: {fileID: 1433189316}
   - component: {fileID: 1433189315}
   - component: {fileID: 1433189314}
-  - component: {fileID: 1433189313}
   m_Layer: 6
   m_Name: BO5
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1433189313
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1433189312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 535b2149a1088684aa7f630f89dfbe9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttonIcon: {fileID: 2439336}
-  interaction: {fileID: 750432951348871329, guid: 08a94d735aa936f40a9b42a3afc4c6bd, type: 3}
 --- !u!114 &1433189314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56108,28 +56048,13 @@ GameObject:
   - component: {fileID: 2098593424}
   - component: {fileID: 2098593423}
   - component: {fileID: 2098593422}
-  - component: {fileID: 2098593421}
   m_Layer: 6
   m_Name: BO3
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2098593421
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2098593420}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 535b2149a1088684aa7f630f89dfbe9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttonIcon: {fileID: 2439336}
-  interaction: {fileID: 750432951348871329, guid: 08a94d735aa936f40a9b42a3afc4c6bd, type: 3}
 --- !u!114 &2098593422
 MonoBehaviour:
   m_ObjectHideFlags: 0
