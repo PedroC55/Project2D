@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class Fade : MonoBehaviour
+public class RoomFade : MonoBehaviour
 {
-    public float fadeDuration = 0.2f; // Duration of the fade effect
+    public float fadeDuration = 2f; // Duration of the fade effect
     private TilemapRenderer tilemapRenderer;
     private Material tilemapMaterial;
     private Color initialColor;
@@ -26,7 +26,18 @@ public class Fade : MonoBehaviour
         // Check if the player touches the tilemap
         if (other.CompareTag("Player") && tilemapMaterial != null)
         {
+            StopAllCoroutines(); // Stop any running coroutines to prevent conflicts
             StartCoroutine(FadeOut());
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        // Check if the player leaves the tilemap
+        if (other.CompareTag("Player") && tilemapMaterial != null)
+        {
+            StopAllCoroutines(); // Stop any running coroutines to prevent conflicts
+            StartCoroutine(FadeIn());
         }
     }
 
@@ -42,7 +53,21 @@ public class Fade : MonoBehaviour
             yield return null;
         }
 
-        // Disable the TilemapRenderer after fading
+        // Disable the TilemapRenderer after fading out
         tilemapRenderer.enabled = false;
+    }
+
+    private System.Collections.IEnumerator FadeIn()
+    {
+        tilemapRenderer.enabled = true; // Ensure the renderer is enabled before fading in
+        float elapsedTime = 0f;
+
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float alpha = Mathf.Lerp(0f, initialColor.a, elapsedTime / fadeDuration);
+            tilemapMaterial.color = new Color(initialColor.r, initialColor.g, initialColor.b, alpha);
+            yield return null;
+        }
     }
 }
