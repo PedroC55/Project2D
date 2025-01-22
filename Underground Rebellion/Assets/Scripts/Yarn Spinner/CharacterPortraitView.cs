@@ -21,7 +21,7 @@ namespace Yarn.Unity
 
 		private static HorizontalLayoutGroup horizontalLayoutGroup;
 
-		void Start()
+		void Awake()
 		{
 			foreach(var portrait in portraitData)
 			{

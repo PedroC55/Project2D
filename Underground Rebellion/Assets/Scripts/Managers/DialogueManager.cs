@@ -8,6 +8,7 @@ public class DialogueManager : MonoBehaviour
 {
 	public static DialogueManager Instance { get; private set; }
 
+	[SerializeField] private YarnProject yarnProject;
 	private DialogueRunner dialogueRunner;
 
 	void Awake()
@@ -23,8 +24,21 @@ public class DialogueManager : MonoBehaviour
 		}
 	}
 
+	private void Start()
+	{
+		if (yarnProject != null && !SettingsManager.Instance.SkipDialogues)
+		{
+			StartNode("Start");
+		}
+	}
+
 	public bool IsDialogueRunning()
 	{
 		return dialogueRunner.IsDialogueRunning;
+	}
+
+	public void StartNode(string nodeName)
+	{
+		dialogueRunner.StartDialogue(nodeName);
 	}
 }

@@ -8,6 +8,8 @@ TagManager:
   - Trap
   - Enemy
   - Slow Goo
+  - Door
+  - NPC
   layers:
   - Default
   - TransparentFX
@@ -20,7 +22,7 @@ TagManager:
   - Enemy
   - Line Of Sight
   - Projectile
-  - 
+  - NPC
   - 
   - 
   - 
