@@ -72,6 +72,11 @@ public class AgentAnimations : MonoBehaviour
 		animator.SetTrigger("death");
 	}
 
+	public void DisappearAnimation()
+	{
+		animator.SetTrigger("disappear");
+	}
+
 	public void StunAnimation()
 	{
 		animator.SetTrigger("stun");

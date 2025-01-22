@@ -8,6 +8,8 @@ public class SettingsManager : MonoBehaviour
     public float MusicVolume = 1f;
     public float SFXVolume = 1f;
 
+    public bool SkipDialogues = false;
+
     private void Awake()
     {
         if (Instance == null)

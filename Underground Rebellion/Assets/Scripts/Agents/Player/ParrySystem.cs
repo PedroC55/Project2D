@@ -46,7 +46,7 @@ public class ParrySystem : MonoBehaviour
     // This method is triggered when the parry button is pressed
     private void OnParryPerformed(InputAction.CallbackContext context)
     {
-        if (!PauseMenuManager.isPaused)
+        if (!PauseMenuManager.isPaused && !MapManager.isMapActive && !DialogueManager.Instance.IsDialogueRunning())
         {
             if (!parryAttempted)
             {

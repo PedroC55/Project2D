@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
+using Yarn.Unity;
 using static UnityEngine.InputSystem.InputAction;
 
 public class PlayerInput : MonoBehaviour
@@ -91,7 +92,7 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (!PauseMenuManager.isPaused && !MapManager.isMapActive)
+        if (!PauseMenuManager.isPaused && !MapManager.isMapActive && !DialogueManager.Instance.IsDialogueRunning())
         {
             if (!canMove)
             {

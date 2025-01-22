@@ -206,6 +206,14 @@ public class EnemyAI : MonoBehaviour
 		ResetEnemy(roomID);
 	}
 
+	public bool IsGamePaused()
+	{
+		if (PauseMenuManager.isPaused || MapManager.isMapActive || DialogueManager.Instance.IsDialogueRunning())
+			return true;
+
+		return false;
+	}
+
 	private void ResetEnemy(int id)
 	{
 		if(roomID == id)

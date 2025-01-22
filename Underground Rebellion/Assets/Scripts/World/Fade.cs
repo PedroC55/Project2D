@@ -41,7 +41,7 @@ public class RoomFade : MonoBehaviour
         }
     }
 
-    private System.Collections.IEnumerator FadeOut()
+    private IEnumerator FadeOut()
     {
         float elapsedTime = 0f;
 
@@ -57,7 +57,7 @@ public class RoomFade : MonoBehaviour
         tilemapRenderer.enabled = false;
     }
 
-    private System.Collections.IEnumerator FadeIn()
+    private IEnumerator FadeIn()
     {
         tilemapRenderer.enabled = true; // Ensure the renderer is enabled before fading in
         float elapsedTime = 0f;

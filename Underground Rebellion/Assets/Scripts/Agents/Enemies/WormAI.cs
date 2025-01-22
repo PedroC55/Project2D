@@ -17,9 +17,9 @@ public class WormAI : EnemyAI
 		meleeAttack = GetComponentInChildren<EnemyMeleeAttack>();
 	}
 
-	private void Update()
+	void Update()
 	{
-		if (isActing || isDead || !enemyEnergy.HasEnergy())
+		if (isActing || isDead || !enemyEnergy.HasEnergy() || IsGamePaused())
 			return;
 
 		if (isAggroed)

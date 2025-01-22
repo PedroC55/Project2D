@@ -41,6 +41,9 @@ public class CanvasManager : MonoBehaviour
 
 	void Update()
 	{
+		if (DialogueManager.Instance.IsDialogueRunning())
+			return;
+
 		elapsedTime += Time.deltaTime;
 		int minutes = Mathf.FloorToInt(elapsedTime / 60);
 		int seconds = Mathf.FloorToInt(elapsedTime % 60);

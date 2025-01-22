@@ -76,10 +76,17 @@ public class Agent : MonoBehaviour
 		agentAnimations.DeathAnimation();
 	}
 
+	public void Disappear()
+	{
+		agentMover.AgentDied();
+		agentAnimations.DisappearAnimation();
+	}
+
 	public void ResetAgent(bool isPlayer)
 	{
 		agentMover.Reset();
-		health.ResetHealth();
+		if(health != null)
+			health.ResetHealth();
 
 		if (isPlayer)
 			CanvasEvent.UpdateHealth(health.GetMaxHealth());
