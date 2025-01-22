@@ -4,13 +4,24 @@ using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
+    [SerializeField]
+    private int roomId;
+
+    private List<EnemyAI> enemyAIList = new();
     public GameObject virtualCam;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player") && !collision.isTrigger)
+        if (collision.CompareTag("Player") && !collision.isTrigger)
         {
             virtualCam.SetActive(true);
+
+            CanvasEvent.UpdateMap(roomId);
+        }
+        else if (collision.CompareTag("Enemy") && !collision.isTrigger)
+        {
+            enemyAIList.Add(collision.GetComponent<EnemyAI>());
+            collision.GetComponent<EnemyAI>().SetRoomID(roomId);
         }
     }
 
@@ -19,6 +30,7 @@ public class RoomManager : MonoBehaviour
         if (collision.CompareTag("Player") && !collision.isTrigger)
         {
             virtualCam.SetActive(false);
+            LevelEvent.ResetRoomEnemies(roomId);
         }
     }
 }

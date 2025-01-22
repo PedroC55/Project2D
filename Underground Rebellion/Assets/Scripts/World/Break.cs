@@ -4,33 +4,25 @@ using UnityEngine;
 
 public class Break : MonoBehaviour
 {
-    private bool playerInRange = false;
-
-    void Update()
+    private void OnEnable()
     {
-        // Check if the player is in range and presses the "E" key
-        if (playerInRange && Input.GetKeyDown(KeyCode.E))
+        HitEvent.OnHit += HandleHit;
+    }
+
+    private void OnDisable()
+    {
+        HitEvent.OnHit -= HandleHit;
+    }
+
+    private void HandleHit(int damage, GameObject sender, GameObject receiver)
+    {
+        // Check if the receiver of the hit is this object
+        if (sender.CompareTag("Player") && receiver.GetInstanceID() == gameObject.GetInstanceID())
         {
-            // Make the box disappear by disabling the GameObject
+            // Make the object disappear
             gameObject.SetActive(false);
-        }
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        // Check if the player has entered the trigger
-        if (other.CompareTag("Player"))
-        {
-            playerInRange = true;
-        }
-    }
-
-    void OnTriggerExit2D(Collider2D other)
-    {
-        // Check if the player has exited the trigger
-        if (other.CompareTag("Player"))
-        {
-            playerInRange = false;
+            // Play sound effect (if applicable)
+            SoundManager.Instance.PlaySound(SoundType.BREAK);
         }
     }
 }

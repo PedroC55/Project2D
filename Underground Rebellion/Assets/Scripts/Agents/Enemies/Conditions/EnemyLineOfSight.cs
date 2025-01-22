@@ -9,9 +9,9 @@ public class EnemyLineOfSight : MonoBehaviour
 	private EnemyAI enemyAI;
 	public Animator aggroMarkAnimator;
 
-	private float loseAggroTime = 2f;
+	private readonly float loseAggroTime = 2f;
 	private float currentTime = 0f;
-	private Transform player;
+	public Transform player;
 
 	private void Awake()
 	{
@@ -21,6 +21,9 @@ public class EnemyLineOfSight : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		if (enemyAI.IsDead())
+			return;
+
 		if (player)
 		{
 			RaycastHit2D detectedObject = Physics2D.Raycast(transform.position, player.position - transform.position, Mathf.Infinity, detectionMask);
@@ -36,9 +39,7 @@ public class EnemyLineOfSight : MonoBehaviour
 				aggroMarkAnimator.SetBool("LossingAggro", true);
 				if (currentTime > loseAggroTime)
 				{
-					player = null;
-					aggroMarkAnimator.SetBool("LossingAggro", false);
-					enemyAI.ResetEnemy();
+					enemyAI.LostAggro();
 				}
 			}
 		}
@@ -46,6 +47,9 @@ public class EnemyLineOfSight : MonoBehaviour
 
 	private void OnTriggerStay2D(Collider2D collision)
 	{
+		if (enemyAI.IsDead())
+			return;
+
 		if (collision.gameObject.CompareTag("Player"))
 		{
 			RaycastHit2D detectedObject = Physics2D.Raycast(transform.position, collision.transform.position - transform.position, Mathf.Infinity, detectionMask);
@@ -63,9 +67,10 @@ public class EnemyLineOfSight : MonoBehaviour
 		}
 	}
 
-	public void ActiveLineOfSight()
+	public void ResetLineOfSight()
 	{
+		player = null;
+		aggroMarkAnimator.SetBool("LossingAggro", false);
 		GetComponent<Collider2D>().enabled = true;
 	}
-	
 }

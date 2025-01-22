@@ -28,7 +28,6 @@ public class EnemyMeleeAttack : EnemyAction
 
 	public override void ExecuteAction(Transform player)
 	{
-
 		enemyChase.ExecuteAction(player, attackDistanceThreshold);
 
 		isExecuting = true;
@@ -45,13 +44,7 @@ public class EnemyMeleeAttack : EnemyAction
 
 	private void Update()
 	{
-		if (!isExecuting)
-			return;
-
-		if (enemyChase.IsChasing())
-			return;
-
-		if (isAttacking) 
+		if (enemyAI.IsGamePaused() || !isExecuting || enemyChase.IsChasing() || isAttacking)
 			return;
 
 		StartCoroutine(StartAttack());

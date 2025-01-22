@@ -73,28 +73,6 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "up",
-                    "id": "04956205-442b-4082-98ed-fe9c7f518bc6",
-                    "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "edb61320-20ed-494b-9b56-7b51c6c19985",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "left",
                     "id": "2d49884f-8e9c-4c3f-942c-dab3ea372adb",
                     "path": "<Keyboard>/a",
@@ -120,7 +98,7 @@
                     "name": "",
                     "id": "c1be0d9e-b606-4f08-91d3-1897c15a2250",
                     "path": "<Keyboard>/space",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
@@ -172,6 +150,12 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Menu",
+            "id": "e4096e03-de78-4450-931b-8482b09a64fd",
+            "actions": [],
+            "bindings": []
         }
     ],
     "controlSchemes": []

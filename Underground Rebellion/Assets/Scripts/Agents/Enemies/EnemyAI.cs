@@ -2,16 +2,18 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-//PENSAR EM UMA FORMA DE ABORTAR UMA AÇÃO QUE ESTÁ SENDO EXECUTADA QUANDO UMA CERTA CONDIÇÃO FOR ATINGIDA
-//EXEMPLO A VIDA DO BOSS CHEGOU NA METADE
-//Opção 1: Salvar em uma váriavel a Ação atual que está sendo executada, quando a condição acontecer chamar um metodo que para a execução daquela ação;
-//Opção 2: Pensar se da pra fazer com Coroutinas;
 public class EnemyAI : MonoBehaviour
 {
+	[SerializeField]
+	private int id;
+
 	public UnityEvent<Vector2> OnMovementInput, OnDirectionInput;
+	protected Transform player;
+	protected Agent agent;
 
 	[SerializeField]
 	private int startDirection = 1;
+	private Vector2 initialPosition;
 
 	[SerializeField]
 	private int contactHitDamage = 1;
@@ -19,11 +21,11 @@ public class EnemyAI : MonoBehaviour
 	protected bool isActing = false;
 	protected bool isAggroed = false;
 	protected bool isDead = false;
-	protected bool isReseting = false;
 
-	protected Transform player;
+	public int roomID;
 
-	protected Agent agent;
+	private bool wasStunned = false;
+	private bool hasDetectedPlayer = false;
 
 	#region Enemy Actions
 	protected EnemyAction currentAction;
@@ -42,10 +44,13 @@ public class EnemyAI : MonoBehaviour
 		
 		lineOfSight = GetComponentInChildren<EnemyLineOfSight>();
 		enemyEnergy = GetComponentInChildren<EnemyEnergy>();
+		initialPosition = gameObject.transform.position;
 	}
 
 	private void Start()
 	{
+		LevelEvent.RegisterEnemy(this);
+
 		OnDirectionInput?.Invoke(new Vector2(startDirection, 0));
 	}
 
@@ -53,12 +58,19 @@ public class EnemyAI : MonoBehaviour
 	{
 		HitEvent.OnHit += GetHit;
 		ParryEvent.OnParry += DecreaseEnergy;
+		LevelEvent.OnResetRoomEnemies += ResetEnemy;
 	}
 
 	private void OnDisable()
 	{
 		HitEvent.OnHit -= GetHit;
 		ParryEvent.OnParry -= DecreaseEnergy;
+		LevelEvent.OnResetRoomEnemies -= ResetEnemy;
+	}
+
+	public int GetID()
+	{
+		return id;
 	}
 
 	public WallMovement GetWallMovement()
@@ -66,21 +78,23 @@ public class EnemyAI : MonoBehaviour
 		return GetComponent<WallMovement>();
 	}
 
-	public void PerformAttack(string attackAnimatorTriggerName)
+	public void SetRoomID(int id)
 	{
-		agent.PerformAttack(attackAnimatorTriggerName);
+		roomID = id;
 	}
 
 	public bool CanAggro()
 	{
-		bool canAggro = true;
-
-		if (isAggroed || !enemyEnergy.HasEnergy() || isReseting || (wallMovement && wallMovement.IsRotating()))
+		if (isAggroed || !enemyEnergy.HasEnergy() || (wallMovement && wallMovement.IsRotating()))
 		{
-			canAggro = false;
+			return false;
 		}
 
-		return canAggro;
+		return true;
+	}
+	public void PerformAttack(string attackAnimatorTriggerName)
+	{
+		agent.PerformAttack(attackAnimatorTriggerName);
 	}
 
 	public void Aggroed(Transform playerTransform)
@@ -90,9 +104,18 @@ public class EnemyAI : MonoBehaviour
 			return;
 		}
 
+		if (!hasDetectedPlayer)
+		{
+			ScoreManager.Instance.EnemyAggroed(id);
+			hasDetectedPlayer = true;
+		}
+
 		player = playerTransform;
+		isAggroed = true;
+		
 		if(currentAction != null)
 			currentAction.InterruptAction();
+
 		StartCoroutine(AggroCoroutine());
 	}
 
@@ -101,24 +124,38 @@ public class EnemyAI : MonoBehaviour
 		if (sender.CompareTag("Player") && receiver.GetInstanceID() == gameObject.GetInstanceID() && !enemyEnergy.HasEnergy())
 		{
 			agent.GetHit(damage, sender);
+		} else if (sender.CompareTag("Player") && receiver.GetInstanceID() == gameObject.GetInstanceID() && lineOfSight.player == null)
+        {
+			agent.GetHit(damage, sender);
 		}
+		if (sender.CompareTag("Player") && receiver.GetInstanceID() == gameObject.GetInstanceID() && enemyEnergy.HasEnergy())
+        {
+			SoundManager.Instance.PlaySound(SoundType.HIT_DENIED);
+        }
+    }
+
+	public bool IsDead()
+	{
+		return isDead;
 	}
 
 	public void EnemyDied()
 	{
 		//Ganha pontos por matar os inimigos, mas o ideal depois é ganhar ponto por limpar a sala
-		LevelEvent.WinCroissant();
-
+		LevelEvent.EnemyDied(id);
+		
+		isDead = true;
 		currentAction.InterruptAction();
 		
+		Collider2D collider = GetComponent<Collider2D>();
+		collider.isTrigger = true;
 		OnMovementInput?.Invoke(Vector2.zero);
 
-		//Collider2D collider = GetComponent<Collider2D>();
-		//collider.enabled = false;
-		Destroy(gameObject, 1f);
+		agent.Died();
 
-		isDead = true;
+		StartCoroutine(DeathCoroutine());
 	}
+
 
 	public void DecreaseEnergy(int amount, GameObject receiver)
 	{
@@ -130,19 +167,17 @@ public class EnemyAI : MonoBehaviour
 
 	public void EnemyTired()
 	{
-		ResetEnemy();
+		if(!wasStunned)
+		{
+			ScoreManager.Instance.EnemyStunned();
+			wasStunned = true;
+		}
+
+		LostAggro();
 		isActing = false;
 		OnMovementInput?.Invoke(Vector2.zero);
 
 		//agent.StunAnimation();
-	}
-
-	public void ResetEnemy()
-	{
-		currentAction.InterruptAction();
-		isAggroed = false;
-		//isReseting = true;
-		lineOfSight.ActiveLineOfSight();
 	}
 
 	public void ActionFinished()
@@ -150,12 +185,67 @@ public class EnemyAI : MonoBehaviour
 		isActing = false;
 	}
 
+	public void LostAggro()
+	{
+		currentAction.InterruptAction();
+		isAggroed = false;
+		lineOfSight.ResetLineOfSight();
+	}
+
+	public void RespawnEnemy()
+	{
+		gameObject.SetActive(true);
+
+		agent.ResetAgent(false);
+
+		isDead = false;
+
+		Collider2D collider = GetComponent<Collider2D>();
+		collider.isTrigger = false;
+
+		ResetEnemy(roomID);
+	}
+
+	public bool IsGamePaused()
+	{
+		if (PauseMenuManager.isPaused || MapManager.isMapActive || DialogueManager.Instance.IsDialogueRunning())
+			return true;
+
+		return false;
+	}
+
+	private void ResetEnemy(int id)
+	{
+		if(roomID == id)
+		{
+			if (isAggroed)
+			{
+				LostAggro();
+			}
+			else
+			{
+				currentAction.InterruptAction();
+				isActing = false;
+			}
+
+			OnDirectionInput?.Invoke(new Vector2(startDirection, 0));
+			gameObject.transform.position = initialPosition;
+			enemyEnergy.ResetEnergy();
+		}
+	}
+
 	private IEnumerator AggroCoroutine()
 	{
-		//Mostrar animação de que o player chamou atenção do inimigo
 		yield return new WaitForSeconds(1f);
 		isAggroed = true;
 		isActing = false;
+	}
+
+	private IEnumerator DeathCoroutine()
+	{
+		//Mostrar animação de que o player chamou atenção do inimigo
+		yield return new WaitForSeconds(1f);
+		gameObject.SetActive(false);
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)

@@ -9,9 +9,9 @@ public class AttackArea : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.GetComponent<Health>() != null)
+		if (collision.CompareTag("Enemy") | collision.CompareTag("Door"))
 		{
-			HitEvent.GetHit(damage, gameObject, collision.gameObject);
+			HitEvent.GetHit(damage, transform.parent.gameObject, collision.gameObject);
         }
 	}
 }

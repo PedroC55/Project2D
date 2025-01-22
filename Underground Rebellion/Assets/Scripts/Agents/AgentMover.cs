@@ -3,26 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem.Processors;
 
 public class AgentMover : MonoBehaviour
 {
 	private Rigidbody2D rb2d;
 
-	public Vector2 wallJumpForce;
 	[SerializeField]
 	private float moveSpeed;
 	private float currentSpeed;
 	public Vector2 MovementInput { get; set; }
 
-	public float jumpForce, wallSlidingSpeed;
+	private bool isDead = false;
+
+	public float WallSlidingSpeed { get; set; }
 	private bool isDashing = false;
 
-	public float movemntInputX, movementInputY, dashingPowerX, dashingPowerY;
 	private bool isWallJumping = false;
-
 
 	private int slowPercentage;
 
+	private float gravityScale;
 	
 	private bool canWalkWalls = false;
 	private WallMovement agentWM;
@@ -30,7 +31,7 @@ public class AgentMover : MonoBehaviour
 	private void Awake()
 	{
 		rb2d = GetComponent<Rigidbody2D>();
-		
+		gravityScale = rb2d.gravityScale;
 		currentSpeed = moveSpeed;
 
 		agentWM = GetComponent<WallMovement>();
@@ -40,20 +41,14 @@ public class AgentMover : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-
-		if (isDashing)
+		if (isDead || isDashing || isWallJumping)
 		{
 			return;
 		}
 
-		if (isWallJumping)
+		else if (WallSlidingSpeed != 0)
 		{
-			return;
-		}
-
-		else if (wallSlidingSpeed != 0)
-		{
-			rb2d.velocity = new Vector2(MovementInput.x * currentSpeed, Mathf.Clamp(rb2d.velocity.y, -wallSlidingSpeed, float.MaxValue));
+			rb2d.velocity = new Vector2(MovementInput.x * currentSpeed, Mathf.Clamp(rb2d.velocity.y, -WallSlidingSpeed, float.MaxValue));
 			return;
 		}
 
@@ -73,30 +68,43 @@ public class AgentMover : MonoBehaviour
 
 			rb2d.velocity = new Vector2(xSpeed, ySpeed);
 		}
-	}
-	public void ResetDash()
-    {
-		isDashing = false;
-		movemntInputX = 0f;
-		movementInputY = 0f;
-		dashingPowerX = 0f;
-		dashingPowerY = 0f;
-		rb2d.velocity = Vector2.zero;
-    }
-	public void Dash(float movemntInputX, float movementInputY, float dashingPowerX, float dashingPowerY)
-    {
-		rb2d.velocity = new Vector2(movemntInputX * dashingPowerX, movementInputY * dashingPowerY);
+
+
+		if (rb2d.velocity.y < 0)
+		{
+			rb2d.gravityScale = gravityScale * 1.5f;
+		}
+		else
+		{
+			rb2d.gravityScale = gravityScale;
+		}
+
 	}
 	public float GetCurrentSpeed()
 	{
 		return currentSpeed;
 	}
+
+	public void Jump(Vector2 direction)
+	{
+		ApplyForce(direction);
+	}
+
+	public void Dash(float movemntInputX, float movementInputY, float dashingPowerX, float dashingPowerY)
+    {
+		rb2d.velocity = new Vector2(movemntInputX * dashingPowerX, movementInputY * dashingPowerY);
+	}
+	public void ResetDash()
+    {
+		rb2d.velocity = Vector2.zero;
+		isDashing = false;
+    }
+
 	public void WallJump(Vector2 wallJF)
     {
-		wallJumpForce = wallJF;
 		isWallJumping = true;
 		rb2d.Sleep();
-		rb2d.AddForce(wallJumpForce, ForceMode2D.Impulse);
+		rb2d.AddForce(wallJF, ForceMode2D.Impulse);
 	}
 
 	public void IsExecutingDash()
@@ -107,16 +115,25 @@ public class AgentMover : MonoBehaviour
     public void ResetWallJump()
 	{
 		isWallJumping = false;
-		wallJumpForce = Vector2.zero;
 	}
+
 	public void ApplyForce(Vector2 direction)
     {
 		rb2d.AddForce(direction, ForceMode2D.Impulse);
 	}
-	public void StopMoving()
+
+	public void AgentDied()
 	{
 		rb2d.bodyType = RigidbodyType2D.Static;
+		isDead = true;
 	}
+
+	public void Reset()
+	{
+		rb2d.bodyType = RigidbodyType2D.Dynamic;
+		isDead = false;
+	}
+
 	public void SlowMovement(int percentage)
 	{
 		if (slowPercentage < percentage || percentage == 0)

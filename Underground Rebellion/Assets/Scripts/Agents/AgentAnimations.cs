@@ -8,7 +8,6 @@ using System;
 public class AgentAnimations : MonoBehaviour
 {
 	private Animator animator;
-	public Transform wallCheck;
 
 	private enum MovementState { idle, running, jumping, falling }
 
@@ -37,7 +36,6 @@ public class AgentAnimations : MonoBehaviour
 	{
 		animator.SetInteger("state", (int)MovementState.falling);
 	}
-
 
 	public void LookDirection(Vector2 direction)
 	{
@@ -74,6 +72,11 @@ public class AgentAnimations : MonoBehaviour
 		animator.SetTrigger("death");
 	}
 
+	public void DisappearAnimation()
+	{
+		animator.SetTrigger("disappear");
+	}
+
 	public void StunAnimation()
 	{
 		animator.SetTrigger("stun");
@@ -84,14 +87,19 @@ public class AgentAnimations : MonoBehaviour
 		animator.SetTrigger("parry");
 	}
 
-	public void RestartLevel()
+	public void AttackAnimation()
 	{
-		StartCoroutine(RestartLevelWithDelay(2f));
+		animator.SetTrigger("attack");
 	}
 
-	private IEnumerator RestartLevelWithDelay(float delay)
-	{
-		yield return new WaitForSeconds(delay);
-		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-	}
+	//public void RestartLevel()
+	//{
+	//	StartCoroutine(RestartLevelWithDelay(2f));
+	//}
+
+	//private IEnumerator RestartLevelWithDelay(float delay)
+	//{
+	//	yield return new WaitForSeconds(delay);
+	//	SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+	//}
 }

@@ -16,12 +16,14 @@ public class EnemyPatrol : EnemyAction
 
 	private WallMovement enemyWM;
 
+	private bool hasPatrol = true;
+
 	protected override void Awake()
 	{
 		base.Awake();
 		if (patrolPositions.Length <= 1)
 		{
-			throw new System.NullReferenceException($"Patrol do inimigo: {transform.parent.gameObject.name}, não tem posições inicializadas ou só tem 1!");
+			hasPatrol = false;
 		}
 
 		enemyWM = enemyAI.GetWallMovement();
@@ -31,6 +33,7 @@ public class EnemyPatrol : EnemyAction
 
 	protected override void OnDisable()
 	{
+		currentPosition = 0;
 		isExecuting = false;
 		isObserving = false;
 		enemyAI.OnMovementInput?.Invoke(Vector2.zero);
@@ -44,10 +47,7 @@ public class EnemyPatrol : EnemyAction
 
 	private void Update()
 	{
-		if (!isExecuting)
-			return;
-
-		if (isObserving)
+		if (enemyAI.IsGamePaused() || !isExecuting || isObserving || !hasPatrol)
 			return;
 
 		Transform movingPoint = patrolPositions[currentPosition];

@@ -3,21 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
+using Yarn.Unity;
+using static UnityEngine.InputSystem.InputAction;
 
 public class PlayerInput : MonoBehaviour
 {
-    public Rigidbody2D playerRb2d;
+    private Rigidbody2D playerRb2d;
+    private SpriteRenderer spriteRenderer;
+    private BoxCollider2D playerCollider;
     private Agent agent;
     private Dash dashComp;
     private PlayerAttack attackComp;
     private WallJump wallJumpComp;
     private ParrySystem playerParrySystem;
-    private SpriteRenderer spriteRenderer;
-    private BoxCollider2D playerCollider;
     [SerializeField] private LayerMask jumpableGround;
-
+    
     public Vector2 movementInput;
+    private bool canMove = true;
 
+    //Parry
+    private int nParries = 0;
+    
+    //Hit Feedback
+    private KnockBackFeedback knockBack;
+    public ParticleSystem hitVFX;
+    public float slowMotionTime;
+    public float immunityTime = 2f;
+
+	//Jump
+	[SerializeField] private float jumpForce;
+    private float lastJumpTime;
+    private float lastGroundedTime;
+    public float jumpBufferTime;
+    public float jumpCoyoteTime;
+    private float jumpCut = -0.2f;
+
+    //Wall Jumping
     public Transform wallCheck;
     bool isWallToutch;
     bool isSliding;
@@ -26,119 +47,130 @@ public class PlayerInput : MonoBehaviour
     // Attack
     public bool attacking = false;
 
+    //Dash
     public bool canDash = true;
-
-    [SerializeField] private float jumpForce = 14f;
-
-    private bool canMove = true;
 
     private enum MovementState { idle, running, jumping, falling}
     public InputActionReference movement, jump, dash, attack;
 
     private void OnEnable()
     {
-        playerParrySystem = GetComponent<ParrySystem>();
-
         HitEvent.OnHit += OnPlayerHit;
-    }
+        LevelEvent.OnResetPlayer += ResetPlayer;
+
+		jump.action.canceled += OnJumpUp;
+	}
+
     private void OnDisable()
     {
         HitEvent.OnHit -= OnPlayerHit;
-    }
+		LevelEvent.OnResetPlayer -= ResetPlayer;
 
-    void Start()
-    {
+		jump.action.canceled -= OnJumpUp;
+	}
+
+	private void Awake()
+	{
 		playerRb2d = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+		spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 		playerCollider = GetComponent<BoxCollider2D>();
-        agent = GetComponent<Agent>();
-        dashComp = GetComponent<Dash>();
-        wallJumpComp = GetComponent<WallJump>();
-        attackComp = GetComponent<PlayerAttack>();
-    }
+		agent = GetComponent<Agent>();
+		dashComp = GetComponent<Dash>();
+		wallJumpComp = GetComponent<WallJump>();
+		attackComp = GetComponent<PlayerAttack>();
+		playerParrySystem = GetComponent<ParrySystem>();
+		knockBack = GetComponent<KnockBackFeedback>();
+    }   
+
+	void Start()
+    {
+        LevelEvent.RegisterPlayer(gameObject);
+		
+		agent.wallCheck = wallCheck;
+	}
 
     // Update is called once per frame
     private void Update()
     {
-
-        if (!canMove)
+        if (!PauseMenuManager.isPaused && !MapManager.isMapActive && !DialogueManager.Instance.IsDialogueRunning())
         {
-            agent.MovementInput = Vector2.zero;
-			playerRb2d.drag = 10f;
-            return;
-        }
+            if (!canMove)
+            {
 
+                agent.MovementInput = Vector2.zero;
+                return;
+            }
 
-        agent.wallCheck = wallCheck;
-        movementInput = movement.action.ReadValue<Vector2>();
+            lastJumpTime -= Time.deltaTime;
 
-        Movement();
+            lastGroundedTime = IsGrounded() ? jumpCoyoteTime : lastGroundedTime - Time.deltaTime;
 
-        if (jump.action.triggered)
-        {
+            Movement();
+
+            if (jump.action.triggered)
+            {
+                lastJumpTime = jumpBufferTime;
+            }
+
             Jump();
-        }
 
-        if (attack.action.triggered)
-        {
-            attackComp.Attack();
-        }
-        if (attacking)
-        {
-            attackComp.ResetAttack();
-        }
-        //Da pra mudar isso para um metodo igual a IsGrounded
-        //Al�m disso, da pra tirar o objecto filho "wallCheck" e fazer igual fazemos no metodo IsGrounded, onde faz um box cast na dire��o que o player estiver olhando
-        isWallToutch = Physics2D.OverlapBox(wallCheck.position, new Vector2(0.92f, 1.39f), 0, jumpableGround);
-
-        if (dashComp && dash.action.triggered && canDash)
-        {
-            dashComp.StartDash();
-
-        }
-        if(wallJumpComp)
-            Slide();
-    }
-    private void OnJump(InputAction.CallbackContext context)
-    {
-        // Call your jump function here.
-        Jump();
-    }
-
-    private void OnPlayerHit(int damage, GameObject sender, GameObject receiver)
-    {
-        if (receiver.CompareTag("Player"))
-        {
-            if (sender.CompareTag("Trap"))
+            if (attack.action.triggered && !attacking)
             {
-				agent.GetHit(damage, sender);
-				CanvasEvent.UpdateHealth(0);
-			}
-			else if (sender.CompareTag("Enemy"))
+                attackComp.Attack();
+                agent.AttackAnimation();
+
+            }
+            if (attacking)
             {
-                
-				if (playerParrySystem.CheckParryTiming() && playerParrySystem.CheckDirection(sender))
-				{
-                    ParryEvent.Parry(1, sender.transform.parent.gameObject);
-					Debug.Log("Parry");
-				}
-				else
-				{
-					int health = agent.GetHit(damage, sender);
-                    CanvasEvent.UpdateHealth(health);
-				}
-			}
+                attackComp.ResetAttack();
+            }
+
+            if (dashComp && dash.action.triggered && canDash)
+            {
+                dashComp.StartDash();
+            }
+
+            if (wallJumpComp)
+            {
+                //Da pra mudar isso para um metodo igual a IsGrounded
+                //Al�m disso, da pra tirar o objecto filho "wallCheck" e fazer igual fazemos no metodo IsGrounded, onde faz um box cast na dire��o que o player estiver olhando
+                isWallToutch = Physics2D.OverlapBox(wallCheck.position, new Vector2(0.92f, 1.39f), 0, jumpableGround);
+                Slide();
+            }
         }
     }
 
-    public IEnumerator DisableMovementDuringParry()
+    private void Movement()
     {
-        canMove = false;
-        agent.ParryAnimation(); 
-		yield return new WaitForSeconds(0.5f);
-        canMove = true;
+		movementInput = movement.action.ReadValue<Vector2>();
+		agent.MovementInput = movementInput;
     }
 
+    private void OnJumpUp(CallbackContext ctx)
+    {
+        lastJumpTime = 0f;
+        if(playerRb2d.velocity.y > 0)
+        {
+			agent.ApplyForce((1 - jumpCut) * playerRb2d.velocity.y * Vector2.down);
+        }
+    }
+
+    private void Jump()
+    {
+        if (lastGroundedTime > 0f && lastJumpTime > 0f)
+        {
+            agent.ApplyForce(new Vector2(0, jumpForce));
+			lastJumpTime = 0f;
+			SoundManager.Instance.PlaySound(SoundType.JUMP_1);
+		}
+        else if (wallJumpComp && isSliding && lastJumpTime > 0f)
+        {
+            wallJumpComp.PerformWallJump();
+            isSliding = false;
+			lastJumpTime = 0f;
+			SoundManager.Instance.PlaySound(SoundType.JUMP_1);
+		}
+	}
     private void Slide()
     {
         //Se transformar isWallToutch em um metodo � s� chamar aqui igual ta fazendo com IsGrounded
@@ -153,44 +185,83 @@ public class PlayerInput : MonoBehaviour
             isSliding = false;
         }
     }
-    private void Movement()
-    {
-        if (IsGrounded())
-        {
-            if (movementInput.x != 0f)
-            {
-                agent.MovementInput = movementInput;
-                playerRb2d.drag = 0f;
-            }
-            else
-            {
-				//N�o precisa fazer isso de colocar 'agent.MovementInput' igual a 0, pois o 'movementInput' ja vai receber 0 caso o player n�o esteja preciosando o bot�o
-				agent.MovementInput = Vector2.zero;
-                playerRb2d.drag = 10f;
-            }
-        }
-        else
-        {
-            agent.MovementInput = movementInput;
-            playerRb2d.drag = 0f;
-        }
-    }
 
-    private void Jump()
-    {
-        if (IsGrounded())
-        {
-            playerRb2d.velocity = new Vector2(movementInput.x, jumpForce);
-        }
-        else if (wallJumpComp && isSliding)
-        {
-            wallJumpComp.PerformWallJump();
-            isSliding = false;
-            
-        }
-    }
+	//COLOCAR EM OUTRO SCRIPT
+	private void OnPlayerHit(int damage, GameObject sender, GameObject receiver)
+	{
+		if (receiver.CompareTag("Player"))
+		{
+			if (sender.CompareTag("Trap"))
+			{
+				int health = agent.GetHit(damage, sender);
+				PlayHitVFX(sender);
+				CanvasEvent.UpdateHealth(health);
+			}
+			else if (sender.CompareTag("Enemy"))
+			{
 
-    public bool IsGrounded()
+				if (playerParrySystem.CheckParry(sender))
+				{
+                    nParries += 1;
+                    if (nParries <= 2)
+                    {
+                        TutorialManager.Instance.UpdateParryProgress(nParries);
+                    }
+                    SoundManager.Instance.PlaySound(SoundType.PARRY);
+					ParryEvent.Parry(1, sender);
+				}
+				else
+				{
+					int health = agent.GetHit(damage, sender);
+					PlayHitVFX(sender);
+					CanvasEvent.UpdateHealth(health);
+				}
+			}
+		}
+	}
+
+	//COLOCAR EM OUTRO SCRIPT (Criar o script 'Player')
+	private void PlayHitVFX(GameObject sender)
+    {
+        StartCoroutine(ImmunityCooldown());
+
+        TimeManager.Instance.StopTime(slowMotionTime);
+        
+        Vector2 direction = Vector2.up;
+        direction.x = Mathf.Sign(gameObject.transform.position.x - sender.transform.position.x);
+
+        CameraManager.Instance.ShakeCamera(0.5f);
+		EffectsManager.Instance.PlayOneShot(hitVFX, transform.position, direction * 5);
+        knockBack.PlayFeedback(sender);
+
+		SoundManager.Instance.PlaySound(SoundType.DAMAGE);
+	}
+
+	//COLOCAR EM OUTRO SCRIPT (Criar o script 'Player')
+	private void ResetPlayer(Transform lastSavedPosition)
+	{
+		transform.position = lastSavedPosition.position;
+		agent.ResetAgent(true);
+	}
+
+    private IEnumerator ImmunityCooldown()
+    {
+		spriteRenderer.color = Color.gray; //So vai funcionar quando tirar a mudança de cor do parry na animção do player
+		Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"));
+		yield return new WaitForSecondsRealtime(immunityTime);
+		Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), false);
+		spriteRenderer.color = Color.white; //So vai funcionar quando tirar a mudança de cor do parry na animção do player
+	}
+
+	public IEnumerator DisableMovementDuringParry()
+	{
+		canMove = false;
+		agent.ParryAnimation();
+		yield return new WaitForSeconds(0.5f);
+		canMove = true;
+	}
+
+	public bool IsGrounded()
     {
         return Physics2D.BoxCast(playerCollider.bounds.center, playerCollider.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
     }

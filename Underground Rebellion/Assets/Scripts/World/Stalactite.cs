@@ -11,11 +11,16 @@ public class Stalactite : MonoBehaviour
     public float shakeDuration = 3f; // Duration of the shaking in seconds
     public float shakeMagnitude = 0.1f; // Magnitude of the shake effect
 
+    public BoxCollider2D damageBoxCollider;
+
     private Rigidbody2D rb;
     private bool isFalling = false;
     private bool detected = false;
     private bool onGround = false;
     private Vector3 originalPosition;
+
+    public bool fallOnlyOnEnemyDead = false;
+    public GameObject enemy;
 
     void Start()
     {
@@ -26,6 +31,13 @@ public class Stalactite : MonoBehaviour
 
     void Update()
     {
+
+        if (enemy != null && !enemy.activeSelf && !isFalling && !onGround && fallOnlyOnEnemyDead) // If enemy is destroyed or disabled
+        {
+            StartCoroutine(ShakeAndFall());
+        }
+
+
         if (isFalling)
         {
             rb.velocity = new Vector2(0, -fallSpeed); // Make the stalactite fall
@@ -35,7 +47,7 @@ public class Stalactite : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         // Check if the player enters the trigger zone using layers
-        if (((1 << other.gameObject.layer) & playerLayer) != 0 && !detected)
+        if(((1 << other.gameObject.layer) & playerLayer) != 0 && !detected && !fallOnlyOnEnemyDead)
         {
             detected = true;
             StartCoroutine(ShakeAndFall()); // Start the shaking effect
@@ -67,7 +79,6 @@ public class Stalactite : MonoBehaviour
     {
         if ((((1 << collision.gameObject.layer) & playerLayer) != 0) & !onGround)
         {
-            Debug.Log("PLAYER");
             Physics2D.IgnoreLayerCollision(7, 9);
             isFalling = true;
         }
@@ -80,5 +91,6 @@ public class Stalactite : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Static; // Change to Static
         gameObject.layer = LayerMask.NameToLayer("Ground"); // Change layer to Ground
         onGround = true;
+        damageBoxCollider.enabled = false;
     }
 }

@@ -8,6 +8,8 @@ TagManager:
   - Trap
   - Enemy
   - Slow Goo
+  - Door
+  - NPC
   layers:
   - Default
   - TransparentFX
@@ -20,7 +22,7 @@ TagManager:
   - Enemy
   - Line Of Sight
   - Projectile
-  - 
+  - NPC
   - 
   - 
   - 
@@ -45,9 +47,18 @@ TagManager:
   - name: Background
     uniqueID: 4030693773
     locked: 0
+  - name: Terrain
+    uniqueID: 1784601499
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Terrain
-    uniqueID: 1784601499
+  - name: Particles
+    uniqueID: 2562111673
+    locked: 0
+  - name: Map
+    uniqueID: 4278608695
+    locked: 0
+  - name: Icon
+    uniqueID: 4025450617
     locked: 0

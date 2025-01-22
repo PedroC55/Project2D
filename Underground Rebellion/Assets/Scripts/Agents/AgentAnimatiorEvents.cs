@@ -41,12 +41,10 @@ public class AgentAnimatiorEvents : MonoBehaviour
 	public void OnActionStart(string eventName)
     {
 		actionsAnimatorDict[eventName].OnActionStart();
-
 	}
 
 	public void OnActionEnd(string eventName)
 	{
 		actionsAnimatorDict[eventName].OnActionEnd();
-
 	}
 }

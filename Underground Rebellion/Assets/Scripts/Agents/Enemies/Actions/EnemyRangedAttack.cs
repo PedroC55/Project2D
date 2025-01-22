@@ -52,13 +52,7 @@ public class EnemyRangedAttack : EnemyAction
 
 	private void Update()
 	{
-		if (!isExecuting)
-			return;
-
-		if (enemyChase.IsChasing())
-			return;
-
-		if (isAttacking)
+		if (enemyAI.IsGamePaused() || !isExecuting || enemyChase.IsChasing() || isAttacking)
 			return;
 
 		StartCoroutine(StartAttack());

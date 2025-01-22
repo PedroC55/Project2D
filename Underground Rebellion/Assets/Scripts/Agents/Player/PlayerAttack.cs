@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    private GameObject attackArea = default;
+    [SerializeField]private GameObject attackArea;
     private PlayerInput player;
 
-    private readonly float timetoAttack = 0.25f;
+    private readonly float timetoAttack = 0.8f;
     private float timer = 0f;
 
     void Start()
     {
-        attackArea = transform.GetChild(0).gameObject;
         player = GetComponent<PlayerInput>();
     }
 

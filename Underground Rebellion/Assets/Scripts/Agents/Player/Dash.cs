@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Dash : MonoBehaviour
 {
+    private Rigidbody2D rb2d;
     private Agent agent;
     private PlayerInput player;
     private readonly float dashingPowerX = 24f;
@@ -14,6 +15,7 @@ public class Dash : MonoBehaviour
 
     void Start()
     {
+        rb2d = GetComponent<Rigidbody2D>();
         agent = GetComponent<Agent>();
         player = GetComponent<PlayerInput>();
     }
@@ -31,13 +33,13 @@ public class Dash : MonoBehaviour
         }
         player.canDash = false;
         agent.IsExecutingDash();
-        float originalGravity = player.playerRb2d.gravityScale;
-        player.playerRb2d.gravityScale = 0f;
+        float originalGravity = rb2d.gravityScale;
+		rb2d.gravityScale = 0f;
         agent.Dash(dashingPowerX, dashingPowerY, player.movementInput);
         trailRenderer.emitting = true;
         yield return new WaitForSeconds(dashingTime);
         trailRenderer.emitting = false;
-        player.playerRb2d.gravityScale = originalGravity;
+		rb2d.gravityScale = originalGravity;
         agent.ResetDash();
         yield return new WaitForSeconds(dashingCooldown);
         player.canDash = true;

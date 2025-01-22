@@ -70,8 +70,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1784601499
-  m_SortingLayer: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 5d785339e2365a640a00ec66d7f9fb45, type: 3}
   m_Color: {r: 1, g: 0.49003887, b: 0, a: 0.7529412}
@@ -357,7 +357,7 @@ GameObject:
   - component: {fileID: 8475974646091186259}
   m_Layer: 8
   m_Name: AttackCollider
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -370,8 +370,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3401794148492249496}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.75, y: 0, z: 0}
-  m_LocalScale: {x: 20, y: 15, z: 1}
+  m_LocalPosition: {x: 2, y: 0, z: 0}
+  m_LocalScale: {x: 20, y: 12.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 282963249435338934}
@@ -556,7 +556,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 10
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 3
@@ -629,7 +629,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallCheck: {fileID: 0}
-  jumpForce: 0
   wallSlidingSpeed: 0
   wallJumpForce: {x: 0, y: 0}
 --- !u!114 &2962800635127505357
@@ -644,14 +643,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ee068076c4c0aa46b1f99f8990a553d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallJumpForce: {x: 0, y: 0}
   moveSpeed: 5
-  jumpForce: 0
-  wallSlidingSpeed: 0
-  movemntInputX: 0
-  movementInputY: 0
-  dashingPowerX: 0
-  dashingPowerY: 0
 --- !u!114 &2738747772173335226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -664,26 +656,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7864decdd29f29a42bf5dc308cd48b46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1
-  currentHealth: 1
   OnHitWithReference:
     m_PersistentCalls:
       m_Calls: []
   OnDeathWithReference:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2905173454188212561}
-        m_TargetAssemblyTypeName: AgentAnimations, Assembly-CSharp
-        m_MethodName: DeathAnimation
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 8348641699354034396}
         m_TargetAssemblyTypeName: EnemyAI, Assembly-CSharp
         m_MethodName: EnemyDied
@@ -696,6 +674,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  maxHealth: 1
 --- !u!114 &8348641699354034396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -708,6 +687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fb18f93c0ad52b49ae8ab54586f9441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   OnMovementInput:
     m_PersistentCalls:
       m_Calls:
@@ -740,6 +720,7 @@ MonoBehaviour:
         m_CallState: 2
   startDirection: -1
   contactHitDamage: 1
+  roomID: 0
 --- !u!1 &4100881680981077053
 GameObject:
   m_ObjectHideFlags: 0
@@ -845,7 +826,7 @@ GameObject:
   - component: {fileID: 199758874940890796}
   m_Layer: 8
   m_Name: Worm Sprite
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -950,7 +931,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bcc9ffd29fee4240a81cd43eb5574a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallCheck: {fileID: 0}
 --- !u!114 &199758874940890796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1108,8 +1088,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1784601499
-  m_SortingLayer: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 5d785339e2365a640a00ec66d7f9fb45, type: 3}
   m_Color: {r: 1, g: 0.49003887, b: 0, a: 0.7529412}
@@ -1135,7 +1115,7 @@ GameObject:
   - component: {fileID: 6981596009624253328}
   m_Layer: 9
   m_Name: LineOfSight
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1389,8 +1369,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1784601499
-  m_SortingLayer: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 5d785339e2365a640a00ec66d7f9fb45, type: 3}
   m_Color: {r: 1, g: 0.49003887, b: 0, a: 0.7529412}
@@ -1418,7 +1398,7 @@ GameObject:
   - component: {fileID: 6055270280493794189}
   m_Layer: 8
   m_Name: Actions
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1571,8 +1551,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1784601499
-  m_SortingLayer: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 5d785339e2365a640a00ec66d7f9fb45, type: 3}
   m_Color: {r: 1, g: 0.49003887, b: 0, a: 0.7529412}
