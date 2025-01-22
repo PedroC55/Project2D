@@ -47,13 +47,7 @@ public class EnemyPatrol : EnemyAction
 
 	private void Update()
 	{
-		if (!isExecuting)
-			return;
-
-		if (isObserving)
-			return;
-
-		if (!hasPatrol)
+		if (enemyAI.IsGamePaused() || !isExecuting || isObserving || !hasPatrol)
 			return;
 
 		Transform movingPoint = patrolPositions[currentPosition];

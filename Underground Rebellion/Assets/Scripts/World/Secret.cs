@@ -13,7 +13,7 @@ public class Secret : MonoBehaviour
 	public int ID { get => id; }
 
 	private Interaction secretInteraction;
-	private BoxCollider2D collider2D;
+	private BoxCollider2D boxCollider2D;
 	private SpriteRenderer spriteRenderer;
 
 	private void OnDisable()
@@ -24,7 +24,7 @@ public class Secret : MonoBehaviour
 	private void Start()
 	{
 		secretInteraction = GetComponent<Interaction>();
-		collider2D = GetComponent<BoxCollider2D>();
+		boxCollider2D = GetComponent<BoxCollider2D>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
 
 		secretInteraction.OnInteraction += CollectSecret;
@@ -34,14 +34,14 @@ public class Secret : MonoBehaviour
 
 	public void ResetSecret()
 	{
-		collider2D.enabled = true;
+		boxCollider2D.enabled = true;
 		spriteRenderer.enabled = true;
 	}
 
 	private void CollectSecret()
 	{
 		LevelEvent.SecretFound(id);
-		collider2D.enabled = false;
+		boxCollider2D.enabled = false;
 		spriteRenderer.enabled = false;
 	}
 }

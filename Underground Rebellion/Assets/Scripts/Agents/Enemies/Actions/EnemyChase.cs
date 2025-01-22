@@ -43,7 +43,7 @@ public class EnemyChase : EnemyAction
 
 	private void Update()
 	{
-		if (!isExecuting)
+		if (enemyAI.IsGamePaused() || !isExecuting)
 			return;
 
 		float distance = Vector2.Distance(player.position, transform.position);
