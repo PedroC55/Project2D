@@ -205,6 +205,9 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: -3488436851873942293}
     m_Position: {x: 160, y: -50, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 8899514606061291769}
+    m_Position: {x: 195, y: 15, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: 5687239243024402428}
@@ -275,7 +278,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sound: 9
-  volume: 0.25
 --- !u!1102 &2190857800648981598
 AnimatorState:
   serializedVersion: 6
@@ -427,3 +429,29 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!1102 &8899514606061291769
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: EnemyDeath
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 5d221c44d74bb204db7883e4c56c1c3a, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
