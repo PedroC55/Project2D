@@ -36,9 +36,12 @@ public class Dash : MonoBehaviour
         float originalGravity = rb2d.gravityScale;
 		rb2d.gravityScale = 0f;
         agent.Dash(dashingPowerX, dashingPowerY, player.movementInput);
+        trailRenderer.enabled = true;
         trailRenderer.emitting = true;
         yield return new WaitForSeconds(dashingTime);
         trailRenderer.emitting = false;
+        trailRenderer.Clear();
+        trailRenderer.enabled = false;
 		rb2d.gravityScale = originalGravity;
         agent.ResetDash();
         yield return new WaitForSeconds(dashingCooldown);

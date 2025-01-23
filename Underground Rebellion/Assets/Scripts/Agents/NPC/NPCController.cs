@@ -25,6 +25,7 @@ public class NPCController : MonoBehaviour
 
 	void Awake()
 	{
+
 		foreach(var position in npcPositionsData)
 		{
 			npcPositionsDictionary.Add(position.name, position.transform);
@@ -33,10 +34,6 @@ public class NPCController : MonoBehaviour
 		agent = GetComponent<Agent>();
 		col2D = GetComponent<Collider2D>();
 		rb2D = GetComponent<Rigidbody2D>();
-	}
-
-	void Start()
-	{
 		animator = GetComponentInChildren<Animator>();
 	}
 
