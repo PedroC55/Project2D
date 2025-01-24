@@ -929,6 +929,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 18
   virtualCam: {fileID: 1341546687}
+  background: {fileID: 1856366022}
+  parallaxEffectMultiplier: 0.2
+  player: {fileID: 332959404}
 --- !u!60 &72764250
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -5771,6 +5774,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 22
   virtualCam: {fileID: 428099985}
+  background: {fileID: 1856366022}
+  parallaxEffectMultiplier: 0.2
+  player: {fileID: 332959404}
 --- !u!1001 &335854235
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6221,6 +6227,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 8
   virtualCam: {fileID: 1391544745}
+  background: {fileID: 1856366022}
+  parallaxEffectMultiplier: 0.2
+  player: {fileID: 332959404}
 --- !u!60 &358799323
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -6354,6 +6363,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 17
   virtualCam: {fileID: 555762279}
+  background: {fileID: 1856366022}
+  parallaxEffectMultiplier: 0.2
+  player: {fileID: 332959404}
 --- !u!60 &387635033
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -7697,6 +7709,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 13
   virtualCam: {fileID: 2090839994}
+  background: {fileID: 1856366022}
+  parallaxEffectMultiplier: 0.2
+  player: {fileID: 332959404}
 --- !u!60 &463917974
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -47624,6 +47639,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 16
   virtualCam: {fileID: 1694514504}
+  background: {fileID: 1856366022}
+  parallaxEffectMultiplier: 0.2
+  player: {fileID: 332959404}
 --- !u!60 &618788590
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -47865,6 +47883,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 2
   virtualCam: {fileID: 1691147991}
+  background: {fileID: 1856366022}
+  parallaxEffectMultiplier: 0.2
+  player: {fileID: 332959404}
 --- !u!60 &636648529
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -47968,6 +47989,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 20
   virtualCam: {fileID: 1834374954}
+  background: {fileID: 1856366022}
+  parallaxEffectMultiplier: 0.2
+  player: {fileID: 332959404}
 --- !u!60 &656083768
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -48716,6 +48740,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 24
   virtualCam: {fileID: 1774609375}
+  background: {fileID: 1856366022}
+  parallaxEffectMultiplier: 0.2
+  player: {fileID: 332959404}
 --- !u!1 &713965726
 GameObject:
   m_ObjectHideFlags: 0
@@ -50814,6 +50841,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 7
   virtualCam: {fileID: 937428286}
+  background: {fileID: 1856366022}
+  parallaxEffectMultiplier: 0.2
+  player: {fileID: 332959404}
 --- !u!60 &884985969
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -52061,6 +52091,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 19
   virtualCam: {fileID: 1167312501}
+  background: {fileID: 1856366022}
+  parallaxEffectMultiplier: 0.2
+  player: {fileID: 332959404}
 --- !u!60 &976107711
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -54008,6 +54041,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 23
   virtualCam: {fileID: 1509281989}
+  background: {fileID: 1856366022}
+  parallaxEffectMultiplier: 0.2
+  player: {fileID: 332959404}
 --- !u!1 &1063275747
 GameObject:
   m_ObjectHideFlags: 0
@@ -54476,6 +54512,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 21
   virtualCam: {fileID: 1631066751}
+  background: {fileID: 1856366022}
+  parallaxEffectMultiplier: 0.2
+  player: {fileID: 332959404}
 --- !u!1 &1111941038
 GameObject:
   m_ObjectHideFlags: 0
@@ -55183,6 +55222,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 3
   virtualCam: {fileID: 238523730}
+  background: {fileID: 1856366022}
+  parallaxEffectMultiplier: 0.2
+  player: {fileID: 332959404}
 --- !u!60 &1156624881
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -56842,6 +56884,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 25
   virtualCam: {fileID: 110418678}
+  background: {fileID: 1856366022}
+  parallaxEffectMultiplier: 0.2
+  player: {fileID: 332959404}
 --- !u!1001 &1300386783
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -59150,6 +59195,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 5
   virtualCam: {fileID: 569627079}
+  background: {fileID: 1856366022}
+  parallaxEffectMultiplier: 0.2
+  player: {fileID: 332959404}
 --- !u!60 &1432878449
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -60633,6 +60681,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 12
   virtualCam: {fileID: 2000372715}
+  background: {fileID: 1856366022}
+  parallaxEffectMultiplier: 0.2
+  player: {fileID: 332959404}
 --- !u!60 &1521221979
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -60811,6 +60862,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 11
   virtualCam: {fileID: 1726482568}
+  background: {fileID: 1856366022}
+  parallaxEffectMultiplier: 0.2
+  player: {fileID: 332959404}
 --- !u!60 &1551137944
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -61946,6 +62000,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 9
   virtualCam: {fileID: 1690041258}
+  background: {fileID: 1856366022}
+  parallaxEffectMultiplier: 0.2
+  player: {fileID: 332959404}
 --- !u!60 &1620375558
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -62376,6 +62433,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 6
   virtualCam: {fileID: 673472223}
+  background: {fileID: 1856366022}
+  parallaxEffectMultiplier: 0.2
+  player: {fileID: 332959404}
 --- !u!60 &1649591892
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -62473,6 +62533,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 15
   virtualCam: {fileID: 1225651562}
+  background: {fileID: 1856366022}
+  parallaxEffectMultiplier: 0.2
+  player: {fileID: 332959404}
 --- !u!60 &1651521888
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -64322,6 +64385,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 4
   virtualCam: {fileID: 224637976}
+  background: {fileID: 1856366022}
+  parallaxEffectMultiplier: 0.2
+  player: {fileID: 332959404}
 --- !u!60 &1728422164
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -64954,6 +65020,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 14
   virtualCam: {fileID: 197695342}
+  background: {fileID: 1856366022}
+  parallaxEffectMultiplier: 0.2
+  player: {fileID: 332959404}
 --- !u!60 &1754393069
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -65051,6 +65120,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 1
   virtualCam: {fileID: 1593921969}
+  background: {fileID: 1856366022}
+  parallaxEffectMultiplier: 0.2
+  player: {fileID: 332959404}
 --- !u!60 &1764182240
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -66577,6 +66649,90 @@ Transform:
   m_Children: []
   m_Father: {fileID: 447703084}
   m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1856366020
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1856366022}
+  - component: {fileID: 1856366021}
+  m_Layer: 12
+  m_Name: Level_1_Background
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!212 &1856366021
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1856366020}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -264273523
+  m_SortingLayer: -2
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 3e86d3de8a9ee64458461e364f3f1e65, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 10.24, y: 5.12}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &1856366022
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1856366020}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -38.23, y: -64.56, z: 0}
+  m_LocalScale: {x: 4.8, y: 4.8, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1858970214
 GameObject:
@@ -69089,6 +69245,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 26
   virtualCam: {fileID: 605316580}
+  background: {fileID: 1856366022}
+  parallaxEffectMultiplier: 0.2
+  player: {fileID: 332959404}
 --- !u!1 &1984320698
 GameObject:
   m_ObjectHideFlags: 0
@@ -70134,6 +70293,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 10
   virtualCam: {fileID: 81835939}
+  background: {fileID: 1856366022}
+  parallaxEffectMultiplier: 0.2
+  player: {fileID: 332959404}
 --- !u!60 &2064639130
 PolygonCollider2D:
   m_ObjectHideFlags: 0
