@@ -141,6 +141,7 @@ public class EnemyAI : MonoBehaviour
 	public void EnemyDied()
 	{
 		//Ganha pontos por matar os inimigos, mas o ideal depois é ganhar ponto por limpar a sala
+		enemyEnergy.HideEnergy();
 		LevelEvent.EnemyDied(id);
 		
 		isDead = true;
@@ -151,10 +152,7 @@ public class EnemyAI : MonoBehaviour
 		OnMovementInput?.Invoke(Vector2.zero);
 
 		agent.Died();
-
-		StartCoroutine(DeathCoroutine());
 	}
-
 
 	public void DecreaseEnergy(int amount, GameObject receiver)
 	{
@@ -176,7 +174,12 @@ public class EnemyAI : MonoBehaviour
 		isActing = false;
 		OnMovementInput?.Invoke(Vector2.zero);
 
-		//agent.StunAnimation();
+		agent.Stunned();
+	}
+
+	public void EnemyRecovered()
+	{
+		agent.Recovered();
 	}
 
 	public void ActionFinished()
@@ -193,8 +196,6 @@ public class EnemyAI : MonoBehaviour
 
 	public void RespawnEnemy()
 	{
-		gameObject.SetActive(true);
-
 		agent.ResetAgent(false);
 
 		isDead = false;
@@ -241,13 +242,6 @@ public class EnemyAI : MonoBehaviour
 		yield return new WaitForSeconds(1f);
 		isAggroed = true;
 		isActing = false;
-	}
-
-	private IEnumerator DeathCoroutine()
-	{
-		//Mostrar animação de que o player chamou atenção do inimigo
-		yield return new WaitForSeconds(1f);
-		gameObject.SetActive(false);
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)

@@ -92,6 +92,11 @@ public class AgentAnimations : MonoBehaviour
 		animator.SetTrigger("attack");
 	}
 
+	public void ResetAnimation()
+	{
+		animator.SetTrigger("reset");
+	}
+
 	//public void RestartLevel()
 	//{
 	//	StartCoroutine(RestartLevelWithDelay(2f));

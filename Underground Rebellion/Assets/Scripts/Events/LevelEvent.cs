@@ -37,6 +37,9 @@ public class LevelEvent : MonoBehaviour
 	public delegate void SecretFoundHandler(int id);
 	public static event SecretFoundHandler OnSecretFound;
 
+	public delegate void PlayerEnterRoomHandler(GameObject player, Vector3 roomPosition);
+	public static event PlayerEnterRoomHandler OnPlayerEnter;
+
 	public static void RegisterEnemy(EnemyAI enemyAI)
 	{
 		OnRegisterEnemy?.Invoke(enemyAI);
@@ -90,5 +93,10 @@ public class LevelEvent : MonoBehaviour
 	public static void SecretFound(int id)
 	{
 		OnSecretFound?.Invoke(id);
+	}
+
+	public static void PlayerEnterRoom(GameObject player, Vector3 roomPosition)
+	{
+		OnPlayerEnter?.Invoke(player, roomPosition);
 	}
 }

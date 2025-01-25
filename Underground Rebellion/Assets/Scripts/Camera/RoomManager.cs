@@ -15,7 +15,10 @@ public class RoomManager : MonoBehaviour
         if (collision.CompareTag("Player") && !collision.isTrigger)
         {
             virtualCam.SetActive(true);
-			CanvasEvent.UpdateMap(roomId);
+
+            CanvasEvent.UpdateMap(roomId);
+            LevelEvent.PlayerEnterRoom(collision.gameObject, this.gameObject.transform.position);
+
         }
         else if (collision.CompareTag("Enemy") && !collision.isTrigger)
         {
@@ -32,4 +35,5 @@ private void OnTriggerExit2D(Collider2D collision)
             LevelEvent.ResetRoomEnemies(roomId);
         }
     }
+
 }

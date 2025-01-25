@@ -84,12 +84,23 @@ public class Agent : MonoBehaviour
 
 	public void ResetAgent(bool isPlayer)
 	{
+		agentAnimations.ResetAnimation();
 		agentMover.Reset();
-		if(health != null)
+		if (health != null)
 			health.ResetHealth();
 
 		if (isPlayer)
 			CanvasEvent.UpdateHealth(health.GetMaxHealth());
+	}
+
+	public void Recovered()
+	{
+		agentAnimations.ResetAnimation();
+	}
+
+	public void Stunned()
+	{
+		agentAnimations.StunAnimation();
 	}
 
 	public void SlowMovement(int slowPercentage)

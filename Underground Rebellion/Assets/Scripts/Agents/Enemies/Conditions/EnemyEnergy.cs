@@ -32,7 +32,9 @@ public class EnemyEnergy : EnemyCondition
 
 	private void Start()
 	{
-        currentEnergy = maxEnergy;
+		canvas.enabled = true;
+
+		currentEnergy = maxEnergy;
 		
 		energySlider.maxValue = maxEnergy;
 		energySlider.value = currentEnergy;
@@ -45,6 +47,9 @@ public class EnemyEnergy : EnemyCondition
 
 	private void Update()
 	{
+		if (enemyAI.IsDead())
+			return;
+
 		UpdateCanvas();
 		
 		//Fazer animação bonita de decrease e increse do slide bar de forma devagar
@@ -84,11 +89,21 @@ public class EnemyEnergy : EnemyCondition
 
 	public void ResetEnergy()
 	{
+		if (enemyAI.IsDead())
+			return;
+
+		canvas.enabled = true;
 		currentEnergy = maxEnergy;
 		currentRechargeTime = 0f;
 		hasEnergy = true;
+		enemyAI.EnemyRecovered();
 
 		fillSliderImage.color = normalColor;
+	}
+
+	public void HideEnergy()
+	{
+		canvas.enabled = false;
 	}
 
 	private void UpdateCanvas()
