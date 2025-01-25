@@ -37,6 +37,12 @@ public class CutsceneView : MonoBehaviour
 		canvasAnimator.SetTrigger("ShowCutscene");
 	}
 
+	[YarnCommand("next_cutscene")]
+	public void NextCutscene()
+	{
+		canvasAnimator.SetTrigger("NextCutscene");
+	}
+
 	[YarnCommand("hide_cutscene")]
 	public void HideCutscene()
 	{

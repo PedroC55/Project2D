@@ -22,7 +22,7 @@ public class EnemyAI : MonoBehaviour
 	protected bool isAggroed = false;
 	protected bool isDead = false;
 
-	public int roomID;
+	private int roomID;
 
 	private bool wasStunned = false;
 	private bool hasDetectedPlayer = false;

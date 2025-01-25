@@ -1725,6 +1725,7 @@ GameObject:
   m_Component:
   - component: {fileID: 294664883}
   - component: {fileID: 294664882}
+  - component: {fileID: 294664884}
   m_Layer: 0
   m_Name: SettingsManager
   m_TagString: Untagged
@@ -1763,6 +1764,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &294664884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294664881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b97cd5bba6658a949b9a95a218ec30b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &323322181
 GameObject:
   m_ObjectHideFlags: 3
@@ -7423,7 +7436,6 @@ GameObject:
   - component: {fileID: 1809233074970117444}
   - component: {fileID: 5893039655758911971}
   - component: {fileID: 6068607774023049170}
-  - component: {fileID: 6068607774023049171}
   m_Layer: 0
   m_Name: Cutscene Manager
   m_TagString: Untagged
@@ -7519,7 +7531,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cutsceneData:
   - cutsceneID: 1
-    displayCutscene: {fileID: 21300000, guid: 20ef0a427f55c764db71bae6c75ef283, type: 3}
+    displayCutscene: {fileID: 21300000, guid: dd3bdae47e5b27540bc77169e1bff21b, type: 3}
+  - cutsceneID: 2
+    displayCutscene: {fileID: 21300000, guid: cfcc14b8bdcad5f48afe7605f0857e65, type: 3}
+  - cutsceneID: 3
+    displayCutscene: {fileID: 21300000, guid: 95345c7e77394874eab489fb1c4b5915, type: 3}
   cutsceneImage: {fileID: 3571835730188053543}
 --- !u!114 &1370909030184559948
 MonoBehaviour:
@@ -11133,18 +11149,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasAnimator: {fileID: 390350527}
---- !u!114 &6068607774023049171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 130934482662234837}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b97cd5bba6658a949b9a95a218ec30b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6182732546742355743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11691,6 +11695,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   yarnProject: {fileID: 7545569452688597077, guid: e0bde8083bb9e634d9af0fadc91e575d, type: 3}
   startNode: Fall
+  dialogueBoxes: []
 --- !u!222 &8758722810687954869
 CanvasRenderer:
   m_ObjectHideFlags: 0

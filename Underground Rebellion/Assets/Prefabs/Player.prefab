@@ -153,7 +153,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7942078748547881429
 Transform:
   m_ObjectHideFlags: 0
@@ -213,11 +213,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 3, y: 1}
+    - - {x: 2, y: 1}
       - {x: 1.1900177, y: 1.7863344}
       - {x: -0.8293114, y: 1.8672028}
       - {x: 0.36253357, y: -1.2287927}
-      - {x: 3, y: -1.399574}
+      - {x: 2, y: -1.399574}
   m_UseDelaunayMesh: 0
 --- !u!114 &6535720609621988003
 MonoBehaviour:
@@ -656,7 +656,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f9101af85d96524ea37eb3ad72a96e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trailRenderer: {fileID: 2806821240566795578}
 --- !u!114 &7329066638057131732
 MonoBehaviour:
   m_ObjectHideFlags: 0
