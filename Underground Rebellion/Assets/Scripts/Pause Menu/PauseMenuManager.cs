@@ -52,7 +52,6 @@ public class PauseMenuManager : MonoBehaviour
             {
                 foreach (Transform littlechild in child.transform)
                 {
-                    Debug.Log(littlechild.gameObject.name);
                     if (littlechild.gameObject.name == "System" || littlechild.gameObject.name == "Error Prompt")
                     {
                         littlechild.gameObject.SetActive(false);
