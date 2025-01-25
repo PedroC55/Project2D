@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9d00d94e16a894441b7d513d7d227e6c
+guid: f4f250c045b5d3948a02734f1361e4fb
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Formiga_Attack_0
+      name: FallDropVFX_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,41 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f35ab205a46e8f34a9bfe227a68788cc
-      internalID: 1571981657
+      spriteID: 10b6828a0924df6429eceb1c7a0df556
+      internalID: -1727206072
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Formiga_Attack_1
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e1db8564dadb45b4a95354a8bb7d684f
-      internalID: 310528138
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Formiga_Attack_2
+      name: FallDropVFX_1
       rect:
         serializedVersion: 2
         x: 64
         y: 0
-        width: 32
-        height: 32
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,41 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 497d58a2d5ca98a478fb0c3d6b460a99
-      internalID: -1397051732
+      spriteID: 4f7a3dfc9a6a33c4bbd4808a86e644d2
+      internalID: 1895074370
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Formiga_Attack_3
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3a6a39ef825311c4ca3c954950d2d9d4
-      internalID: 207046726
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Formiga_Attack_4
+      name: FallDropVFX_2
       rect:
         serializedVersion: 2
         x: 128
         y: 0
-        width: 32
-        height: 32
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,41 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 634664c5786b05e46942622894b97036
-      internalID: -1048211810
+      spriteID: 75e7f76af4acf8c4987d57ed6894dc0d
+      internalID: -1956602817
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Formiga_Attack_5
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: eb15208cb4e3ae345aaf94cae30bf642
-      internalID: -1561297406
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Formiga_Attack_6
+      name: FallDropVFX_3
       rect:
         serializedVersion: 2
         x: 192
         y: 0
-        width: 32
-        height: 32
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -250,41 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 66f80e548d38a7241a4b1525335add33
-      internalID: -1629559328
+      spriteID: 45e4a8c44501d9e49a876d8293bc2edf
+      internalID: 1334327452
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Formiga_Attack_7
-      rect:
-        serializedVersion: 2
-        x: 224
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4e05e43600ad08745acf306412fce0db
-      internalID: -1259391988
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Formiga_Attack_8
+      name: FallDropVFX_4
       rect:
         serializedVersion: 2
         x: 256
         y: 0
-        width: 32
-        height: 32
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -292,41 +208,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2cbc12209f9ab0d4a9f238d2c8061e82
-      internalID: 1650309429
+      spriteID: 8457d2db354f0bb4ca2fd48712582d25
+      internalID: -2121521194
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Formiga_Attack_9
-      rect:
-        serializedVersion: 2
-        x: 288
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cccaa4e86a51ae54d93b92da9f26ecaa
-      internalID: 476518682
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Formiga_Attack_10
+      name: FallDropVFX_5
       rect:
         serializedVersion: 2
         x: 320
         y: 0
-        width: 32
-        height: 32
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -334,8 +229,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 540d8ca0ccf1f364a89e9e2770e25685
-      internalID: 202137472
+      spriteID: 578cb8bf9317db34ba6133a8f8b595b3
+      internalID: -1317550552
       vertices: []
       indices: 
       edges: []
@@ -351,17 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Formiga_Attack_0: 1571981657
-      Formiga_Attack_1: 310528138
-      Formiga_Attack_10: 202137472
-      Formiga_Attack_2: -1397051732
-      Formiga_Attack_3: 207046726
-      Formiga_Attack_4: -1048211810
-      Formiga_Attack_5: -1561297406
-      Formiga_Attack_6: -1629559328
-      Formiga_Attack_7: -1259391988
-      Formiga_Attack_8: 1650309429
-      Formiga_Attack_9: 476518682
+      FallDropVFX_0: -1727206072
+      FallDropVFX_1: 1895074370
+      FallDropVFX_2: -1956602817
+      FallDropVFX_3: 1334327452
+      FallDropVFX_4: -2121521194
+      FallDropVFX_5: -1317550552
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

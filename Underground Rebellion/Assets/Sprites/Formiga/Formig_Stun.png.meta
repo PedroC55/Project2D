@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9d00d94e16a894441b7d513d7d227e6c
+guid: 80e26f8d754fdac40a07f4818cd8cd66
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Formiga_Attack_0
+      name: Formig_Stun_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f35ab205a46e8f34a9bfe227a68788cc
-      internalID: 1571981657
+      spriteID: e4616da05fde61d4cbfdb74c45a70b16
+      internalID: -845746293
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Formiga_Attack_1
+      name: Formig_Stun_1
       rect:
         serializedVersion: 2
         x: 32
@@ -145,14 +145,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e1db8564dadb45b4a95354a8bb7d684f
-      internalID: 310528138
+      spriteID: cc1da19477572f246a700b27311229ce
+      internalID: 1511953382
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Formiga_Attack_2
+      name: Formig_Stun_2
       rect:
         serializedVersion: 2
         x: 64
@@ -166,14 +166,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 497d58a2d5ca98a478fb0c3d6b460a99
-      internalID: -1397051732
+      spriteID: f5899d28a9ab60546bf7cc5d85b6324d
+      internalID: -337381121
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Formiga_Attack_3
+      name: Formig_Stun_3
       rect:
         serializedVersion: 2
         x: 96
@@ -187,14 +187,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3a6a39ef825311c4ca3c954950d2d9d4
-      internalID: 207046726
+      spriteID: fea61bedcbfe6c142bb6d08e35e3d629
+      internalID: 247976958
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Formiga_Attack_4
+      name: Formig_Stun_4
       rect:
         serializedVersion: 2
         x: 128
@@ -208,14 +208,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 634664c5786b05e46942622894b97036
-      internalID: -1048211810
+      spriteID: ec0d4171c810401429d77c348409ea7a
+      internalID: -1014860312
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Formiga_Attack_5
+      name: Formig_Stun_5
       rect:
         serializedVersion: 2
         x: 160
@@ -229,113 +229,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eb15208cb4e3ae345aaf94cae30bf642
-      internalID: -1561297406
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Formiga_Attack_6
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 66f80e548d38a7241a4b1525335add33
-      internalID: -1629559328
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Formiga_Attack_7
-      rect:
-        serializedVersion: 2
-        x: 224
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4e05e43600ad08745acf306412fce0db
-      internalID: -1259391988
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Formiga_Attack_8
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2cbc12209f9ab0d4a9f238d2c8061e82
-      internalID: 1650309429
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Formiga_Attack_9
-      rect:
-        serializedVersion: 2
-        x: 288
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cccaa4e86a51ae54d93b92da9f26ecaa
-      internalID: 476518682
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Formiga_Attack_10
-      rect:
-        serializedVersion: 2
-        x: 320
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 540d8ca0ccf1f364a89e9e2770e25685
-      internalID: 202137472
+      spriteID: bbf5828256de1c64b8554bf339ab7a38
+      internalID: 959578774
       vertices: []
       indices: 
       edges: []
@@ -351,17 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Formiga_Attack_0: 1571981657
-      Formiga_Attack_1: 310528138
-      Formiga_Attack_10: 202137472
-      Formiga_Attack_2: -1397051732
-      Formiga_Attack_3: 207046726
-      Formiga_Attack_4: -1048211810
-      Formiga_Attack_5: -1561297406
-      Formiga_Attack_6: -1629559328
-      Formiga_Attack_7: -1259391988
-      Formiga_Attack_8: 1650309429
-      Formiga_Attack_9: 476518682
+      Formig_Stun_0: -845746293
+      Formig_Stun_1: 1511953382
+      Formig_Stun_2: -337381121
+      Formig_Stun_3: 247976958
+      Formig_Stun_4: -1014860312
+      Formig_Stun_5: 959578774
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

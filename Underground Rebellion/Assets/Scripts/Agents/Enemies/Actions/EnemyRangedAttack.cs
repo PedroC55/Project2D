@@ -7,9 +7,9 @@ public class EnemyRangedAttack : EnemyAction
 	public string AttackAnimatorTriggerName;
 
 	[SerializeField]
-	private float buildUpDelay = 0.5f;
+	private float buildUpDelay = 1f;
 	[SerializeField]
-	private float attackDuration = 1f;
+	private float attackDuration = 0.5f;
 	[SerializeField]
 	private float posAttackDelay = 2f;
 	[SerializeField]
@@ -77,10 +77,8 @@ public class EnemyRangedAttack : EnemyAction
 	{
 		GameObject projectile = Instantiate(projectilePrefab, shootPoint.position, transform.parent.rotation);
 
-		Vector2 direction = (player.position - projectile.transform.position).normalized;
-
 		projectile.GetComponent<Projectile>().SetShotter(enemyAI);
-		projectile.GetComponent<Projectile>().SetForce(direction * projectileForce);
+		projectile.GetComponent<Projectile>().SetForce(projectileForce, player);
 	}
 
 	private void OnDrawGizmosSelected()

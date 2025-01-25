@@ -138,6 +138,11 @@ public class EnemyAI : MonoBehaviour
 		return isDead;
 	}
 
+	public bool HasEnergy()
+	{
+		return enemyEnergy.HasEnergy();
+	}
+
 	public void EnemyDied()
 	{
 		//Ganha pontos por matar os inimigos, mas o ideal depois é ganhar ponto por limpar a sala

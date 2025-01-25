@@ -10,6 +10,7 @@ TagManager:
   - Slow Goo
   - Door
   - NPC
+  - Projectile
   layers:
   - Default
   - TransparentFX

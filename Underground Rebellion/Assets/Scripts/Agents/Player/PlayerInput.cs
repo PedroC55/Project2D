@@ -238,6 +238,21 @@ public class PlayerInput : MonoBehaviour
 					CanvasEvent.UpdateHealth(health);
 				}
 			}
+			else if (sender.CompareTag("Projectile"))
+			{
+				if (playerParrySystem.CheckParry(sender))
+				{
+					SoundManager.Instance.PlaySound(SoundType.PARRY);
+                    sender.GetComponent<Projectile>().RepelProjectile();
+				}
+				else
+				{
+                    sender.GetComponent<Projectile>().DestroyOnHit();
+					int health = agent.GetHit(damage, sender);
+					PlayHitVFX(sender);
+					CanvasEvent.UpdateHealth(health);
+				}
+			}
 		}
 	}
 
