@@ -17,7 +17,7 @@ public class RoomManager : MonoBehaviour
             virtualCam.SetActive(true);
 
             CanvasEvent.UpdateMap(roomId);
-            // LevelEvent.PlayerEnterRoom(collision.gameObject);
+            LevelEvent.PlayerEnterRoom(collision.gameObject, this.gameObject.transform.position);
 
         }
         else if (collision.CompareTag("Enemy") && !collision.isTrigger)
