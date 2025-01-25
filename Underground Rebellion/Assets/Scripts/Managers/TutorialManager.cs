@@ -19,7 +19,7 @@ public class TutorialManager : MonoBehaviour
     //Tutorial TextBox
     [SerializeField] private TextMeshProUGUI movement_tutorialText;
     [SerializeField] private TextMeshProUGUI jump_tutorialText;
-    [SerializeField] private TextMeshProUGUI parry1_tutorialText;
+    [SerializeField] private TextMeshProUGUI sneak_tutorialText;
     [SerializeField] private TextMeshProUGUI parry2_tutorialText;
 
     private void Awake()
@@ -42,7 +42,7 @@ public class TutorialManager : MonoBehaviour
         movement_rightIndex = 2;
         movement_tutorialText.text = string.Format("Hold '{0}' to walk to the left\n\nHold '{1}' to walk to the right", movement.bindings[movement_leftIndex].ToDisplayString(), movement.bindings[movement_rightIndex].ToDisplayString());
         jump_tutorialText.text = string.Format("'{0}' to jump", jump.bindings[bindingIndex].ToDisplayString());
-        parry1_tutorialText.text = string.Format("Press '{0}' to parry the enemy at the right time, to lower their energy\n\nOnce they have no energy left press '{1}' to attack", parry.bindings[bindingIndex].ToDisplayString(), attack.bindings[bindingIndex].ToDisplayString());
+		sneak_tutorialText.text = string.Format("Attack the enemies from behind to defeat them.\n\nPress '{0}' to attack.", attack.bindings[bindingIndex].ToDisplayString());
         parry2_tutorialText.text = string.Format("Press '{0}' to parry the enemy at the right time, to lower their energy\n\nProgress: 0 / 2 Parries", parry.bindings[bindingIndex].ToDisplayString());
 
     }
@@ -93,7 +93,7 @@ public class TutorialManager : MonoBehaviour
     {
         movement_tutorialText.text = string.Format("Hold '{0}' to walk to the left\n\nHold '{1}' to walk to the right", movement.bindings[movement_leftIndex].ToDisplayString(), movement.bindings[movement_rightIndex].ToDisplayString());
         jump_tutorialText.text = string.Format("'{0}' to jump", jump.bindings[bindingIndex].ToDisplayString());
-        parry1_tutorialText.text = string.Format("Press '{0}' to parry the enemy at the right time, to lower their energy\n\nOnce they have no energy left press '{1}' to attack", parry.bindings[bindingIndex].ToDisplayString(), attack.bindings[bindingIndex].ToDisplayString());
-        UpdateParryProgress(nParries);
+		sneak_tutorialText.text = string.Format("Attack the enemies from behind to defeat them.\n\nPress '{0}' to attack.", attack.bindings[bindingIndex].ToDisplayString());
+		UpdateParryProgress(nParries);
     }
 }

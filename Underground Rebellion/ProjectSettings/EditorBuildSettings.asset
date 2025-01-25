@@ -9,11 +9,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: 475ac051f39cc30418f25648dbd6dd22
   - enabled: 1
-    path: Assets/Scenes/Level Mathews.unity
-    guid: c3efae51466ad394abd6209c82439cf5
+    path: Assets/Scenes/Initial Cutscene.unity
+    guid: dca4878d67857f3459ac2a5ec524f78d
   - enabled: 1
-    path: Assets/Scenes/End Scene.unity
-    guid: 2785ef5dee84a9647b495d030441244e
+    path: Assets/Scenes/Level 1.unity
+    guid: a685bd13fc265de498c8d1ebd0049942
   - enabled: 1
     path: Assets/Scenes/Scoreboard.unity
     guid: 9bc4c138a16d013429920c5478503251

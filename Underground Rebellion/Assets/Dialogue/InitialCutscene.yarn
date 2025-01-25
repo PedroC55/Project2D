@@ -1,0 +1,27 @@
+﻿title: Fall
+---
+Rogerio: AAAH!
+Rogerio: HOW COULD THIS HAPPEND?
+<<show_cutscene CutsceneView 1>>
+<<wait  6>>
+<<hide_cutscene CutsceneView>>
+<<wait 2.5>>
+Rogerio: THEY PUSHED ME INTO THIS SEWER HOLE!
+Rogerio: NOW I'M GOING TO DIE IN THIS FILTHY PLACE!
+Rogerio: I'M ROGERIO ROSS ROGERS ROWAN THE THIRD! 
+Rogerio: I CAN'T DIE LIKE THIS!
+Rogerio: HEEEEEEEEEELP!
+<<start_fall>>
+===
+
+title: HitGround
+---
+<<change_portrait_side right>>
+Talia: AAAH!
+Talia: What was that? Someone fell from UpperCity!
+Talia: It's an intruder! They're invading UnderCity!
+Talia: I need to tell my mama about this!
+<<move_to Talia Right>>
+<<wait  1>>
+<<change_scene Level_1>>
+===

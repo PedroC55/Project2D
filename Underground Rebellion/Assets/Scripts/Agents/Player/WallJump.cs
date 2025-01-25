@@ -16,18 +16,23 @@ public class WallJump : MonoBehaviour
     {
         player = GetComponent<PlayerInput>();
         agent = GetComponent<Agent>();
-    }
 
-    public void PerformWallJump()
+
+		wallJumpDuration = 0.5f;
+	    wallJumpForce = new Vector2(-10f, 14f);
+	    stop_movement_durantion = 0.35f;
+	    walljumpPower = 10f;
+}
+
+    public void PerformWallJump(Vector2 wallDirection)
     {
-        if (player.movementInput.x > 0)
+        if (wallDirection == Vector2.right)
         {
             agent.WallJump(wallJumpForce);
         }
-        else if (player.movementInput.x < 0)
+        else if (wallDirection == Vector2.left)
         {
             agent.WallJump(new Vector2(-wallJumpForce.x, wallJumpForce.y));
-
         }
 
         StartCoroutine(StopMovement());

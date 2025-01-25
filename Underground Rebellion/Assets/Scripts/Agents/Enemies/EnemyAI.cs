@@ -121,13 +121,12 @@ public class EnemyAI : MonoBehaviour
 
 	public void GetHit(int damage, GameObject sender, GameObject receiver)
 	{
-		if (sender.CompareTag("Player") && receiver.GetInstanceID() == gameObject.GetInstanceID() && !enemyEnergy.HasEnergy())
+		if (sender.CompareTag("Player") && receiver.GetInstanceID() == gameObject.GetInstanceID() 
+			&& (!enemyEnergy.HasEnergy() || lineOfSight.player == null))
 		{
 			agent.GetHit(damage, sender);
-		} else if (sender.CompareTag("Player") && receiver.GetInstanceID() == gameObject.GetInstanceID() && lineOfSight.player == null)
-        {
-			agent.GetHit(damage, sender);
 		}
+
 		if (sender.CompareTag("Player") && receiver.GetInstanceID() == gameObject.GetInstanceID() && enemyEnergy.HasEnergy())
         {
 			SoundManager.Instance.PlaySound(SoundType.HIT_DENIED);
@@ -209,7 +208,10 @@ public class EnemyAI : MonoBehaviour
 	public bool IsGamePaused()
 	{
 		if (PauseMenuManager.isPaused || MapManager.isMapActive || DialogueManager.Instance.IsDialogueRunning())
+		{
+			agent.MovementInput = Vector2.zero;
 			return true;
+		}
 
 		return false;
 	}

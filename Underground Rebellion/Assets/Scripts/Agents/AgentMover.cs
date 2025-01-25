@@ -41,7 +41,7 @@ public class AgentMover : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		if (isDead || isDashing || isWallJumping)
+		if (isDead || isDashing || isWallJumping || rb2d.bodyType == RigidbodyType2D.Static)
 		{
 			return;
 		}
