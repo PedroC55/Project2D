@@ -1281,7 +1281,7 @@ Transform:
   - {fileID: 4165647557468723420}
   - {fileID: 8289925976040830383}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!50 &2166942452982194131
 Rigidbody2D:
@@ -1439,7 +1439,6 @@ MonoBehaviour:
         m_CallState: 2
   startDirection: 1
   contactHitDamage: 1
-  roomID: 0
 --- !u!114 &5642562018809887985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1475,21 +1474,9 @@ MonoBehaviour:
   OnDeathWithReference:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6290656460858032469}
-        m_TargetAssemblyTypeName: UnityEngine.MonoBehaviour, UnityEngine
-        m_MethodName: CancelInvoke
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8219312638218287230}
-        m_TargetAssemblyTypeName: UnityEngine.MonoBehaviour, UnityEngine
-        m_MethodName: CancelInvoke
+      - m_Target: {fileID: 3958477222808037032}
+        m_TargetAssemblyTypeName: EnemyAI, Assembly-CSharp
+        m_MethodName: EnemyDied
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
