@@ -45,6 +45,6 @@ public class PlayerCutscene : MonoBehaviour
 		CameraManager.Instance.ShakeCamera(1f);
 		EffectsManager.Instance.PlayOneShot(falldropVFX, transform.position, direction);
 
-		SoundManager.Instance.PlaySound(SoundType.DAMAGE);
+		SoundManager.Instance.PlaySound(SoundType.SPLASH);
 	}
 }
