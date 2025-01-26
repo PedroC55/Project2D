@@ -10364,17 +10364,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &588924129 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3980132299998094347, guid: 2bbee86d04e5d504184a9369567d6671, type: 3}
-  m_PrefabInstance: {fileID: 308402872}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &588924130 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8348641699354034396, guid: 2bbee86d04e5d504184a9369567d6671, type: 3}
   m_PrefabInstance: {fileID: 308402872}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 588924129}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4fb18f93c0ad52b49ae8ab54586f9441, type: 3}
@@ -28909,7 +28904,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputActions: {fileID: -944628639613478452, guid: 08a94d735aa936f40a9b42a3afc4c6bd, type: 3}
-  enemy: {fileID: 588924129}
+  enemy: {fileID: 588924130}
   movement_tutorialText: {fileID: 1622004205}
   jump_tutorialText: {fileID: 1323442123}
   sneak_tutorialText: {fileID: 1101439640}

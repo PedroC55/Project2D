@@ -14,7 +14,7 @@ public class TutorialManager : MonoBehaviour
     private int bindingIndex;
     private int movement_leftIndex, movement_rightIndex;
 
-    public GameObject enemy;
+    public EnemyAI enemy;
 
     //Tutorial TextBox
     [SerializeField] private TextMeshProUGUI movement_tutorialText;
@@ -58,7 +58,7 @@ public class TutorialManager : MonoBehaviour
 
     private void Update()
     {
-        if (enemy != null && !enemy.activeSelf)
+        if (enemy != null && enemy.IsDead())
         {
             ShowMapTutorial();
         }

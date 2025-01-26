@@ -283,6 +283,7 @@ title: Secret_1
 ---
 <<change_portrait_side right>>
 Talia: Oh hi! You found a secret room. Here you can test a new power.
+Talia: Try if you can dash or walljump. Press "LSHIFT" to dash or try to jump using a wall.
 
 <<change_portrait_side left>>
 Rogerio: ??? Why are you breaking the fourth wall?
@@ -299,6 +300,7 @@ title: Secret_2
 ---
 <<change_portrait_side right>>
 Talia: Oh hi! You find a secret room.
+Talia: Try if you can dash or walljump. Press "LSHIFT" to dash or try to jump using a wall.
 
 <<change_portrait_side left>>
 Rogerio: That again? Why are you talking like I'm in a game?
