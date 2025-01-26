@@ -35,13 +35,11 @@ public class ParallaxEffect : MonoBehaviour
         if (roomPosAtual.y < roomPosition.y)
         {
             float newoffset = this.gameObject.transform.localPosition.y - parallaxEffectChangingRoomLevel;
-            Debug.Log("Subiu para:" + newoffset);
             this.gameObject.transform.localPosition = new Vector3(this.gameObject.transform.localPosition.x, newoffset, 10);
         }
         else if (roomPosAtual.y > roomPosition.y)
         {
             float newoffset = this.gameObject.transform.localPosition.y + parallaxEffectChangingRoomLevel;
-            Debug.Log("Desceu para:" + newoffset);
             this.gameObject.transform.localPosition = new Vector3(this.gameObject.transform.localPosition.x, newoffset, 10);
         }
 
