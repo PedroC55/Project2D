@@ -23,7 +23,8 @@ public enum SoundType
     SURVIVOR,
     SPIKE,
     HOVER,
-    SELECT
+    SELECT,
+    SPLASH
 }
 
 [RequireComponent(typeof(AudioSource))]
