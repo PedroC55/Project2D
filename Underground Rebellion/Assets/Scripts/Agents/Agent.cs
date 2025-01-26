@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -84,7 +85,6 @@ public class Agent : MonoBehaviour
 
 	public void ResetAgent(bool isPlayer)
 	{
-		agentAnimations.ResetAnimation();
 		agentMover.Reset();
 		if (health != null)
 			health.ResetHealth();
@@ -93,9 +93,17 @@ public class Agent : MonoBehaviour
 			CanvasEvent.UpdateHealth(health.GetMaxHealth());
 	}
 
+	public void RespawnAgent()
+	{
+		agentAnimations.RespawnAnimation();
+		agentMover.Reset();
+		if (health != null)
+			health.ResetHealth();
+	}
+
 	public void Recovered()
 	{
-		agentAnimations.ResetAnimation();
+		agentAnimations.IdleAnimation();
 	}
 
 	public void Stunned()

@@ -9,7 +9,7 @@ public class AgentAnimations : MonoBehaviour
 {
 	private Animator animator;
 
-	private enum MovementState { idle, running, jumping, falling }
+	private enum MovementState { idle, running, jumping, falling, stun }
 
 	private void Awake()
 	{
@@ -79,7 +79,7 @@ public class AgentAnimations : MonoBehaviour
 
 	public void StunAnimation()
 	{
-		animator.SetTrigger("stun");
+		animator.SetInteger("state", (int)MovementState.stun);
 	}
 
 	public void ParryAnimation()
@@ -92,9 +92,9 @@ public class AgentAnimations : MonoBehaviour
 		animator.SetTrigger("attack");
 	}
 
-	public void ResetAnimation()
+	public void RespawnAnimation()
 	{
-		animator.SetTrigger("reset");
+		animator.SetTrigger("respawn");
 	}
 
 	//public void RestartLevel()

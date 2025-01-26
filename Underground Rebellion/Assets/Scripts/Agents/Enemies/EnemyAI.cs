@@ -201,7 +201,7 @@ public class EnemyAI : MonoBehaviour
 
 	public void RespawnEnemy()
 	{
-		agent.ResetAgent(false);
+		agent.RespawnAgent();
 
 		isDead = false;
 
