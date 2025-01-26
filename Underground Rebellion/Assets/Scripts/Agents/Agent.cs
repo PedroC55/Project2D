@@ -19,6 +19,8 @@ public class Agent : MonoBehaviour
 	private Vector2 movementInput;
 	public Vector2 MovementInput { get => movementInput; set => movementInput = value; }
 
+	private bool isStunned = false;
+
 	private void Awake()
 	{
 		rb2d = GetComponent<Rigidbody2D>();
@@ -73,6 +75,7 @@ public class Agent : MonoBehaviour
 
 	public void Died()
 	{
+		isStunned = false;
 		agentMover.AgentDied();
 		agentAnimations.DeathAnimation();
 	}
@@ -103,12 +106,12 @@ public class Agent : MonoBehaviour
 
 	public void Recovered()
 	{
-		agentAnimations.IdleAnimation();
+		isStunned = false;
 	}
 
 	public void Stunned()
 	{
-		agentAnimations.StunAnimation();
+		isStunned = true;
 	}
 
 	public void SlowMovement(int slowPercentage)
@@ -142,11 +145,6 @@ public class Agent : MonoBehaviour
 		agentAnimations.AttackAnimation();
 	}
 
-	public void StunAnimation()
-	{
-		agentAnimations.StunAnimation();
-	}
-
 	public float GetCurrentSpeed()
 	{
 		return agentMover.GetCurrentSpeed();
@@ -154,7 +152,11 @@ public class Agent : MonoBehaviour
 
 	private void AnimateCharacter()
 	{
-		if (movementInput.x > 0 || movementInput.x < 0)
+		if (isStunned)
+		{
+			agentAnimations.StunAnimation();
+		}
+		else if (movementInput.x > 0 || movementInput.x < 0)
 		{
 			agentAnimations.WalkingAnimation(movementInput);
 		}

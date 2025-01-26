@@ -10,7 +10,7 @@ public class AgentAnimations : MonoBehaviour
 	private Animator animator;
 
 	private enum MovementState { idle, running, jumping, falling, stun }
-
+	private MovementState movementState;
 	private void Awake()
 	{
 		animator = GetComponent<Animator>();
