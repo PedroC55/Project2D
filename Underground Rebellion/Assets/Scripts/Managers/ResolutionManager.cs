@@ -10,16 +10,17 @@ public class ResolutionManager : MonoBehaviour
     private Resolution[] resolutions;
     private List<Resolution> filteredresolutions;
 
-    private float currentRefreshRate;
+    private double currentRefreshRate;
     private int currentResolutionIndex = 0;
     // Start is called before the first frame update
     void Start()
     {
+        
         resolutions = Screen.resolutions;
         filteredresolutions = new List<Resolution>();
 
         resolutionDropdown.ClearOptions();
-        currentRefreshRate = (float)Screen.currentResolution.refreshRateRatio.value;
+        currentRefreshRate = Screen.currentResolution.refreshRateRatio.value;
 
         for (int i = 0; i < resolutions.Length; i++)
         {
@@ -39,7 +40,6 @@ public class ResolutionManager : MonoBehaviour
                 currentResolutionIndex = i;
             }
         }
-
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();

@@ -7,7 +7,19 @@ public class MainMenu : MonoBehaviour
 {
     public void PlayGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        if (SettingsManager.Instance.SkipDialogues)
+        {
+			SceneManager.LoadScene("Level 1");
+        }
+        else
+        {
+			SceneManager.LoadScene("Initial Cutscene");
+		}
+    }
+
+    public void Credits()
+    {
+        SceneManager.LoadScene("End Scene");
     }
 
     public void QuitGame()

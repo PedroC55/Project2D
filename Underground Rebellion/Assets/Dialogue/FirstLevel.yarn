@@ -1,14 +1,314 @@
-﻿title: Start
+﻿title: Room1
 ---
 <<set_position Talia Room1_1>>
+<<face_direction Talia Right>>
+<<change_portrait_side right>>
+Talia: I'm really far from my house. I need to go back up.
+<<change_portrait_side left>>
+Rogerio: ??? My head hurts so much.
 <<face_direction Talia Left>>
-<<change_portrait_side>>
-Talia: Who are you? You're lucky to be alive after that fall.
-<<change_portrait_side>>
-Rogerio: ???
-<<change_portrait_side>>
-Talia: Please don't hurt me.
+<<change_portrait_side right>>
+Talia: AAAH!
+Talia: How are you alive after that fall?
+Talia: Please don't hurt me!
 
 <<move_to Talia Room2_1>>
+<<change_portrait_side left>>
 Rogerio: Who am I? What is this place?
+Rogerio: Did I felt from there? I can't remember anything.
+Rogerio: I need to find answers. That girl might help me.
+<<set_position Talia Room2_2>>
+===
+
+title: Room2
+---
+<<change_portrait_side left>>
+Rogerio: Oh, Hey! Wait! I want to talk to you!
+
+<<face_direction Talia Left>>
+<<change_portrait_side right>>
+Talia: Stop chasing me! Leave me alone!
+
+<<change_portrait_side left>>
+Rogerio: I'm deeply sorry, I'm not chasing you. I just don't know what's happening.
+Rogerio: Can you please help me? Where am I?
+
+<<change_portrait_side right>>
+Talia: I'm not falling for your tricks!
+Talia: All you do is lying to us! Mama told me to never believe in you!
+
+<<change_portrait_side left>>
+Rogerio: I've never lied to you. I don't know who you are.
+Rogerio: I don't even know who I'm! Please! I've lost my memories.
+<<move_to Talia Room3_1>>
+<<wait 1>>
+Rogerio: Wait!
+<<set_position Talia Room3_2>>
+===
+
+title: Room3_1
+---
+<<face_direction Talia Left>>
+<<change_portrait_side right>>
+Talia: AAAH! A Big Worm! Get away!
+
+<<change_portrait_side left>>
+Rogerio: What is that? That little girl needs help!
+Rogerio: What can I do? I just have this stick with me.
+Rogerio: I'm going to try and attack it from behind.
+===
+
+title: Room3_2
+---
+<<change_portrait_side left>>
+Rogerio: Are you okay? Did it hurt you?
+
+<<change_portrait_side right>>
+Talia: I'm fine, thank you...
+Talia: Why did you helped me? Aren't you the bad guy?
+
+<<change_portrait_side left>>
+Rogerio: Bad guy? I could never hurt a child.
+Rogerio: Anyway, what was that thing?
+
+<<change_portrait_side right>>
+Talia: The Big Worm? 
+Talia: It's a common wild animal around here, but you should know that.
+Talia: How don't you know that? Aren't you from the surface?
+
+<<change_portrait_side left>>
+Rogerio: Am I? I don't know. I told you I've lost my memories.
+Rogerio: What is this place?...
+
+<<change_portrait_side right>>
+Talia: Oh... okay.
+Talia: You're in the UnderCity. It's the place where I live.
+Talia: Well, not exactly here. We are now in the Trash Pit.
+
+<<change_portrait_side left>>
+Rogerio: Trash Pit...
+
+<<change_portrait_side right>>
+Talia: Yes, the Trash Pit. It's a place where all the surface city's trash falls.
+Talia: It's a dangerous place.
+
+<<change_portrait_side left>>
+Rogerio: Why do you live here?
+
+<<change_portrait_side right>>
+Talia: WE DONT!
+Talia: We had some villages here...
+Talia: But now it's empty because of all this trash and the wild animals.
+
+<<change_portrait_side left>>
+Rogerio: I'm sorry. I didn't know.
+
+<<change_portrait_side right>>
+Talia: Yes, you did! You're lying again!
+Talia: You did this to us!
+
+<<change_portrait_side left>>
+Rogerio: No... That's not true. I could never do that.
+Rogerio: I'm sorry, listen to me. I'm not lying to you.
+Rogerio: I don't know who I am. I don't know what happened.
+Rogerio: But seeing this place, I can't believe I would do something like that.
+Rogerio: But one thing I know for sure is that I want to help you.
+Rogerio: What's your name?
+
+<<change_portrait_side right>>
+Talia: My name is Talia. How can I you help us?
+
+<<change_portrait_side left>>
+Rogerio: Nice to meet you, Talia. 
+Rogerio: Well... You said that I'm from the surface, right?
+Rogerio: I must have a family, friends, connections up there.
+Rogerio: Maybe if I go back up, I can find out who I am and find help for you.
+Rogerio: But how do I do that?...
+
+<<change_portrait_side right>>
+Talia: Okay... I'm going to believe in you...
+Talia: UnderCity is made of seven different zones.
+Talia: We are now in the Trash Pit, the seventh and lowest zone.
+Talia: Each zone has an elevator that takes you to one zone above.
+Talia: That's the only way to go up.
+
+<<change_portrait_side left>>
+Rogerio: Okay... So where is the elevator?
+
+<<change_portrait_side right>>
+Talia: Let's go, I'll take you there.
+Talia: But first, you need to break this thing blocking the way.
+<<face_direction Talia Right>>
+===
+
+title: Room3_3
+---
+<<change_portrait_side left>>
+Talia: Okay! Let's go!
+<<move_to Talia Room4_1>>
+<<wait 2>>
+<<set_position Talia Room4_1>>
+===
+
+title: Room4_1
+---
+<<change_portrait_side right>>
+Talia: Watch out! There's a Big Worm here!
+Talia: The seventh zone is full of Big Worms, so pay attention to then.
+Talia: As you see back there, they are weak to sneak attacks.
+Talia: When you can try to be unseen and attack them from behind.
+
+<<change_portrait_side left>>
+Rogerio: Okay, I'll try, I don't feel much of a fighter...
+Rogerio: So I'll try to be sneaky.
+
+<<change_portrait_side right>>
+Talia: Okay, but if they see you, hide or try to tire them out.
+
+<<change_portrait_side left>>
+Rogerio: Tire them out? What do mean about that?
+
+<<change_portrait_side right>>
+Talia: The wild animals here are hungry, so they don't have a lot of energy.
+Talia: If you defend from their attacks, they will get tired.
+Talia: So you'll have a chance to attack and defeat them.
+
+<<change_portrait_side left>>
+Rogerio: I'm not confident about this, but I'll try my best.
+
+<<change_portrait_side right>>
+Talia: See that Big Worm ahead?
+Talia: If you get close enought, they will start chasing you.
+Talia: Use your stick and try to defend from their attacks.
+Talia: When you see that they are tired, attack them.
+Talia: I'll wait here.
+===
+
+title: Room4_2
+---
+<<change_portrait_side left>>
+Talia: Oh wow! You actually did it!
+Talia: If you follow this way you'll find the elevator.
+Talia: Just pay attention to not get lost.
+
+<<change_portrait_side right>>
+Rogerio: Oh, I found this papper and pencil under my jacket.
+Rogerio: I can make a map, so I won't get lost.
+
+<<change_portrait_side left>>
+Talia: Why do you care papper and pencil with you?
+Talia: Weirdo...
+Talia: Anyway, I'll see you at the elevator.
+<<move_to Talia Room4_2>>
+===
+
+title: Room13_1
+---
+<<change_portrait_side right>>
+Talia: Oh you arrived! I have good and bad news.
+
+<<change_portrait_side left>>
+Rogerio: ...really? What's the bad news?
+
+<<change_portrait_side right>>
+Talia: The elevator is broken. We can't go up.
+
+<<change_portrait_side left>>
+Rogerio: I'm doomed... And what's the good news?
+
+<<change_portrait_side right>>
+Talia: There is a way to fix it. 
+Talia: Each zone there are builders responsible for expanding.
+Talia: They come and go easily using the elevator.
+Talia: If we find one of them, they can fix the elevator for us.
+
+<<change_portrait_side left>>
+Rogerio: Okay, so let's go.
+
+<<change_portrait_side right>>
+Talia: Oh no, I'll stay here. It's more safe. Good luck!
+
+<<change_portrait_side left>>
+Rogerio: ...I'm doomed...
+===
+
+title: Room13_2
+---
+Talia: It's fixed! You did it! Let's go to the next zone!
+===
+
+title: Survivor
+---
+<<if visited("Survivor") is false>>
+    <<change_portrait_side left>>
+    Rogerio: Oh, hi! Are you the builder of this zone?
+
+    <<change_portrait_side right>>
+    Survivor: Huh? Can't see that I'm working? Go Away!
+    Survivor: Oh, sir, I'm sorry. I didn't want to disrespect someone from UpperCity.
+    Survivor: Please forgive me! Please, I'm just doing my work!
+
+    <<change_portrait_side left>>
+    Rogerio: Eh? Why are you crying? Please stop, I don't want to hurt you.
+    Rogerio: I just need your help. Can you fix the elevator for me?
+
+    <<change_portrait_side right>>
+    Survivor: Oh, of course, sir! I would do anything you ask!
+    Survivor: Actually is not broken, it just need to be rebooted.
+    Survivor: It almost always happens when someone uses it.
+    Survivor: Here, take this maintenance card, just use it and the elevator will reboot.
+
+    <<change_portrait_side left>>
+    Rogerio: Thank you so much! Have a good day.
+    <<enable_dialogue Room13_2>>
+<<else>>
+    <<change_portrait_side right>>
+    Survivor: Oh, hi sir, I already gave you the elevator maintenance card.
+
+    <<change_portrait_side left>>
+    Rogerio: Thank you!
+<<endif>>
+===
+
+title: Secret
+---
+<<if visited("Secret") is false>>
+    <<jump Secret_1>>
+<<else>>
+    <<jump Secret_2>>
+<<endif>>
+===
+
+title: Secret_1
+---
+<<change_portrait_side right>>
+Talia: Oh hi! You found a secret room. Here you can test a new power.
+Talia: Try if you can dash or walljump. Press "LSHIFT" to dash or try to jump using a wall.
+
+<<change_portrait_side left>>
+Rogerio: ??? Why are you breaking the fourth wall?
+
+<<change_portrait_side right>>
+Talia: I don't know what you are talking about.
+Talia: Anyway, try to get the secret at the end of this room, good luck.
+
+<<change_portrait_side left>>
+Rogerio: This little girl is weird...
+===
+
+title: Secret_2
+---
+<<change_portrait_side right>>
+Talia: Oh hi! You find a secret room.
+Talia: Try if you can dash or walljump. Press "LSHIFT" to dash or try to jump using a wall.
+
+<<change_portrait_side left>>
+Rogerio: That again? Why are you talking like I'm in a game?
+
+<<change_portrait_side right>>
+Talia: I don't know what you are talking about.
+Talia: Anyway, try to get the secret at the end of this room, good luck.
+
+<<change_portrait_side left>>
+Rogerio: ...
 ===

@@ -25,7 +25,7 @@ public class Secret : MonoBehaviour
 	{
 		secretInteraction = GetComponent<Interaction>();
 		boxCollider2D = GetComponent<BoxCollider2D>();
-		spriteRenderer = GetComponent<SpriteRenderer>();
+		spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
 		secretInteraction.OnInteraction += CollectSecret;
 

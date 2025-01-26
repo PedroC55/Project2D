@@ -41,6 +41,7 @@ public class PlayerInput : MonoBehaviour
     //Wall Jumping
     public Transform wallCheck;
     bool isWallToutch;
+    private Vector2 wallDirection;
     bool isSliding;
     public float wallSlidingSpeed;
 
@@ -48,7 +49,7 @@ public class PlayerInput : MonoBehaviour
     public bool attacking = false;
 
     //Dash
-    public bool canDash = true;
+    public bool canDash = false;
 
     private enum MovementState { idle, running, jumping, falling}
     public InputActionReference movement, jump, dash, attack;
@@ -92,55 +93,74 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (!PauseMenuManager.isPaused && !MapManager.isMapActive && !DialogueManager.Instance.IsDialogueRunning())
+        if (!canMove || PauseMenuManager.isPaused || MapManager.isMapActive || DialogueManager.Instance.IsDialogueRunning())
         {
-            if (!canMove)
-            {
+            agent.MovementInput = Vector2.zero;
+            return;
+        }
 
-                agent.MovementInput = Vector2.zero;
-                return;
-            }
+        lastJumpTime -= Time.deltaTime;
 
-            lastJumpTime -= Time.deltaTime;
+        lastGroundedTime = IsGrounded() ? jumpCoyoteTime : lastGroundedTime - Time.deltaTime;
 
-            lastGroundedTime = IsGrounded() ? jumpCoyoteTime : lastGroundedTime - Time.deltaTime;
+        Movement();
 
-            Movement();
+        if (jump.action.triggered)
+        {
+            lastJumpTime = jumpBufferTime;
+        }
 
-            if (jump.action.triggered)
-            {
-                lastJumpTime = jumpBufferTime;
-            }
+        Jump();
 
-            Jump();
+        if (attack.action.triggered && !attacking)
+        {
+            attackComp.Attack();
+            agent.AttackAnimation();
 
-            if (attack.action.triggered && !attacking)
-            {
-                attackComp.Attack();
-                agent.AttackAnimation();
+        }
+        if (attacking)
+        {
+            attackComp.ResetAttack();
+        }
 
-            }
-            if (attacking)
-            {
-                attackComp.ResetAttack();
-            }
+        if (dashComp && dash.action.triggered && canDash)
+        {
+            dashComp.StartDash();
+        }
 
-            if (dashComp && dash.action.triggered && canDash)
-            {
-                dashComp.StartDash();
-            }
-
-            if (wallJumpComp)
-            {
-                //Da pra mudar isso para um metodo igual a IsGrounded
-                //Al�m disso, da pra tirar o objecto filho "wallCheck" e fazer igual fazemos no metodo IsGrounded, onde faz um box cast na dire��o que o player estiver olhando
-                isWallToutch = Physics2D.OverlapBox(wallCheck.position, new Vector2(0.92f, 1.39f), 0, jumpableGround);
-                Slide();
-            }
+        if (wallJumpComp)
+        {
+			//Da pra mudar isso para um metodo igual a IsGrounded
+			//Al�m disso, da pra tirar o objecto filho "wallCheck" e fazer igual fazemos no metodo IsGrounded, onde faz um box cast na dire��o que o player estiver olhando
+			isWallToutch = Physics2D.OverlapBox(wallCheck.position, new Vector2(0.92f, 1.39f), 0, jumpableGround);
+            wallDirection = transform.localScale.x == 1 ? Vector2.right : Vector2.left;
+            Slide();
         }
     }
 
-    private void Movement()
+    public void AddDash()
+    {
+		dashComp = gameObject.AddComponent<Dash>();
+	}
+
+	public void RemoveDash()
+	{
+        Destroy(dashComp);
+		dashComp = null;
+	}
+
+	public void AddWallJump()
+	{
+		wallJumpComp = gameObject.AddComponent<WallJump>();
+	}
+
+	public void RemoveWallJump()
+	{
+		Destroy(wallJumpComp);
+		wallJumpComp = null;
+	}
+
+	private void Movement()
     {
 		movementInput = movement.action.ReadValue<Vector2>();
 		agent.MovementInput = movementInput;
@@ -165,7 +185,8 @@ public class PlayerInput : MonoBehaviour
 		}
         else if (wallJumpComp && isSliding && lastJumpTime > 0f)
         {
-            wallJumpComp.PerformWallJump();
+            wallJumpComp.PerformWallJump(wallDirection);
+            wallDirection = Vector2.zero;
             isSliding = false;
 			lastJumpTime = 0f;
 			SoundManager.Instance.PlaySound(SoundType.JUMP_1);
@@ -212,6 +233,21 @@ public class PlayerInput : MonoBehaviour
 				}
 				else
 				{
+					int health = agent.GetHit(damage, sender);
+					PlayHitVFX(sender);
+					CanvasEvent.UpdateHealth(health);
+				}
+			}
+			else if (sender.CompareTag("Projectile"))
+			{
+				if (playerParrySystem.CheckParry(sender))
+				{
+					SoundManager.Instance.PlaySound(SoundType.PARRY);
+                    sender.GetComponent<Projectile>().RepelProjectile();
+				}
+				else
+				{
+                    sender.GetComponent<Projectile>().DestroyOnHit();
 					int health = agent.GetHit(damage, sender);
 					PlayHitVFX(sender);
 					CanvasEvent.UpdateHealth(health);

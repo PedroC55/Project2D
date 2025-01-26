@@ -7,6 +7,7 @@ public class SettingsMenu : MonoBehaviour
     public Slider masterVolumeSlider;
     public Slider musicVolumeSlider;
     public Slider sfxVolumeSlider;
+    public Toggle disableDialogueToggle;
 
     private void Start()
     {
@@ -24,6 +25,7 @@ public class SettingsMenu : MonoBehaviour
         masterVolumeSlider.onValueChanged.AddListener(SetMasterVolume);
         musicVolumeSlider.onValueChanged.AddListener(SetMusicVolume);
         sfxVolumeSlider.onValueChanged.AddListener(SetSFXVolume);
+        disableDialogueToggle.onValueChanged.AddListener(SetDisableDialogue);
     }
 
     public void SetMasterVolume(float volume)
@@ -48,5 +50,10 @@ public class SettingsMenu : MonoBehaviour
         {
             SettingsManager.Instance.SFXVolume = volume;
         }
+    }
+
+    public void SetDisableDialogue(bool isOn)
+    {
+        SettingsManager.Instance.SkipDialogues = isOn;
     }
 }

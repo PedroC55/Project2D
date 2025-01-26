@@ -19,7 +19,6 @@ public class NPCController : MonoBehaviour
 	private Agent agent;
 	private Animator animator;
 	private Collider2D col2D;
-	private Rigidbody2D rb2D;
 
 	private Transform positionToMoveTo;
 
@@ -32,11 +31,6 @@ public class NPCController : MonoBehaviour
 
 		agent = GetComponent<Agent>();
 		col2D = GetComponent<Collider2D>();
-		rb2D = GetComponent<Rigidbody2D>();
-	}
-
-	void Start()
-	{
 		animator = GetComponentInChildren<Animator>();
 	}
 
@@ -82,6 +76,9 @@ public class NPCController : MonoBehaviour
 	[YarnCommand("set_position")]
 	public void SetPosition(string positionName)
 	{
+		positionToMoveTo = null;
+		agent.MovementInput = Vector2.zero;
+
 		agent.ResetAgent(false);
 		col2D.isTrigger = false;
 

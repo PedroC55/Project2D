@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -10,6 +11,8 @@ public class Projectile : MonoBehaviour
 	[SerializeField]
 	private int damage;
 	private Vector2 forceDirection = Vector2.zero;
+	private float projectileForce;
+	private bool repelling = false;
 
 	private void Start()
 	{
@@ -25,23 +28,44 @@ public class Projectile : MonoBehaviour
 		shooter = enemy;
 	}
 
-	public void SetForce(Vector2 force)
+	public void SetForce(float force, Transform target)
 	{
-		forceDirection = force;
+		projectileForce = force;
+		Vector2 direction = (target.position - transform.position).normalized;
+
+		forceDirection = direction * force;
+	}
+
+	public void RepelProjectile()
+	{
+		SetForce(projectileForce * 1.5f, shooter.transform);
+		repelling = true;
+	}
+
+	public void DestroyOnHit()
+	{
+		Destroy(gameObject);
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.gameObject.GetInstanceID() == shooter.gameObject.GetInstanceID())
+		if (!repelling && collision.gameObject.GetInstanceID() == shooter.gameObject.GetInstanceID())
 		{
 			return;
 		}
 
-		if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Enemy"))
+		if (collision.gameObject.CompareTag("Player"))
 		{
-			Debug.Log("Projetil deu dano");
-			//collision.gameObject.GetComponent<Health>().GetHit(damage, gameObject);
-			HitEvent.GetHit(damage, shooter.gameObject, collision.gameObject);
+			HitEvent.GetHit(damage, gameObject, collision.gameObject);
+			return;
+		}
+		else if(collision.gameObject.CompareTag("Enemy"))
+		{
+			EnemyAI enemy = collision.gameObject.GetComponent<EnemyAI>();
+			if (enemy.HasEnergy())
+				enemy.DecreaseEnergy(damage, enemy.gameObject);
+			else
+				HitEvent.GetHit(damage, gameObject, collision.gameObject);
 		}
 
 		Destroy(gameObject);

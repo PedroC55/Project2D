@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class SurvivorInteraction : MonoBehaviour
 {
-    private Animator animator;
-
 	private Interaction survivorInteraction;
+	private bool elevatorFixed = false;
 
 	private void OnDisable()
 	{
@@ -15,7 +14,6 @@ public class SurvivorInteraction : MonoBehaviour
 
 	private void Start()
 	{
-        animator = GetComponent<Animator>();
 		survivorInteraction = GetComponent<Interaction>();
 		survivorInteraction.OnInteraction += FixElevator;
 	}
@@ -23,11 +21,12 @@ public class SurvivorInteraction : MonoBehaviour
     private void FixElevator()
     {
 		SoundManager.Instance.PlaySound(SoundType.SURVIVOR);
-
-		LevelEvent.FixElevator();
-        animator.SetTrigger("Press");
-
-        //Destroy(gameObject, 1f);
-		gameObject.SetActive(false);
+		DialogueManager.Instance.StartNode("Survivor");
+		
+		if (!elevatorFixed)
+		{
+			LevelEvent.FixElevator();
+			elevatorFixed = true;
+		}
     }
 }
