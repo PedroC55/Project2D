@@ -1359,6 +1359,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 988956480ce15e04c8b11f0d13425eab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  woodenPiecePrefabs:
+  - {fileID: 29205591312193236, guid: 4876edaf917657940a9e8ec5d879c9a8, type: 3}
+  - {fileID: 4246461979263045823, guid: af596c8d8017c3f43be2482ee400f8b3, type: 3}
+  - {fileID: 947218076542079774, guid: ae77e3f48b974484e8d3e23865de1fd1, type: 3}
+  - {fileID: 4617286675180980064, guid: 054b54d7b627673458bec1fc85c2fe96, type: 3}
+  numberOfPieces: 4
+  spawnAreaSize: {x: 2, y: 2}
+  explosionForce: 5
 --- !u!61 &79398637
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6126,6 +6134,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 988956480ce15e04c8b11f0d13425eab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  woodenPiecePrefabs:
+  - {fileID: 29205591312193236, guid: 4876edaf917657940a9e8ec5d879c9a8, type: 3}
+  - {fileID: 4246461979263045823, guid: af596c8d8017c3f43be2482ee400f8b3, type: 3}
+  - {fileID: 947218076542079774, guid: ae77e3f48b974484e8d3e23865de1fd1, type: 3}
+  - {fileID: 4617286675180980064, guid: 054b54d7b627673458bec1fc85c2fe96, type: 3}
+  numberOfPieces: 4
+  spawnAreaSize: {x: 2, y: 2}
+  explosionForce: 5
 --- !u!61 &317182464
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10717,6 +10733,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 988956480ce15e04c8b11f0d13425eab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  woodenPiecePrefabs:
+  - {fileID: 29205591312193236, guid: 4876edaf917657940a9e8ec5d879c9a8, type: 3}
+  - {fileID: 4246461979263045823, guid: af596c8d8017c3f43be2482ee400f8b3, type: 3}
+  - {fileID: 947218076542079774, guid: ae77e3f48b974484e8d3e23865de1fd1, type: 3}
+  - {fileID: 4617286675180980064, guid: 054b54d7b627673458bec1fc85c2fe96, type: 3}
+  numberOfPieces: 4
+  spawnAreaSize: {x: 2, y: 2}
+  explosionForce: 5
 --- !u!61 &606032956
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -24320,6 +24344,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 988956480ce15e04c8b11f0d13425eab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  woodenPiecePrefabs:
+  - {fileID: 29205591312193236, guid: 4876edaf917657940a9e8ec5d879c9a8, type: 3}
+  - {fileID: 4246461979263045823, guid: af596c8d8017c3f43be2482ee400f8b3, type: 3}
+  - {fileID: 947218076542079774, guid: ae77e3f48b974484e8d3e23865de1fd1, type: 3}
+  - {fileID: 4617286675180980064, guid: 054b54d7b627673458bec1fc85c2fe96, type: 3}
+  numberOfPieces: 4
+  spawnAreaSize: {x: 2, y: 2}
+  explosionForce: 5
 --- !u!61 &1433189315
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -35389,6 +35421,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 988956480ce15e04c8b11f0d13425eab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  woodenPiecePrefabs:
+  - {fileID: 29205591312193236, guid: 4876edaf917657940a9e8ec5d879c9a8, type: 3}
+  - {fileID: 4246461979263045823, guid: af596c8d8017c3f43be2482ee400f8b3, type: 3}
+  - {fileID: 947218076542079774, guid: ae77e3f48b974484e8d3e23865de1fd1, type: 3}
+  - {fileID: 4617286675180980064, guid: 054b54d7b627673458bec1fc85c2fe96, type: 3}
+  numberOfPieces: 4
+  spawnAreaSize: {x: 2, y: 2}
+  explosionForce: 5
 --- !u!61 &2098593423
 BoxCollider2D:
   m_ObjectHideFlags: 0
