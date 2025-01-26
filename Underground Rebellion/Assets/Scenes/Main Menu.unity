@@ -917,8 +917,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 9
+  m_fontSizeBase: 9
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2273,9 +2273,6 @@ MonoBehaviour:
   attackbindingDisplayText: {fileID: 88724176}
   attackrebindButton: {fileID: 693398650}
   attackrebindPromptText: {fileID: 634673652}
-  interactbindingDisplayText: {fileID: 1682513666}
-  interactrebindButton: {fileID: 1850717724}
-  interactrebindPromptText: {fileID: 1085018678}
   movement_rightbindingDisplayText: {fileID: 988098012}
   movement_rightrebindButton: {fileID: 1201668242}
   movement_rightrebindPromptText: {fileID: 1785140964}
