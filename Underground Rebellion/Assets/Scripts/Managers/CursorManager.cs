@@ -13,8 +13,8 @@ public class CursorManager : MonoBehaviour
 	// Atualiza o estado do cursor com base no estado do jogo
 	private void UpdateCursorState(Scene currentScene)
 	{
-		if (PauseMenuManager.isPaused || currentScene.name == "Main Menu"
-			|| currentScene.name == "Scoreboard" || DialogueManager.Instance.IsDialogueRunning())
+		if (PauseMenuManager.isPaused || currentScene.name == "Main Menu" 
+			|| currentScene.name == "Scoreboard" || currentScene.name == "End Scene" || DialogueManager.Instance.IsDialogueRunning())
 		{
 			Cursor.visible = true; // Mostra o cursor
 			Cursor.lockState = CursorLockMode.None; // Permite o cursor se mover livremente
