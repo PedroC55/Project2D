@@ -30,10 +30,10 @@ public class KeyRebinder : MonoBehaviour
     public Button attackrebindButton;          // Button to trigger rebinding
     public TMP_Text attackrebindPromptText;    // Prompt text for rebinding
 
-    [Header("Interact")]
-    public TMP_Text interactbindingDisplayText;   // Text to display the current binding
-    public Button interactrebindButton;          // Button to trigger rebinding
-    public TMP_Text interactrebindPromptText;    // Prompt text for rebinding
+    //[Header("Interact")]
+    //public TMP_Text interactbindingDisplayText;   // Text to display the current binding
+    //public Button interactrebindButton;          // Button to trigger rebinding
+    //public TMP_Text interactrebindPromptText;    // Prompt text for rebinding
 
     [Header("Movement Right")]
     public TMP_Text movement_rightbindingDisplayText;   // Text to display the current binding
@@ -60,7 +60,7 @@ public class KeyRebinder : MonoBehaviour
         dash = inputActions.FindAction("Dash"); // Replace with your action name
         parry = inputActions.FindAction("Parry"); // Replace with your action name
         attack = inputActions.FindAction("Attack"); // Replace with your action name
-        interact = inputActions.FindAction("Interact"); // Replace with your action name
+        //interact = inputActions.FindAction("Interact"); // Replace with your action name
         movement = inputActions.FindAction("Movement");
         bindingIndex = 0; // Typically 0 unless you have multiple bindings for the same action
         movement_leftIndex = 1;
@@ -71,7 +71,7 @@ public class KeyRebinder : MonoBehaviour
         dashrebindButton.onClick.AddListener(StartRebindingDash);
         parryrebindButton.onClick.AddListener(StartRebindingParry);
         attackrebindButton.onClick.AddListener(StartRebindingAttack);
-        interactrebindButton.onClick.AddListener(StartRebindingInteract);
+        //interactrebindButton.onClick.AddListener(StartRebindingInteract);
         movement_rightrebindButton.onClick.AddListener(StartRebindingMovementRight);
         movement_leftrebindButton.onClick.AddListener(StartRebindingMovementLeft);
     }
@@ -98,11 +98,11 @@ public class KeyRebinder : MonoBehaviour
             string bindingName = attack.bindings[bindingIndex].ToDisplayString();
             attackbindingDisplayText.text = $"Attack Key: {bindingName}";
         }
-        if (interact != null)
-        {
-            string bindingName = interact.bindings[bindingIndex].ToDisplayString();
-            interactbindingDisplayText.text = $"Interact Key: {bindingName}";
-        }
+        //if (interact != null)
+        //{
+        //    string bindingName = interact.bindings[bindingIndex].ToDisplayString();
+        //    interactbindingDisplayText.text = $"Interact Key: {bindingName}";
+        //}
         if (movement != null)
         {
             string bindingName = movement.bindings[movement_leftIndex].ToDisplayString();
@@ -336,61 +336,61 @@ public class KeyRebinder : MonoBehaviour
 			})
             .Start();
     }
-    private void StartRebindingInteract()
-    {
-        if (interact == null && rebinding)
-            return;
-
-        rebinding = true;
-
-        interactrebindPromptText.text = "Press any key...";
-        interactbindingDisplayText.gameObject.SetActive(false);
-		errorPrompt.gameObject.SetActive(false);
-        interactrebindPromptText.gameObject.SetActive(true);
-
-        interact.Disable();
-
-        interact.PerformInteractiveRebinding(bindingIndex)
-            .OnMatchWaitForAnother(0.1f)
-			.WithCancelingThrough("<Keyboard>/escape")
-            .OnPotentialMatch((context) =>
-            {
-                var newPath = context.candidates[bindingIndex].path;
-                if (IsKeyConflict(newPath))
-                {
-                    // Conflict detected
-                    context.Cancel();
-                    errorPrompt.text = $"Key '{InputControlPath.ToHumanReadableString(newPath)}' is already in use!";
-                    errorPrompt.gameObject.SetActive(true);
-                    interactrebindPromptText.gameObject.SetActive(false);
-                    interactbindingDisplayText.gameObject.SetActive(true);
-                }
-                else
-                {
-                    errorPrompt.gameObject.SetActive(false);
-                }
-            })
-            .OnComplete(operation =>
-            {
-                interact.Enable();
-                operation.Dispose();
-                interactrebindPromptText.gameObject.SetActive(false);
-                interactbindingDisplayText.gameObject.SetActive(true);
-                UpdateBindingDisplay();
-                SettingsEvent.Rebind(interact);
-                rebinding = false;
-
-			})
-            .OnCancel(operation =>
-            {
-                operation.Dispose();
-                interactrebindPromptText.gameObject.SetActive(false);
-                interactbindingDisplayText.gameObject.SetActive(true);
-                UpdateBindingDisplay();
-				rebinding = false;
-			})
-            .Start();
-    }
+    //private void StartRebindingInteract()
+    //{
+    //    if (interact == null && rebinding)
+    //        return;
+    //
+    //    rebinding = true;
+    //
+    //    interactrebindPromptText.text = "Press any key...";
+    //    interactbindingDisplayText.gameObject.SetActive(false);
+	//	errorPrompt.gameObject.SetActive(false);
+    //    interactrebindPromptText.gameObject.SetActive(true);
+    //
+    //    interact.Disable();
+    //
+    //    interact.PerformInteractiveRebinding(bindingIndex)
+    //        .OnMatchWaitForAnother(0.1f)
+	//		.WithCancelingThrough("<Keyboard>/escape")
+    //        .OnPotentialMatch((context) =>
+    //        {
+    //            var newPath = context.candidates[bindingIndex].path;
+    //            if (IsKeyConflict(newPath))
+    //            {
+    //                // Conflict detected
+    //                context.Cancel();
+    //                errorPrompt.text = $"Key '{InputControlPath.ToHumanReadableString(newPath)}' is already in use!";
+    //                errorPrompt.gameObject.SetActive(true);
+    //                interactrebindPromptText.gameObject.SetActive(false);
+    //                interactbindingDisplayText.gameObject.SetActive(true);
+    //            }
+    //            else
+    //            {
+    //                errorPrompt.gameObject.SetActive(false);
+    //            }
+    //        })
+    //        .OnComplete(operation =>
+    //        {
+    //            interact.Enable();
+    //            operation.Dispose();
+    //            interactrebindPromptText.gameObject.SetActive(false);
+    //            interactbindingDisplayText.gameObject.SetActive(true);
+    //            UpdateBindingDisplay();
+    //            SettingsEvent.Rebind(interact);
+    //            rebinding = false;
+    //
+	//		})
+    //        .OnCancel(operation =>
+    //        {
+    //            operation.Dispose();
+    //            interactrebindPromptText.gameObject.SetActive(false);
+    //            interactbindingDisplayText.gameObject.SetActive(true);
+    //            UpdateBindingDisplay();
+	//			rebinding = false;
+	//		})
+    //        .Start();
+    //}
 
     private void StartRebindingMovementLeft()
     {
