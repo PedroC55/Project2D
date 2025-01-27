@@ -6,8 +6,6 @@ using UnityEngine.InputSystem;
 public class Elevator : MonoBehaviour
 {
 	[SerializeField]
-	private GameObject canvas;
-	[SerializeField]
 	private Sprite fixedElevatorSprite;
 
 	private Interaction elevatorInteraction;
@@ -34,7 +32,6 @@ public class Elevator : MonoBehaviour
 		GetComponent<SpriteRenderer>().sprite = fixedElevatorSprite;
 		GetComponent<Interaction>().enabled = true;
 		GetComponent<BoxCollider2D>().enabled = true;
-		canvas.SetActive(false);
 	}
 
 	public void UseElevator()

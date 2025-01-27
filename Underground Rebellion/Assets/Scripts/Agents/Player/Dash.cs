@@ -11,16 +11,24 @@ public class Dash : MonoBehaviour
     private readonly float dashingPowerY = 17f;
     private readonly float dashingTime = 0.2f;
     private readonly float dashingCooldown = 1f;
-    [SerializeField] TrailRenderer trailRenderer;
+    private TrailRenderer trailRenderer;
+    private float originalGravity;
 
-    void Start()
+    void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
         agent = GetComponent<Agent>();
         player = GetComponent<PlayerInput>();
-    }
+		trailRenderer = GetComponent<TrailRenderer>();
+	}
 
-    public void StartDash()
+	private void Start()
+	{
+        originalGravity = rb2d.gravityScale;
+		player.canDash = true;
+	}
+
+	public void StartDash()
     {
         StartCoroutine(ExecuteDash());
     }
@@ -33,15 +41,14 @@ public class Dash : MonoBehaviour
         }
         player.canDash = false;
         agent.IsExecutingDash();
-        float originalGravity = rb2d.gravityScale;
 		rb2d.gravityScale = 0f;
         agent.Dash(dashingPowerX, dashingPowerY, player.movementInput);
-        trailRenderer.enabled = true;
-        trailRenderer.emitting = true;
-        yield return new WaitForSeconds(dashingTime);
-        trailRenderer.emitting = false;
-        trailRenderer.Clear();
-        trailRenderer.enabled = false;
+		trailRenderer.enabled = true;
+		trailRenderer.emitting = true;
+		yield return new WaitForSeconds(dashingTime);
+		trailRenderer.emitting = false;
+		trailRenderer.Clear();
+		trailRenderer.enabled = false;
 		rb2d.gravityScale = originalGravity;
         agent.ResetDash();
         yield return new WaitForSeconds(dashingCooldown);

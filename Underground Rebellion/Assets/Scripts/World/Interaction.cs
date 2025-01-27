@@ -21,7 +21,7 @@ public class Interaction : MonoBehaviour
 		interaction.action.performed += PlayerInteracted;
 	}
 
-    public bool PlayerInRange() 
+	public bool PlayerInRange() 
     { 
         return playerInRange; 
     }
@@ -34,13 +34,20 @@ public class Interaction : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerStay2D(Collider2D other)
     {
         // Check if the player is within range
         if (other.CompareTag("Player") && !other.isTrigger)
         {
-			// Show the icon and the E key prompt
-			buttonIcon.SetActive(true);
+            // Show the icon and the E key prompt
+            if (DialogueManager.Instance.IsDialogueRunning())
+            {
+			    buttonIcon.SetActive(false);
+            }
+            else
+            {
+				buttonIcon.SetActive(true);
+			}
 			playerInRange = true;
 		}
     }

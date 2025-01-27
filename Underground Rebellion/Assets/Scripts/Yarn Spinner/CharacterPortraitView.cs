@@ -57,9 +57,10 @@ namespace Yarn.Unity
 		/// Changes the portrait side.
 		/// </summary>
 		[YarnCommand("change_portrait_side")]
-		public static void ChangePortraitSide()
+		public static void ChangePortraitSide(string side)
 		{
-			horizontalLayoutGroup.reverseArrangement = !horizontalLayoutGroup.reverseArrangement;
+			side = side.ToLower();
+			horizontalLayoutGroup.reverseArrangement = side.Equals("right") ? true : false;
 		}
 	}
 }

@@ -20,7 +20,7 @@ public class Stalactite : MonoBehaviour
     private Vector3 originalPosition;
 
     public bool fallOnlyOnEnemyDead = false;
-    public GameObject enemy;
+    public EnemyAI enemy;
 
     void Start()
     {
@@ -31,8 +31,7 @@ public class Stalactite : MonoBehaviour
 
     void Update()
     {
-
-        if (enemy != null && !enemy.activeSelf && !isFalling && !onGround && fallOnlyOnEnemyDead) // If enemy is destroyed or disabled
+        if (enemy != null && enemy.IsDead() && !isFalling && !onGround && fallOnlyOnEnemyDead) // If enemy is destroyed or disabled
         {
             StartCoroutine(ShakeAndFall());
         }

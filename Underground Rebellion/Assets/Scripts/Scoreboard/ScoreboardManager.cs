@@ -74,6 +74,6 @@ public class ScoreboardManager : MonoBehaviour
 	private void NextScene()
 	{
 		ScoreManager.Instance.DestroyScore();
-		SceneManager.LoadScene("Main Menu");
+		SceneManager.LoadScene("End Scene");
 	}
 }

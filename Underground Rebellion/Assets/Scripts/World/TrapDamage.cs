@@ -12,7 +12,7 @@ public class TrapDamage : MonoBehaviour
         // Check if the collided object is the player
         if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Enemy"))
         {
-			HitEvent.GetHit(damage, transform.parent.gameObject, collision.gameObject);
+			HitEvent.GetHit(damage, transform.gameObject, collision.gameObject);
         }
     }
 }

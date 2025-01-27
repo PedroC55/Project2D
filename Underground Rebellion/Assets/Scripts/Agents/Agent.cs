@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,6 +18,8 @@ public class Agent : MonoBehaviour
 
 	private Vector2 movementInput;
 	public Vector2 MovementInput { get => movementInput; set => movementInput = value; }
+
+	private bool isStunned = false;
 
 	private void Awake()
 	{
@@ -72,6 +75,7 @@ public class Agent : MonoBehaviour
 
 	public void Died()
 	{
+		isStunned = false;
 		agentMover.AgentDied();
 		agentAnimations.DeathAnimation();
 	}
@@ -85,11 +89,29 @@ public class Agent : MonoBehaviour
 	public void ResetAgent(bool isPlayer)
 	{
 		agentMover.Reset();
-		if(health != null)
+		if (health != null)
 			health.ResetHealth();
 
 		if (isPlayer)
 			CanvasEvent.UpdateHealth(health.GetMaxHealth());
+	}
+
+	public void RespawnAgent()
+	{
+		agentAnimations.RespawnAnimation();
+		agentMover.Reset();
+		if (health != null)
+			health.ResetHealth();
+	}
+
+	public void Recovered()
+	{
+		isStunned = false;
+	}
+
+	public void Stunned()
+	{
+		isStunned = true;
 	}
 
 	public void SlowMovement(int slowPercentage)
@@ -123,11 +145,6 @@ public class Agent : MonoBehaviour
 		agentAnimations.AttackAnimation();
 	}
 
-	public void StunAnimation()
-	{
-		agentAnimations.StunAnimation();
-	}
-
 	public float GetCurrentSpeed()
 	{
 		return agentMover.GetCurrentSpeed();
@@ -135,7 +152,11 @@ public class Agent : MonoBehaviour
 
 	private void AnimateCharacter()
 	{
-		if (movementInput.x > 0 || movementInput.x < 0)
+		if (isStunned)
+		{
+			agentAnimations.StunAnimation();
+		}
+		else if (movementInput.x > 0 || movementInput.x < 0)
 		{
 			agentAnimations.WalkingAnimation(movementInput);
 		}

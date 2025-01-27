@@ -63,7 +63,10 @@ public class MapManager : MonoBehaviour
 
     private void UpdateMap(int roomID)
     {
-        var tempColor = roomImages[roomID].color;
+        if(!roomImages.ContainsKey(roomID))
+            return;
+
+		var tempColor = roomImages[roomID].color;
         tempColor.a = 1f;
 
 		roomImages[roomID].color = tempColor;
